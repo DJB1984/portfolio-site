@@ -57,7 +57,7 @@ export default function RootLayout({
             __html: "document.documentElement.classList.add('js')",
           }}
         />
-        <Starfield />
+        <Starfield anchors={site.projects.filter((p) => p.featured).length} />
         <EditModeProvider>
           <a
             href="#main"

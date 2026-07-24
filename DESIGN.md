@@ -202,8 +202,12 @@ Rounded, calm geometry. Corners: `sm 8px` (chips, inputs, buttons), `lg 16px` (c
 ### Navigation
 - **Style:** Minimal top bar over the Void — mono wordmark/name at left, a few text links at right in Body/Label. Default Text Muted, hover/active Starlight. Sticky and quiet; no heavy bar fill (subtle Void-to-transparent backdrop-blur allowed). Mobile collapses to a simple menu; contact stays reachable.
 
-### Signature Component — The Starfield
-A faint, low-density field of static (or barely-drifting) points behind the hero and page background — the literal "quiet trail of starlight." It is atmosphere only: extremely subtle, never animated enough to distract, always behind content, and disabled under `prefers-reduced-motion`.
+### Signature Component — The Starfield ("Living Star Chart")
+A faint, low-density field of points behind the hero and page background — the literal "quiet trail of starlight." Progressive enhancement in two layers:
+- **Base (always):** a static CSS field that works with no JS and under `prefers-reduced-motion` — extremely subtle, never distracting, always behind content.
+- **Enhanced (motion welcome + canvas):** a Canvas 2D "Living Star Chart" — three depth layers with tiny cursor/scroll **parallax**, near-imperceptible **twinkle**, and a faint **constellation** whose bright anchor stars stand for the live projects (one anchor per featured project), set in the hero's upper-right negative space so it never sits under the hero text.
+
+**The Calm-Enhancement Rule.** The living field must never read as flashy: parallax shift stays within a few pixels, twinkle amplitude stays low, it pauses when the tab is hidden, holds 60fps, and yields entirely to the static base under reduced motion. If it competes with reading, it has overstepped.
 
 ## Do's and Don'ts
 

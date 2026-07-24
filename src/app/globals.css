@@ -107,6 +107,29 @@ p {
     radial-gradient(30% 24% at 78% 8%, oklch(0.6 0.2 340 / 0.1) 0%, transparent 70%);
 }
 
+/*
+  Living Star Chart — a Canvas layer that renders parallax depth, twinkle, and
+  a small project constellation. It progressively enhances the static field:
+  hidden until the client turns it on (JS + motion welcome + canvas supported).
+  When active, the CSS star gradients step aside so the canvas owns the stars;
+  the nebula bloom (::before) stays.
+*/
+.starfield-canvas {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  opacity: 0;
+  transition: opacity 1s var(--ease-out-expo);
+}
+.starfield[data-canvas="on"] {
+  background-image: none;
+  animation: none;
+}
+.starfield[data-canvas="on"] .starfield-canvas {
+  opacity: 1;
+}
+
 /* ---------- Reveal-on-scroll (progressive enhancement) ---------- */
 /*
   Default: fully visible (works with no JS and under reduced-motion).
