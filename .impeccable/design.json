@@ -1,0 +1,187 @@
+{
+  "schemaVersion": 2,
+  "generatedAt": "2026-07-24T00:00:00.000Z",
+  "title": "Design System: Davis Brooks — Portfolio",
+  "extensions": {
+    "colorMeta": {
+      "void": {
+        "role": "neutral",
+        "displayName": "Deep Space Void",
+        "canonical": "oklch(0.16 0.02 260)",
+        "tonalRamp": ["oklch(0.16 0.02 260)", "oklch(0.20 0.02 260)", "oklch(0.26 0.02 260)", "oklch(0.34 0.02 260)", "oklch(0.44 0.02 260)", "oklch(0.56 0.02 260)", "oklch(0.72 0.015 260)", "oklch(0.90 0.01 260)"]
+      },
+      "surface": {
+        "role": "neutral",
+        "displayName": "Surface Navy",
+        "canonical": "oklch(0.20 0.02 260)",
+        "tonalRamp": ["oklch(0.18 0.02 260)", "oklch(0.20 0.02 260)", "oklch(0.24 0.02 260)", "oklch(0.30 0.02 260)", "oklch(0.40 0.02 260)", "oklch(0.52 0.02 260)", "oklch(0.68 0.015 260)", "oklch(0.88 0.01 260)"]
+      },
+      "raised": {
+        "role": "neutral",
+        "displayName": "Raised Navy",
+        "canonical": "oklch(0.24 0.02 260)"
+      },
+      "ink": {
+        "role": "neutral",
+        "displayName": "Starlight Ink",
+        "canonical": "oklch(0.92 0.01 260)"
+      },
+      "muted": {
+        "role": "neutral",
+        "displayName": "Muted Slate",
+        "canonical": "oklch(0.60 0.02 260)"
+      },
+      "line": {
+        "role": "neutral",
+        "displayName": "Caught-Light Hairline",
+        "canonical": "oklch(1 0 0 / 0.08)"
+      },
+      "starlight": {
+        "role": "primary",
+        "displayName": "Starlight Blue",
+        "canonical": "oklch(0.75 0.14 250)",
+        "tonalRamp": ["oklch(0.30 0.09 252)", "oklch(0.40 0.12 252)", "oklch(0.48 0.13 251)", "oklch(0.56 0.13 250)", "oklch(0.64 0.14 250)", "oklch(0.75 0.14 250)", "oklch(0.84 0.10 250)", "oklch(0.92 0.05 250)"]
+      },
+      "starlight-core": {
+        "role": "primary",
+        "displayName": "Starlight Core",
+        "canonical": "oklch(0.56 0.12 250)"
+      },
+      "starlight-deep": {
+        "role": "primary",
+        "displayName": "Starlight Deep",
+        "canonical": "oklch(0.46 0.13 255)"
+      },
+      "nebula": {
+        "role": "secondary",
+        "displayName": "Nebula Rose",
+        "canonical": "oklch(0.60 0.20 340)",
+        "tonalRamp": ["oklch(0.30 0.12 340)", "oklch(0.40 0.16 340)", "oklch(0.48 0.19 340)", "oklch(0.56 0.20 340)", "oklch(0.64 0.20 340)", "oklch(0.72 0.17 340)", "oklch(0.82 0.11 340)", "oklch(0.90 0.06 340)"]
+      },
+      "ember": {
+        "role": "secondary",
+        "displayName": "Ember Amber",
+        "canonical": "oklch(0.72 0.16 55)"
+      },
+      "signal": {
+        "role": "tertiary",
+        "displayName": "Signal Green",
+        "canonical": "oklch(0.75 0.15 150)"
+      }
+    },
+    "typographyMeta": {
+      "display": { "displayName": "Display", "purpose": "Hero and section headings. Schibsted Grotesk, calm modern grotesque." },
+      "body": { "displayName": "Body", "purpose": "Reading text on the dark ground. Inter." },
+      "label": { "displayName": "Label / Mono", "purpose": "Mono 'coordinate' labels, metadata, code. JetBrains Mono, uppercase, +0.08em." }
+    },
+    "shadows": [
+      { "name": "accent-glow", "value": "0 4px 14px oklch(0.5 0.13 255 / 0.3), inset 0 1px 0 oklch(1 0 0 / 0.15)", "purpose": "Under the primary button and starlight-filled elements — lit from within." },
+      { "name": "dot-glow", "value": "0 0 8px var(--color-starlight)", "purpose": "The recurring charted-point dot; swap color per status (signal/ember)." },
+      { "name": "nebula-bloom", "value": "radial-gradient(circle, oklch(0.60 0.20 340 / 0.15), transparent 70%)", "purpose": "A single soft background bloom behind at most one hero artifact." }
+    ],
+    "motion": [
+      { "name": "ease-out-expo", "value": "cubic-bezier(0.16, 1, 0.3, 1)", "purpose": "Default easing for reveals, hovers, and hero entrance." },
+      { "name": "reveal", "value": "opacity/transform 0.7s ease-out-expo", "purpose": "Scroll-into-view reveal; disabled under prefers-reduced-motion." },
+      { "name": "hero-rise", "value": "0.9s ease-out-expo staggered", "purpose": "One authored load moment for the hero stack." }
+    ],
+    "breakpoints": [
+      { "name": "sm", "value": "640px" },
+      { "name": "md", "value": "768px" },
+      { "name": "lg", "value": "1024px" },
+      { "name": "content-max", "value": "1152px" }
+    ]
+  },
+  "components": [
+    {
+      "name": "Primary Button",
+      "kind": "button",
+      "refersTo": "button-primary",
+      "description": "The one clearly-lit action — starlight gradient with accent glow.",
+      "html": "<button class=\"ds-btn-primary\">View the work</button>",
+      "css": ".ds-btn-primary { display: inline-flex; align-items: center; gap: 0.5rem; padding: 0.7rem 1.35rem; border-radius: 12px; font-weight: 600; font-size: 0.9375rem; color: #fff; border: none; cursor: pointer; background-image: linear-gradient(180deg, var(--color-starlight-core), var(--color-starlight-deep)); box-shadow: 0 4px 14px oklch(0.5 0.13 255 / 0.3), inset 0 1px 0 oklch(1 0 0 / 0.15); transition: transform 0.18s cubic-bezier(0.16,1,0.3,1), box-shadow 0.18s ease; } .ds-btn-primary:hover { transform: translateY(-1px); box-shadow: 0 6px 20px oklch(0.5 0.13 255 / 0.4), inset 0 1px 0 oklch(1 0 0 / 0.2); }"
+    },
+    {
+      "name": "Secondary Button",
+      "kind": "button",
+      "refersTo": "button-secondary",
+      "description": "Raised surface with a hairline that brightens to starlight on hover.",
+      "html": "<button class=\"ds-btn-secondary\">Get in touch</button>",
+      "css": ".ds-btn-secondary { display: inline-flex; align-items: center; gap: 0.5rem; padding: 0.7rem 1.35rem; border-radius: 12px; font-weight: 600; font-size: 0.9375rem; color: var(--color-ink); background-color: var(--color-raised); border: 1px solid var(--color-line-strong); cursor: pointer; transition: transform 0.18s cubic-bezier(0.16,1,0.3,1), border-color 0.18s ease; } .ds-btn-secondary:hover { transform: translateY(-1px); border-color: var(--color-starlight); }"
+    },
+    {
+      "name": "Ghost Button",
+      "kind": "button",
+      "refersTo": "button-ghost",
+      "description": "Text-only starlight action for tertiary links.",
+      "html": "<button class=\"ds-btn-ghost\">See the work first</button>",
+      "css": ".ds-btn-ghost { display: inline-flex; align-items: center; gap: 0.5rem; padding: 0.7rem 1.35rem; border-radius: 12px; font-weight: 600; font-size: 0.9375rem; color: var(--color-starlight); background: transparent; border: none; cursor: pointer; transition: color 0.18s ease; } .ds-btn-ghost:hover { color: var(--color-ink); }"
+    },
+    {
+      "name": "Section Label",
+      "kind": "custom",
+      "refersTo": "label",
+      "description": "The mono 'coordinate' that announces a section, with a single starlight point.",
+      "html": "<p class=\"ds-section-label\"><span class=\"ds-dot\"></span>Selected work</p>",
+      "css": ".ds-section-label { display: flex; align-items: center; gap: 0.625rem; margin: 0; font-family: var(--font-mono), monospace; font-size: 0.75rem; text-transform: uppercase; letter-spacing: 0.16em; color: var(--color-muted); } .ds-dot { width: 6px; height: 6px; border-radius: 9999px; background: var(--color-starlight); box-shadow: 0 0 8px var(--color-starlight); }"
+    },
+    {
+      "name": "Project Card",
+      "kind": "card",
+      "refersTo": "card",
+      "description": "Signature surface. Tonal step + hairline at rest; lifts and brightens on hover.",
+      "html": "<article class=\"ds-card\"><div class=\"ds-card-media\">cover</div><div class=\"ds-card-body\"><h3 class=\"ds-card-title\">Study Deck</h3><p class=\"ds-card-summary\">Use any AI to turn your notes into interactive study tools.</p></div></article>",
+      "css": ".ds-card { display: flex; flex-direction: column; overflow: hidden; border-radius: 16px; border: 1px solid var(--color-line); background: var(--color-surface); transition: transform 0.2s cubic-bezier(0.16,1,0.3,1), border-color 0.2s ease, background-color 0.2s ease; } .ds-card:hover { transform: translateY(-3px); border-color: var(--color-line-strong); background: var(--color-raised); } .ds-card-media { aspect-ratio: 16/10; display: flex; align-items: center; justify-content: center; background: var(--color-surface); border-bottom: 1px solid var(--color-line); color: var(--color-muted); font-family: var(--font-mono), monospace; font-size: 0.75rem; } .ds-card-body { padding: 1.5rem; } .ds-card-title { margin: 0; font-family: var(--font-display), sans-serif; font-size: 1.25rem; font-weight: 600; color: var(--color-ink); } .ds-card-summary { margin: 0.5rem 0 0; font-size: 0.875rem; line-height: 1.6; color: var(--color-muted); }"
+    },
+    {
+      "name": "Tech Tag",
+      "kind": "chip",
+      "refersTo": "input",
+      "description": "Small mono chip for tech and metadata labels.",
+      "html": "<span class=\"ds-tag\">TypeScript</span>",
+      "css": ".ds-tag { display: inline-flex; align-items: center; border-radius: 8px; border: 1px solid var(--color-line); padding: 0.25rem 0.5rem; font-family: var(--font-mono), monospace; font-size: 0.75rem; color: var(--color-muted); }"
+    },
+    {
+      "name": "Availability Badge",
+      "kind": "custom",
+      "refersTo": "label",
+      "description": "A live-status pill with a glowing signal dot.",
+      "html": "<span class=\"ds-badge\"><span class=\"ds-badge-dot\"></span>Open to new-grad SWE roles</span>",
+      "css": ".ds-badge { display: inline-flex; align-items: center; gap: 0.5rem; border-radius: 9999px; border: 1px solid var(--color-line); background: color-mix(in oklch, var(--color-surface) 60%, transparent); padding: 0.25rem 0.75rem; font-family: var(--font-mono), monospace; font-size: 0.75rem; color: var(--color-muted); } .ds-badge-dot { width: 6px; height: 6px; border-radius: 9999px; background: var(--color-signal); box-shadow: 0 0 8px var(--color-signal); }"
+    }
+  ],
+  "narrative": {
+    "northStar": "Celestial Navigation",
+    "overview": "The site is a quiet star chart of shipped work — a deep, deliberate field of space-blue where each project is a charted point of light you can navigate to. The register is that of an observatory or a star atlas: precise, calm, meticulously labelled, and confident enough to leave large stretches empty. It serves two travellers at once — a recruiter scanning for the brightest points (projects, contact) and a lay visitor pulled straight into a live app. Wayfinding is the whole point, so nothing may bury the work: hierarchy stays loud even when the surface is quiet. Personality lives in restraint and a few authored details (mono labelling, a faint starfield, one nebula accent used almost never), never in effects for their own sake.",
+    "keyCharacteristics": [
+      "Deep space-blue field (not black), lit by sparse starlight-blue accents.",
+      "Restrained color: one accent voice, warm accents reserved for near-nothing.",
+      "Monospace labelling as connective tissue — coordinates, metadata, section tags.",
+      "Generous void; large type; a strong, scannable hierarchy.",
+      "Calm, orchestrated motion; a faint ambient starfield, nothing that competes with reading."
+    ],
+    "rules": [
+      { "name": "The One Voice Rule", "body": "Starlight is the only accent that appears freely, and even it covers ≤10% of any screen. Its rarity is what makes it read as light.", "section": "colors" },
+      { "name": "The Two-Sparks Rule", "body": "Nebula and Ember never appear together in the same viewport, and each appears at most once.", "section": "colors" },
+      { "name": "The Deep-Blue-Not-Black Rule", "body": "The ground is always Void (space-blue), never #000. Pure black is the generic-dark-UI tell we are avoiding.", "section": "colors" },
+      { "name": "The Mono-Label Rule", "body": "Every section is announced by a small uppercase mono label (a 'coordinate'), not by a large word. The mono line orients; the display line states.", "section": "typography" },
+      { "name": "The Flat-Until-Lit Rule", "body": "Surfaces are flat and borderless-soft at rest. Depth appears as tonal step or accent glow, never as a gray box-shadow.", "section": "elevation" }
+    ],
+    "dos": [
+      "Do keep the ground Void (oklch(0.16 0.02 260)), never #000.",
+      "Do announce sections with a small uppercase mono label above the heading.",
+      "Do keep Starlight to ≤10% of any screen and reserve Nebula/Ember for at most one moment per page.",
+      "Do build depth from tonal steps and low-alpha white borders; use glow (colored) instead of gray drop-shadows.",
+      "Do keep projects and contact reachable within one viewport-scan.",
+      "Do cap reading measure at 65–75ch and leave generous void between sections.",
+      "Do disable the starfield and non-essential motion under prefers-reduced-motion, and keep AA contrast on Void."
+    ],
+    "donts": [
+      "Don't ship the near-black + single-neon-accent + glowing-edges look.",
+      "Don't let motion or the starfield compete with reading.",
+      "Don't use pure white (#fff) for body text; use Ink (oklch(0.92 0.01 260)).",
+      "Don't introduce a second free accent hue; Starlight is the only voice.",
+      "Don't hardcode colors in components — reference tokens.",
+      "Don't crowd the surface; if a section feels dense, remove, don't shrink."
+    ]
+  }
+}

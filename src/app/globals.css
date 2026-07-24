@@ -1,0 +1,294 @@
+@import "tailwindcss";
+
+/*
+  Celestial Navigation — token layer (implements DESIGN.md).
+  Every color / font / radius / motion value the app uses is defined here as a
+  token. Components consume tokens (Tailwind utilities like `bg-void`,
+  `text-starlight`, `font-display`, or `var(--color-*)`), never raw hex.
+*/
+@theme {
+  /* Colors — canonical OKLCH, per DESIGN.md */
+  --color-void: oklch(0.16 0.02 260);
+  --color-surface: oklch(0.2 0.02 260);
+  --color-raised: oklch(0.24 0.02 260);
+  --color-ink: oklch(0.92 0.01 260);
+  --color-muted: oklch(0.6 0.02 260);
+  --color-line: oklch(1 0 0 / 0.08);
+  --color-line-strong: oklch(1 0 0 / 0.14);
+  --color-starlight: oklch(0.75 0.14 250);
+  --color-starlight-core: oklch(0.56 0.12 250);
+  --color-starlight-deep: oklch(0.46 0.13 255);
+  --color-nebula: oklch(0.6 0.2 340);
+  --color-ember: oklch(0.72 0.16 55);
+  --color-signal: oklch(0.75 0.15 150);
+
+  /* Typography — bound to next/font CSS variables (set on <html>) */
+  --font-display: var(--font-schibsted), ui-sans-serif, system-ui, sans-serif;
+  --font-sans: var(--font-inter), ui-sans-serif, system-ui, sans-serif;
+  --font-mono: var(--font-jetbrains), ui-monospace, "SFMono-Regular", monospace;
+
+  /* Radius */
+  --radius-sm: 8px;
+  --radius-md: 12px;
+  --radius-lg: 16px;
+
+  /* Motion */
+  --ease-out-expo: cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+/* ---------- Base ---------- */
+:root {
+  color-scheme: dark;
+  scroll-behavior: smooth;
+  /* offset for the sticky nav when jumping to #anchors */
+  scroll-padding-top: 6rem;
+}
+
+body {
+  background-color: var(--color-void);
+  color: var(--color-ink);
+  font-family: var(--font-sans);
+  -webkit-font-smoothing: antialiased;
+  text-rendering: optimizeLegibility;
+}
+
+::selection {
+  background: color-mix(in oklch, var(--color-starlight) 40%, transparent);
+  color: #fff;
+}
+
+:focus-visible {
+  outline: 2px solid var(--color-starlight);
+  outline-offset: 2px;
+  border-radius: 2px;
+}
+
+h1, h2, h3, h4 {
+  font-family: var(--font-display);
+  text-wrap: balance;
+}
+
+p {
+  text-wrap: pretty;
+}
+
+/* ---------- The Starfield (signature atmosphere) ---------- */
+/*
+  Fixed, extremely subtle field of static starlight + one nebula bloom.
+  Static by default (calm & focused); a barely-perceptible drift is added
+  only when motion is welcome.
+*/
+.starfield {
+  position: fixed;
+  inset: 0;
+  z-index: -1;
+  pointer-events: none;
+  background-color: var(--color-void);
+  background-image:
+    radial-gradient(1px 1px at 12% 18%, oklch(0.92 0.01 260 / 0.7), transparent 60%),
+    radial-gradient(1px 1px at 27% 62%, oklch(0.92 0.01 260 / 0.45), transparent 60%),
+    radial-gradient(1.5px 1.5px at 43% 28%, oklch(0.8 0.06 250 / 0.6), transparent 60%),
+    radial-gradient(1px 1px at 58% 78%, oklch(0.92 0.01 260 / 0.5), transparent 60%),
+    radial-gradient(1px 1px at 68% 12%, oklch(0.92 0.01 260 / 0.4), transparent 60%),
+    radial-gradient(1.5px 1.5px at 81% 46%, oklch(0.8 0.06 250 / 0.55), transparent 60%),
+    radial-gradient(1px 1px at 90% 72%, oklch(0.92 0.01 260 / 0.5), transparent 60%),
+    radial-gradient(1px 1px at 34% 88%, oklch(0.92 0.01 260 / 0.4), transparent 60%),
+    radial-gradient(1px 1px at 7% 82%, oklch(0.92 0.01 260 / 0.4), transparent 60%),
+    radial-gradient(1px 1px at 95% 22%, oklch(0.92 0.01 260 / 0.45), transparent 60%);
+}
+
+/* One nebula bloom, top-center, sitting under the hero */
+.starfield::before {
+  content: "";
+  position: absolute;
+  inset: 0;
+  background-image:
+    radial-gradient(60% 50% at 50% -8%, oklch(0.28 0.05 260) 0%, transparent 70%),
+    radial-gradient(30% 24% at 78% 8%, oklch(0.6 0.2 340 / 0.1) 0%, transparent 70%);
+}
+
+/* ---------- Reveal-on-scroll (progressive enhancement) ---------- */
+/*
+  Default: fully visible (works with no JS and under reduced-motion).
+  Hidden state only applies when JS is present AND motion is welcome.
+*/
+@media (prefers-reduced-motion: no-preference) {
+  .js .reveal {
+    opacity: 0;
+    transform: translateY(16px);
+    transition:
+      opacity 0.7s var(--ease-out-expo),
+      transform 0.7s var(--ease-out-expo);
+    transition-delay: var(--reveal-delay, 0ms);
+    will-change: opacity, transform;
+  }
+  .js .reveal[data-visible="true"] {
+    opacity: 1;
+    transform: none;
+  }
+
+  /* Hero load stagger */
+  .hero-rise {
+    animation: hero-rise 0.9s var(--ease-out-expo) both;
+    animation-delay: var(--rise-delay, 0ms);
+  }
+
+  .starfield {
+    animation: drift 240s linear infinite alternate;
+  }
+}
+
+@keyframes hero-rise {
+  from {
+    opacity: 0;
+    transform: translateY(18px);
+  }
+  to {
+    opacity: 1;
+    transform: none;
+  }
+}
+
+@keyframes drift {
+  from {
+    background-position: 0 0;
+  }
+  to {
+    background-position: 40px -30px;
+  }
+}
+
+/* ---------- Component classes (token-only) ---------- */
+@layer components {
+  /* Buttons */
+  .ds-btn {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    gap: 0.5rem;
+    padding: 0.7rem 1.35rem;
+    border-radius: var(--radius-md);
+    font-weight: 600;
+    font-size: 0.9375rem;
+    line-height: 1;
+    cursor: pointer;
+    transition:
+      transform 0.18s var(--ease-out-expo),
+      background-color 0.18s ease,
+      border-color 0.18s ease,
+      box-shadow 0.18s ease;
+  }
+  .ds-btn:hover {
+    transform: translateY(-1px);
+  }
+  .ds-btn:active {
+    transform: translateY(0);
+  }
+
+  .ds-btn-primary {
+    color: #fff;
+    background-image: linear-gradient(
+      180deg,
+      var(--color-starlight-core),
+      var(--color-starlight-deep)
+    );
+    box-shadow:
+      0 4px 14px oklch(0.5 0.13 255 / 0.3),
+      inset 0 1px 0 oklch(1 0 0 / 0.15);
+  }
+  .ds-btn-primary:hover {
+    box-shadow:
+      0 6px 20px oklch(0.5 0.13 255 / 0.4),
+      inset 0 1px 0 oklch(1 0 0 / 0.2);
+  }
+
+  .ds-btn-secondary {
+    color: var(--color-ink);
+    background-color: var(--color-raised);
+    border: 1px solid var(--color-line-strong);
+  }
+  .ds-btn-secondary:hover {
+    border-color: var(--color-starlight);
+  }
+
+  .ds-btn-ghost {
+    color: var(--color-starlight);
+    background-color: transparent;
+  }
+  .ds-btn-ghost:hover {
+    color: var(--color-ink);
+  }
+
+  /* A charted point of light — the recurring dot motif */
+  .glow-dot {
+    display: inline-block;
+    width: 6px;
+    height: 6px;
+    border-radius: var(--radius-sm);
+    border-radius: 9999px;
+    background: var(--color-signal);
+    box-shadow: 0 0 8px var(--color-signal);
+  }
+  .glow-dot--ember {
+    background: var(--color-ember);
+    box-shadow: 0 0 8px var(--color-ember);
+  }
+
+  /* Card lift on hover */
+  .card-lift {
+    transition:
+      border-color 0.2s ease,
+      transform 0.2s var(--ease-out-expo),
+      background-color 0.2s ease;
+  }
+  .card-lift:hover {
+    transform: translateY(-3px);
+    border-color: var(--color-line-strong);
+    background-color: var(--color-raised);
+  }
+}
+
+/* ---------- Edit mode affordances (only present in edit mode) ---------- */
+.editable-text {
+  cursor: text;
+  border-radius: var(--radius-sm);
+  outline: 1px dashed var(--color-line-strong);
+  outline-offset: 4px;
+  overflow-wrap: break-word;
+  transition:
+    outline-color 0.18s ease,
+    background-color 0.18s ease;
+}
+.editable-text:hover {
+  outline-color: var(--color-starlight);
+  background-color: color-mix(in oklch, var(--color-starlight) 8%, transparent);
+}
+.editable-text:focus,
+.editable-text:focus-visible {
+  outline: 2px solid var(--color-starlight);
+  outline-offset: 4px;
+  background-color: color-mix(in oklch, var(--color-starlight) 12%, transparent);
+}
+.editable-text[data-status="saving"] {
+  outline-color: var(--color-ember);
+}
+.editable-text[data-status="saved"] {
+  outline-color: var(--color-signal);
+}
+.editable-text[data-status="error"] {
+  outline-color: var(--color-nebula);
+}
+
+/* Reduced motion: nothing moves, everything is visible */
+@media (prefers-reduced-motion: reduce) {
+  :root {
+    scroll-behavior: auto;
+  }
+  *,
+  *::before,
+  *::after {
+    animation-duration: 0.001ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.001ms !important;
+  }
+}
