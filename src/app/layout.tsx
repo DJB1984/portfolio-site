@@ -49,6 +49,7 @@ export default function RootLayout({
     <html
       lang="en"
       className={`${schibsted.variable} ${inter.variable} ${jetbrains.variable} h-full antialiased`}
+      suppressHydrationWarning
     >
       <body className="flex min-h-full flex-col">
         {/* Enable progressive-enhancement styles as early as possible */}

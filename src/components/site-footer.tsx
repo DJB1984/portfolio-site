@@ -20,7 +20,7 @@ export function SiteFooter() {
             <span className="font-semibold">{site.profile.name}</span>
           </Link>
           <p className="mt-4 text-sm leading-relaxed text-muted">
-            {site.profile.role}. Building real, usable products.
+            {site.profile.role}. Real code, real teams.
           </p>
         </div>
 
@@ -31,8 +31,8 @@ export function SiteFooter() {
             </p>
             <ul className="mt-4 flex flex-col gap-2 text-sm">
               <li>
-                <Link href="/work" className="text-ink hover:text-starlight">
-                  Work
+                <Link href="/projects" className="text-ink hover:text-starlight">
+                  Projects
                 </Link>
               </li>
               <li>

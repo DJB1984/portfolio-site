@@ -18,10 +18,10 @@ export default function NotFound() {
           Back home
         </ButtonLink>
         <Link
-          href="/work"
+          href="/projects"
           className="ds-btn ds-btn-ghost"
         >
-          See the work
+          See the projects
         </Link>
       </div>
     </div>

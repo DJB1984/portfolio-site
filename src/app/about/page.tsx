@@ -72,8 +72,8 @@ export default async function AboutPage() {
       <section className="mt-16">
         <Reveal>
           <div className="flex flex-wrap gap-4">
-            <ButtonLink href="/work" variant="primary">
-              See the work
+            <ButtonLink href="/projects" variant="primary">
+              See the projects
             </ButtonLink>
             <ButtonLink href="/contact" variant="secondary">
               Get in touch

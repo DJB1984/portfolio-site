@@ -1,4 +1,15 @@
 {
-  "text": {},
-  "images": {}
+  "text": {
+    "home.hero.headline": "Doing things right,",
+    "home.hero.accent": "not just getting them done",
+    "home.hero.sub": "Davis Brooks — Computer Science sophomore at Cedarville University. I build real software and I worked on a professional engineering team this past summer at Tektonux. Two of my projects are live right now.",
+    "project.regression-reader.summary": "A regression testing tool that improves efficiency and removes distractions.",
+    "home.contact.heading": "Looking for a summer 2027 intern?",
+    "profile.availability.detail": "Whether you've got a role in mind or just want to compare notes, I'd like to hear from you.",
+    "projects.intro": "Real code behind everything here — two are live projects you can try right now, and one's a team assignment built for a class. Open one to read the story, launch it if it's live, or dig into the source."
+  },
+  "images": {
+    "project.logic-gate-simulator.cover": "/uploads/project-logic-gate-simulator-cover-8787617e.svg",
+    "project.logic-gate-simulator.gallery.0": "/uploads/project-logic-gate-simulator-gallery-0-1a7cc073.svg"
+  }
 }

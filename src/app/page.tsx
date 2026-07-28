@@ -27,12 +27,12 @@ export default async function HomePage() {
         >
           <EditableText
             path="home.hero.headline"
-            value={content.text("home.hero.headline", "I build real products,")}
+            value={content.text("home.hero.headline", "I build real things,")}
             as="span"
           />{" "}
           <EditableText
             path="home.hero.accent"
-            value={content.text("home.hero.accent", "not demos.")}
+            value={content.text("home.hero.accent", "not alone.")}
             as="span"
             className="text-starlight"
           />
@@ -42,19 +42,25 @@ export default async function HomePage() {
           path="home.hero.sub"
           value={content.text(
             "home.hero.sub",
-            "Davis Brooks — product-minded software engineer. I design and ship full products end to end, and real people use them. Two are live right now.",
+            "Davis Brooks — Computer Science sophomore at Cedarville University. I build real software, work on a professional engineering team this summer at Tektonux, and lead outside of class too. Two of my projects are live right now.",
           )}
           as="p"
           multiline
           className="hero-rise mt-6 max-w-2xl text-lg leading-relaxed text-muted"
+          linkify={{
+            text: "Tektonux",
+            href: "https://tektonux.com/",
+            className:
+              "text-ember underline decoration-ember/40 underline-offset-[3px] transition-colors hover:decoration-ember",
+          }}
         />
 
         <div
           className="hero-rise mt-9 flex flex-wrap items-center gap-4"
           style={{ ["--rise-delay" as string]: "240ms" }}
         >
-          <ButtonLink href="/work" variant="primary">
-            View the work
+          <ButtonLink href="/projects" variant="primary">
+            View the projects
           </ButtonLink>
           <ButtonLink href="/contact" variant="secondary">
             Get in touch
@@ -73,7 +79,7 @@ export default async function HomePage() {
             {featured.map((project) => (
               <li key={project.slug}>
                 <Link
-                  href={`/work/${project.slug}`}
+                  href={`/projects/${project.slug}`}
                   className="group inline-flex items-center gap-2 text-ink transition-colors hover:text-starlight"
                 >
                   <span aria-hidden="true" className="glow-dot" />
@@ -88,21 +94,21 @@ export default async function HomePage() {
         </div>
       </section>
 
-      {/* ---------- Selected work ---------- */}
+      {/* ---------- Selected projects ---------- */}
       <section className="mx-auto w-full max-w-6xl px-6 py-20 sm:px-8">
         <Reveal>
           <div className="flex flex-wrap items-end justify-between gap-4">
             <div>
-              <SectionLabel>Selected work</SectionLabel>
+              <SectionLabel>Selected projects</SectionLabel>
               <EditableText
-                path="home.work.heading"
-                value={content.text("home.work.heading", "Shipped, and in use.")}
+                path="home.projects.heading"
+                value={content.text("home.projects.heading", "Shipped, and in use.")}
                 as="h2"
                 className="mt-4 text-3xl font-semibold tracking-tight text-ink sm:text-4xl"
               />
             </div>
-            <Link href="/work" className="font-mono text-sm text-starlight hover:text-ink">
-              All work ↗
+            <Link href="/projects" className="font-mono text-sm text-starlight hover:text-ink">
+              All projects ↗
             </Link>
           </div>
         </Reveal>
@@ -141,7 +147,7 @@ export default async function HomePage() {
               path="home.contact.heading"
               value={content.text(
                 "home.contact.heading",
-                "Looking for a new-grad engineer who ships?",
+                "Looking for a summer 2027 intern who ships?",
               )}
               as="h2"
               className="mt-4 max-w-2xl text-3xl font-semibold tracking-tight text-ink sm:text-4xl"
@@ -157,8 +163,8 @@ export default async function HomePage() {
               <ButtonLink href="/contact" variant="primary">
                 Get in touch
               </ButtonLink>
-              <ButtonLink href="/work" variant="ghost">
-                See the work first
+              <ButtonLink href="/projects" variant="ghost">
+                See the projects first
               </ButtonLink>
             </div>
           </div>

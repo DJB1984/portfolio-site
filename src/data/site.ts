@@ -4,12 +4,11 @@
  * Every page renders from this object. To update the site's content, edit here
  * only; no copy lives in components.
  *
- * STATUS (2026): profile identity, links, and the two real projects
- * (title / summary / URLs) are seeded from confirmed facts. Longer prose
- * (bios, project write-ups, highlights) is PLACEHOLDER and marked with
- * `[placeholder]` — replace before launch. All image slots are intentionally
- * empty (`src: null`); each carries `alt` text describing the image that belongs
- * there so the layout is self-documenting.
+ * STATUS (2026): profile identity, bios, and all three projects (two live
+ * apps, one team coursework build) are real, written copy — no placeholders
+ * remain. All image slots are intentionally empty (`src: null`); each carries
+ * `alt` text describing the image that belongs there so the layout is
+ * self-documenting.
  */
 
 export type SocialLink = {
@@ -29,7 +28,7 @@ export type ImageSlot = {
   height?: number;
 };
 
-export type ProjectStatus = "live" | "in-progress" | "archived";
+export type ProjectStatus = "live" | "in-progress" | "archived" | "completed";
 
 export type Project = {
   slug: string;
@@ -60,7 +59,7 @@ export type SkillGroup = {
 
 export type Availability = {
   open: boolean;
-  /** Short badge label, e.g. "Open to new-grad SWE roles". */
+  /** Short badge label, e.g. "Open to Summer 2027 internships". */
   label: string;
   /** Longer detail, e.g. availability window. */
   detail: string;
@@ -90,20 +89,20 @@ export type SiteData = {
 export const site: SiteData = {
   profile: {
     name: "Davis Brooks",
-    role: "Product-minded Software Engineer",
-    location: "Cedarville University · Computer Science",
+    role: "Computer Science Student",
+    location: "Cedarville University · Rising Sophomore",
     shortBio:
-      "[placeholder] I build real, usable products — not demos. Short one-to-two sentence positioning line goes here, framing what you make and who it's for.",
+      "Computer Science sophomore at Cedarville University — I build real software, I've led in Scouts and my church, and I interned at Tektonux this past summer.",
     longBio: [
-      "[placeholder] Opening paragraph — who you are, what you care about as a builder, and the thread that connects your work. Keep it human and specific.",
-      "[placeholder] Second paragraph — how you work: product thinking, shipping to real users, the kinds of problems you like. Mention Cedarville CS and where you're headed.",
-      "[placeholder] Third paragraph — a closing line about what you're looking for next and how to reach you.",
+      "I'm a Computer Science sophomore at Cedarville University. I like solving real problems — in code, but not only in code — and I'd rather ship something that actually works for someone than build something impressive that nobody uses.",
+      "This past summer I interned at Tektonux, where I did regression testing, fixed bugs, and reviewed merge requests on software built for government clients — my first real look at how a professional engineering team works day to day. Before college, I served as Senior Patrol Leader of my Boy Scout troop, ran sound and slides for my church's tech team, helped teach elementary kids on Sunday mornings, and spent two summers on staff at a Bible camp for kids in inner-city Memphis. Different rooms, same habit: show up, take responsibility, and make the thing work for the people counting on you.",
+      "Right now I'm not on the job market — I'm a sophomore looking ahead to a summer 2027 internship, and always glad to talk with people building interesting things in the meantime. The projects page has the real code behind every project here; if you'd rather just talk, my email's on the contact page — or you'll find me reading, running, or losing a board game to my family.",
     ],
     availability: {
       open: true,
-      label: "Open to new-grad SWE roles",
-      // TODO: set the real graduation / availability window.
-      detail: "[placeholder] Available starting [Month Year] — full-time.",
+      label: "Open to Summer 2027 internships",
+      detail:
+        "Wrapped up an internship at Tektonux this summer — now back at Cedarville and looking ahead to a summer 2027 internship next. Always happy to talk shop or compare notes in the meantime.",
     },
     email: "hello@brookslanding.com", // [placeholder] confirm preferred contact email
     links: [
@@ -124,7 +123,7 @@ export const site: SiteData = {
       title: "Study Deck",
       summary: "Use any AI to turn your notes into interactive study tools.",
       description:
-        "[placeholder] A paragraph about Study Deck — the problem it solves, who it's for, and what it does. Real users paste notes and get back interactive study material. Expand with the story of why you built it.",
+        "Study Deck turns raw notes into study material you'll actually use — paste in what you're studying and it generates interactive flashcards, worked equations, and graphs instead of a wall of text to re-read. It's model-agnostic, so it works with whichever AI you already have access to instead of locking you into one provider. I built it because re-reading my own notes before a test never worked as well as being quizzed on them.",
       role: "Solo — design & full-stack",
       year: "2025",
       status: "live",
@@ -153,9 +152,9 @@ export const site: SiteData = {
         },
       ],
       highlights: [
-        "[placeholder] What's technically interesting (e.g. model-agnostic AI pipeline).",
-        "[placeholder] A real outcome or usage detail.",
-        "[placeholder] A product/UX decision you're proud of.",
+        "Model-agnostic AI pipeline — works with whatever AI you already have access to, not tied to one provider.",
+        "Renders real math and interactive graphs from plain notes, not just flashcard text.",
+        "Built the study workflow I actually wanted for my own classes, then made it usable for anyone.",
       ],
     },
     {
@@ -164,7 +163,7 @@ export const site: SiteData = {
       summary:
         "A regression-testing tool that improves efficiency and locks in your focus.",
       description:
-        "[placeholder] A paragraph about Regression Reader — what regression reading is, the friction it removes, and how it keeps testers focused. Expand with the motivation and the core mechanic.",
+        "Regression Reader started as a fix for my own problem. Interning at Tektonux this summer — where I do regression testing, fix bugs, and review merge requests on software the team builds for government clients — I kept losing my place halfway through a long regression pass: which case I was on, what I'd already checked, where my focus had drifted. So I built a tool that keeps a regression run organized and keeps my attention on one case at a time instead of a wall of output. I use it for my own testing — it's not something Tektonux has adopted, just something that grew out of a real problem I was actually having.",
       role: "Solo — design & full-stack",
       year: "2025",
       status: "live",
@@ -180,37 +179,50 @@ export const site: SiteData = {
       },
       gallery: [],
       highlights: [
-        "[placeholder] The focus/efficiency mechanic that makes it different.",
-        "[placeholder] A technical detail worth noting.",
-        "[placeholder] Who uses it and why it helps.",
+        "Built directly from a problem I hit doing real regression testing at my internship, not a hypothetical one.",
+        "Keeps one test case in focus at a time instead of dumping a full regression log on you at once.",
+        "Solo, full-stack Next.js/TypeScript build — from the idea to something I actually use every week.",
       ],
     },
     {
-      slug: "project-three",
-      title: "Next Project",
-      summary: "[placeholder] One-line summary of a future project.",
+      slug: "logic-gate-simulator",
+      title: "Logic Gate Circuit Simulator",
+      summary:
+        "A C++ event-driven simulator for digital logic circuits, built with a team for my Object-Oriented Design course.",
       description:
-        "[placeholder] This is a template slot showing how new projects slot in. Duplicate a project object in site.ts to add another — the grid, index, and detail pages all pick it up automatically.",
-      role: "[placeholder] Your role",
+        "Logic Gate Circuit Simulator reads circuit and input files and simulates how a network of logic gates — NOT, AND, OR, NAND, NOR, XOR, XNOR — behaves over time. It's event-driven: a wire change is modeled as a timed event that ripples through Wire, Gate, and Event classes rather than recalculating the whole circuit at once, and a \"DEFAULTED\" wire state keeps circuits with feedback loops from spinning into an infinite loop. I built it with a team for Object-Oriented Design at Cedarville — my first project where the codebase, the architecture decisions, and the debugging were all genuinely shared.",
+      role: "Team project — C++, object-oriented design",
       year: "2026",
-      status: "in-progress",
-      tags: ["[placeholder]", "Tags"],
+      status: "completed",
+      tags: ["C++", "OOP", "Digital Logic"],
+      sourceUrl: "https://github.com/davisbrookscollege/HW8",
       featured: false,
       cover: {
         src: null,
-        alt: "Cover image for the next project.",
+        alt: "Timing diagram of the flip-flop circuit's real simulator output — the R, S, O, and Q' signals traced over time, generated by the simulator itself.",
         width: 1600,
         height: 1000,
       },
-      gallery: [],
-      highlights: ["[placeholder] Highlight one.", "[placeholder] Highlight two."],
+      gallery: [
+        {
+          src: null,
+          alt: "How the simulator produced that trace: a schematic of Circuit 2's NOT, AND, and OR gates wired per its netlist, paired with the real waveform it generated — including the stretch where output E stays undefined while the signal ripples through all three gates.",
+          width: 1600,
+          height: 1000,
+        },
+      ],
+      highlights: [
+        "Event-driven simulation — wire changes propagate as timed events instead of a full circuit recalculation.",
+        "A \"DEFAULTED\" wire state prevents circuits with feedback loops from looping forever.",
+        "Built and debugged with a team, not solo — shared architecture decisions and a shared codebase.",
+      ],
     },
   ],
 
   skills: [
     {
       category: "Languages",
-      items: ["TypeScript", "JavaScript", "Python", "Java", "C", "SQL"],
+      items: ["TypeScript", "JavaScript", "Python", "C++", "Java", "C", "C#", "SQL"],
     },
     {
       category: "Frameworks & Libraries",
@@ -218,11 +230,19 @@ export const site: SiteData = {
     },
     {
       category: "Tools & Platforms",
-      items: ["Git", "Vercel", "PostgreSQL", "Docker"],
+      items: ["Git", "Linux", "Vercel", "PostgreSQL", "Docker"],
     },
     {
       category: "Focus Areas",
       items: ["Product engineering", "AI / LLM apps", "Developer tools", "UI/UX"],
+    },
+    {
+      category: "Coursework",
+      items: [
+        "Object-Oriented Design",
+        "Digital Logic Design",
+        "Cybersecurity Fundamentals",
+      ],
     },
   ],
 };

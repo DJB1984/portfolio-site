@@ -1,6 +1,7 @@
 "use client";
 
 import { useEffect, useRef, useState } from "react";
+import Link from "next/link";
 import { useRouter } from "next/navigation";
 import { useEditMode } from "@/components/edit/edit-mode-provider";
 import { saveTextAction } from "@/lib/edit-actions";
@@ -16,6 +17,13 @@ type EditableTextProps = {
   className?: string;
   /** Allow newlines (paragraphs). Single-line by default (headings). */
   multiline?: boolean;
+  /**
+   * Turn one exact substring into an external link when rendered read-only.
+   * Edit mode always shows plain text so the underlying value stays a
+   * single freeform field — the link just reappears on the next read as
+   * long as the substring is still present.
+   */
+  linkify?: { text: string; href: string; className?: string };
 };
 
 type Status = "idle" | "saving" | "saved" | "error";
@@ -31,6 +39,7 @@ export function EditableText({
   as = "p",
   className = "",
   multiline = false,
+  linkify,
 }: EditableTextProps) {
   const editMode = useEditMode();
   const router = useRouter();
@@ -47,6 +56,23 @@ export function EditableText({
   const Tag = as as React.ElementType;
 
   if (!editMode) {
+    if (linkify && value.includes(linkify.text)) {
+      const [before, after] = splitOnce(value, linkify.text);
+      return (
+        <Tag className={className}>
+          {before}
+          <Link
+            href={linkify.href}
+            target="_blank"
+            rel="noopener noreferrer"
+            className={linkify.className}
+          >
+            {linkify.text}
+          </Link>
+          {after}
+        </Tag>
+      );
+    }
     return <Tag className={className}>{value}</Tag>;
   }
 
@@ -118,4 +144,10 @@ export function EditableText({
       </span>
     </>
   );
+}
+
+/** Splits on the first occurrence of `needle`, dropping the needle itself. */
+function splitOnce(haystack: string, needle: string): [string, string] {
+  const i = haystack.indexOf(needle);
+  return [haystack.slice(0, i), haystack.slice(i + needle.length)];
 }

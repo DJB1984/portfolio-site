@@ -11,6 +11,7 @@ const statusLabel: Record<Project["status"], string> = {
   live: "Live",
   "in-progress": "In progress",
   archived: "Archived",
+  completed: "Completed",
 };
 
 /**
@@ -54,7 +55,7 @@ export function ProjectCard({
               <EditableText path={`${base}.title`} value={project.title} as="span" />
             ) : (
               <Link
-                href={`/work/${project.slug}`}
+                href={`/projects/${project.slug}`}
                 className="transition-colors after:absolute after:inset-0 group-hover:text-starlight"
               >
                 {project.title}

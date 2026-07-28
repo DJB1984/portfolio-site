@@ -1,7 +1,7 @@
 import type { Metadata } from "next";
 import Link from "next/link";
 import { notFound } from "next/navigation";
-import { getProject, projectSlugs } from "@/data/site";
+import { getProject, projectSlugs, type Project } from "@/data/site";
 import { loadContent } from "@/content/manifest";
 import { ButtonLink } from "@/components/ui/button-link";
 import { Reveal } from "@/components/reveal";
@@ -17,20 +17,21 @@ export function generateStaticParams() {
 
 export async function generateMetadata({
   params,
-}: PageProps<"/work/[slug]">): Promise<Metadata> {
+}: PageProps<"/projects/[slug]">): Promise<Metadata> {
   const { slug } = await params;
   const project = getProject(slug);
   if (!project) return { title: "Not found" };
   return { title: project.title, description: project.summary };
 }
 
-const statusLabel: Record<string, string> = {
+const statusLabel: Record<Project["status"], string> = {
   live: "Live",
   "in-progress": "In progress",
   archived: "Archived",
+  completed: "Completed",
 };
 
-export default async function ProjectPage({ params }: PageProps<"/work/[slug]">) {
+export default async function ProjectPage({ params }: PageProps<"/projects/[slug]">) {
   const { slug } = await params;
   const content = await loadContent();
   const project = content.site.projects.find((p) => p.slug === slug);
@@ -44,10 +45,10 @@ export default async function ProjectPage({ params }: PageProps<"/work/[slug]">)
   return (
     <article className="mx-auto w-full max-w-5xl px-6 pb-10 pt-16 sm:px-8 sm:pt-24">
       <Link
-        href="/work"
+        href="/projects"
         className="font-mono text-sm text-muted transition-colors hover:text-starlight"
       >
-        ← All work
+        ← All projects
       </Link>
 
       {/* Header */}
@@ -150,7 +151,12 @@ export default async function ProjectPage({ params }: PageProps<"/work/[slug]">)
       {project.gallery.length > 0 && (
         <section className="mt-16">
           <SectionLabel>Gallery</SectionLabel>
-          <div className="mt-6 grid grid-cols-1 gap-6 sm:grid-cols-2">
+          <div
+            className={`mt-6 grid grid-cols-1 gap-6 ${
+              project.gallery.length > 1 ? "sm:grid-cols-2" : ""
+            }`}
+          >
+
             {project.gallery.map((image, i) => (
               <Reveal key={i} delay={(i % 2) * 90}>
                 <div className="aspect-[16/10] overflow-hidden rounded-lg border border-line">
@@ -162,15 +168,15 @@ export default async function ProjectPage({ params }: PageProps<"/work/[slug]">)
         </section>
       )}
 
-      {/* More work */}
+      {/* More projects */}
       {others.length > 0 && (
         <section className="mt-20 border-t border-line pt-12">
-          <SectionLabel>More work</SectionLabel>
+          <SectionLabel>More projects</SectionLabel>
           <ul className="mt-6 flex flex-col divide-y divide-line">
             {others.map((p) => (
               <li key={p.slug}>
                 <Link
-                  href={`/work/${p.slug}`}
+                  href={`/projects/${p.slug}`}
                   className="group flex items-baseline justify-between gap-4 py-5"
                 >
                   <span className="text-xl font-semibold text-ink transition-colors group-hover:text-starlight">

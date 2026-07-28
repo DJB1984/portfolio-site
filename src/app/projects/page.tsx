@@ -6,29 +6,29 @@ import { SectionLabel } from "@/components/ui/section-label";
 import { EditableText } from "@/components/edit/editable-text";
 
 export const metadata: Metadata = {
-  title: "Work",
+  title: "Projects",
   description:
-    "Projects by Davis Brooks — real, shipped products with live apps and source.",
+    "Projects by Davis Brooks — real code, live apps, and a team project, with source for all three.",
 };
 
-export default async function WorkPage() {
+export default async function ProjectsPage() {
   const content = await loadContent();
 
   return (
     <div className="mx-auto w-full max-w-6xl px-6 pb-10 pt-16 sm:px-8 sm:pt-24">
       <header className="max-w-2xl">
-        <SectionLabel>Work</SectionLabel>
+        <SectionLabel>Projects</SectionLabel>
         <EditableText
-          path="work.heading"
-          value={content.text("work.heading", "Things I've built.")}
+          path="projects.heading"
+          value={content.text("projects.heading", "Things I've built.")}
           as="h1"
           className="mt-4 text-4xl font-bold tracking-[-0.02em] text-ink sm:text-5xl"
         />
         <EditableText
-          path="work.intro"
+          path="projects.intro"
           value={content.text(
-            "work.intro",
-            "Each of these is a real product with a live URL and public source — not a demo. Open one to read more, or launch it and try it yourself.",
+            "projects.intro",
+            "Real code behind everything here — two are live products you can try right now, and one's a team project built for a class. Open one to read the story, launch it if it's live, or dig into the source.",
           )}
           as="p"
           multiline
