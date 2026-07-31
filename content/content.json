@@ -6,10 +6,23 @@
     "project.regression-reader.summary": "A regression testing tool that improves efficiency and removes distractions.",
     "home.contact.heading": "Looking for a summer 2027 intern?",
     "profile.availability.detail": "Whether you've got a role in mind or just want to compare notes, I'd like to hear from you.",
-    "projects.intro": "Real code behind everything here — two are live projects you can try right now, and one's a team assignment built for a class. Open one to read the story, launch it if it's live, or dig into the source."
+    "projects.intro": "Real code behind everything here — two are live projects you can try right now, and one's a team assignment built for a class. Open one to read the story, launch it if it's live, or dig into the source.",
+    "project.regression-reader.story.0.body.0": "During my summer 2026 internship at Tektonux, a user experienced focused software development company, I ran regression tests. During my first test I noticed how cumbersome and mentaly taxing these test were to run. The main reason for this was that the testing procedure lived in GitLab's markdown viewer, which displayed a long, unbroken wall of plain text.",
+    "project.regression-reader.story.0.body.1": "This presented two problems. The first was, after a few hours of testing, the test instruction document would begin to swim before my eyes. I would lose which line I was on and sometimes miss steps, as I had to turn my attention from the testing document to the app I was testing. The second problem was I had a seperate document where I recorded my notes and discovered bugs. Most bugs were tied to a specific line in the testing document and when I was logging them it was mentaly taxing to connect the bugs I found to a specific line in my regression testing document. To solve these problems I built a regression testing tool with Claude code.",
+    "project.regression-reader.story.1.body.0": "The orginal testing document is on the left, my tool is on the right. Notice how quickly step 6 is lost in the mess on the left, while it's easily found on the right.",
+    "project.regression-reader.story.1.before.caption": "Before — GitLab's markdown viewer",
+    "project.regression-reader.story.2.body.0": "To fix the first problem, where I struggled to keep track of which step I was on. The Regression Reader locks your attention to a single line at a time by highlighting it, the current line stays highlightd till you arrow down to the next one. Nothing else is competing for your eyes.",
+    "project.regression-reader.story.2.body.1": "Even five minuites into a regression test, that highlight bar is a life saver.",
+    "project.regression-reader.story.3.body.0": "The second problem was juggling two documents at once. So in the Regression Reader, you write your notes inside the test plan itself, instead of a separate file. Press a key on any line and a color-coded note bubble opens right there — orange for a general note, red for a bug, purple and green for whatever else you want to track.",
+    "project.regression-reader.story.3.body.1": "The note is permanently tied to that exact line. A colored dot significies a line with a note. This makes going over the bugs you discovered effortless.",
+    "project.regression-reader.story.4.body.0": "Once bugs have been logged and annotations have been added, Summary Mode collapses the whole plan down to just the lines with notes, filterable by note color. It turns hours of scrolling into a short list of exactly what needs attention. Use the space bar to expand",
+    "project.regression-reader.story.5.body.0": "I built the first working version in one evening — about two hours with Claude Code — then brought it to work the next day and ran my next regression pass on it. It held up."
   },
   "images": {
-    "project.logic-gate-simulator.cover": "/uploads/project-logic-gate-simulator-cover-8787617e.svg",
-    "project.logic-gate-simulator.gallery.0": "/uploads/project-logic-gate-simulator-gallery-0-1a7cc073.svg"
+    "project.regression-reader.story.1.after.image": "/uploads/project-regression-reader-story-3-after-image-962e6e17.png",
+    "project.regression-reader.story.1.before.image": "/uploads/project-regression-reader-story-3-before-image-ac65734c.png",
+    "project.regression-reader.story.2.image": "/uploads/project-regression-reader-story-1-image-e496b1d5.png",
+    "project.regression-reader.story.3.image": "/uploads/project-regression-reader-story-2-image-01ff5c46.png",
+    "project.regression-reader.story.4.image": "/uploads/project-regression-reader-story-4-image-1d8fce9b.png"
   }
 }

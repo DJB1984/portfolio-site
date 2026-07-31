@@ -2,7 +2,13 @@
 import { promises as fs } from "node:fs";
 import path from "node:path";
 import { cache } from "react";
-import { site, type ImageSlot, type Project, type SiteData } from "@/data/site";
+import {
+  site,
+  type ImageSlot,
+  type Project,
+  type SiteData,
+  type StorySection,
+} from "@/data/site";
 
 /**
  * The content manifest holds *overrides* on top of the defaults in site.ts.
@@ -51,6 +57,57 @@ function overrideImage(
   return src ? { ...slot, src } : slot;
 }
 
+/** Merge overrides onto one story section (text, text-image, or compare). */
+function mergeStorySection(
+  section: StorySection,
+  m: ContentManifest,
+  path: string,
+): StorySection {
+  const label = m.text[`${path}.label`] ?? section.label;
+  const body = section.body?.map((p, j) => m.text[`${path}.body.${j}`] ?? p);
+
+  if (section.type === "compare") {
+    return {
+      ...section,
+      label,
+      body,
+      before: {
+        image: overrideImage(section.before.image, m.images, `${path}.before.image`),
+        caption: m.text[`${path}.before.caption`] ?? section.before.caption,
+      },
+      after: {
+        image: overrideImage(section.after.image, m.images, `${path}.after.image`),
+        caption: m.text[`${path}.after.caption`] ?? section.after.caption,
+      },
+    };
+  }
+
+  if (section.type === "text-image") {
+    return {
+      ...section,
+      label,
+      body: body ?? section.body,
+      image: overrideImage(section.image, m.images, `${path}.image`),
+    };
+  }
+
+  if (section.type === "output") {
+    return {
+      ...section,
+      label,
+      body: body ?? section.body,
+      diagram: section.diagram
+        ? {
+            image: overrideImage(section.diagram.image, m.images, `${path}.diagram.image`),
+            caption: m.text[`${path}.diagram.caption`] ?? section.diagram.caption,
+          }
+        : section.diagram,
+    };
+  }
+
+  return { ...section, label, body: body ?? section.body };
+}
+
 /** Merge overrides onto a single project. */
 function mergeProject(project: Project, m: ContentManifest): Project {
   const base = `project.${project.slug}`;
@@ -65,6 +122,9 @@ function mergeProject(project: Project, m: ContentManifest): Project {
     cover: overrideImage(project.cover, m.images, `${base}.cover`),
     gallery: project.gallery.map((img, i) =>
       overrideImage(img, m.images, `${base}.gallery.${i}`),
+    ),
+    story: project.story?.map((section, i) =>
+      mergeStorySection(section, m, `${base}.story.${i}`),
     ),
   };
 }

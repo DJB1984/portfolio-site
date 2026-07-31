@@ -30,12 +30,66 @@ export type ImageSlot = {
 
 export type ProjectStatus = "live" | "in-progress" | "archived" | "completed";
 
+export type StorySectionBase = {
+  /** SectionLabel text, e.g. "The problem". */
+  label: string;
+  /** One string per paragraph — mirrors the profile.longBio convention.
+   *  Not a single string with embedded "\n": nothing in the render path
+   *  handles newlines, so they'd collapse to a space. */
+  body: string[];
+};
+
+export type StoryTextSection = StorySectionBase & {
+  type: "text";
+};
+
+export type StoryTextImageSection = StorySectionBase & {
+  type: "text-image";
+  image: ImageSlot;
+  /** Overrides automatic left/right alternation for this section. */
+  side?: "left" | "right";
+};
+
+export type StoryCompareImage = {
+  image: ImageSlot;
+  caption: string;
+};
+
+export type StoryCompareSection = {
+  type: "compare";
+  label: string;
+  /** Optional short intro copy above the two images. */
+  body?: string[];
+  before: StoryCompareImage;
+  after: StoryCompareImage;
+};
+
+export type StoryOutputSection = StorySectionBase & {
+  type: "output";
+  /** Literal program output — exact whitespace/line breaks preserved, rendered
+   *  in a monospace <pre>, never reflowed as prose. Deliberately NOT wired
+   *  through the CMS edit system: it's historical/forensic output, not
+   *  iterable copy, and contentEditable doesn't reliably preserve exact
+   *  whitespace anyway. */
+  output: string;
+  /** Optional circuit diagram shown alongside the output, for exactly one
+   *  of the two output sections — reuses the compare-image shape. */
+  diagram?: StoryCompareImage;
+};
+
+export type StorySection =
+  | StoryTextSection
+  | StoryTextImageSection
+  | StoryCompareSection
+  | StoryOutputSection;
+
 export type Project = {
   slug: string;
   title: string;
   /** One-line summary used on cards and lists. */
   summary: string;
-  /** Longer description for the detail page. */
+  /** Longer description for the detail page. Still used as the source for
+   *  the Overview fallback when `story` is absent — keep accurate on its own. */
   description: string;
   role: string;
   year: string;
@@ -48,8 +102,11 @@ export type Project = {
   cover: ImageSlot;
   /** Additional screenshots for the detail page. */
   gallery: ImageSlot[];
-  /** Short "what makes it interesting" bullets for the detail page. */
+  /** Short "what makes it interesting" bullets — used by the Overview fallback. */
   highlights: string[];
+  /** Scrolling narrative for the detail page. When present and non-empty,
+   *  fully replaces the Overview/Highlights/Gallery fallback for this project. */
+  story?: StorySection[];
 };
 
 export type SkillGroup = {
@@ -163,7 +220,7 @@ export const site: SiteData = {
       summary:
         "A regression-testing tool that improves efficiency and locks in your focus.",
       description:
-        "Regression Reader started as a fix for my own problem. Interning at Tektonux this summer — where I do regression testing, fix bugs, and review merge requests on software the team builds for government clients — I kept losing my place halfway through a long regression pass: which case I was on, what I'd already checked, where my focus had drifted. So I built a tool that keeps a regression run organized and keeps my attention on one case at a time instead of a wall of output. I use it for my own testing — it's not something Tektonux has adopted, just something that grew out of a real problem I was actually having.",
+        "Regression Reader started as a fix for my own problem. Interning at Tektonux — a government-contracting company — this past summer, I kept losing my place halfway through long regression passes: which case I was on, what I'd already checked, where my focus had drifted. So I built a tool that keeps a regression run organized and keeps my attention on one case at a time instead of a wall of output. I built it for myself, brought it to work, and a teammate has since started using it too — the hope is more of the team picks it up from here.",
       role: "Solo — design & full-stack",
       year: "2025",
       status: "live",
@@ -183,6 +240,94 @@ export const site: SiteData = {
         "Keeps one test case in focus at a time instead of dumping a full regression log on you at once.",
         "Solo, full-stack Next.js/TypeScript build — from the idea to something I actually use every week.",
       ],
+      story: [
+        {
+          type: "text",
+          label: "The first regression pass",
+          body: [
+            "Tektonux is a government-contracting company — the kind of place where the software has to be right before it ships. I was interning there this past summer, running regression tests, and my first real pass exposed a problem fast. The test plan lived in GitLab's markdown viewer: a long, unbroken wall of plain text with no state and no memory of where I'd been.",
+            "Two things went wrong from there. After a few hours my eyes would lose the line — the page would start to blur together and I'd burn extra focus just re-finding my spot, on top of the actual testing. And I was running two documents at once: the test plan in one window, my notes in another, trying to keep track of which comment belonged to which step.",
+          ],
+        },
+        {
+          type: "compare",
+          label: "Before / after",
+          body: [
+            "This is the same test plan, side by side. Same content, same steps — but only one of them you can actually stay locked into for eight hours straight.",
+          ],
+          before: {
+            image: {
+              src: "/uploads/project-regression-reader-story-3-before.png",
+              alt: "A regression test plan rendered in GitLab's plain markdown viewer, with no way to mark which step is current.",
+              width: 522,
+              height: 407,
+            },
+            caption: "Before — GitLab's markdown viewer",
+          },
+          after: {
+            image: {
+              src: "/uploads/project-regression-reader-story-3-after.png",
+              alt: "The same test plan open in Regression Reader, with the current step highlighted.",
+              width: 506,
+              height: 415,
+            },
+            caption: "After — Regression Reader",
+          },
+        },
+        {
+          type: "text-image",
+          label: "One line at a time",
+          side: "right",
+          body: [
+            "So I built Regression Reader to fix the first problem: never losing the line. Arrow Mode locks your attention to a single line at a time — blank lines skip automatically, the current line stays marked, and a running percentage tracks how far through the plan you are. Nothing else is competing for your eyes.",
+            "Eight hours into a regression pass, that's the difference between staying sharp and starting to guess.",
+          ],
+          image: {
+            src: "/uploads/project-regression-reader-story-1-hero-alt.png",
+            alt: "Regression Reader in Arrow Mode — a test plan with the current line highlighted and colored dots marking annotated lines in the left margin.",
+            width: 890,
+            height: 690,
+          },
+        },
+        {
+          type: "text-image",
+          label: "Notes on the line",
+          side: "left",
+          body: [
+            "The second problem was the two-document juggle. So in Regression Reader, notes live inside the test plan itself instead of a separate file. Press a key on any line and a color-coded note bubble opens right there — orange for a general note, red for a bug, purple and green for whatever else you want to track.",
+            "The note is permanently tied to that exact line. There's no going back afterward trying to match a comment to the step it was about.",
+          ],
+          image: {
+            src: "/uploads/project-regression-reader-story-2-note-bubble-open.png",
+            alt: "An orange note bubble open on a line in Regression Reader, with color options for orange, bug, purple, and green notes.",
+            width: 890,
+            height: 690,
+          },
+        },
+        {
+          type: "text-image",
+          label: "Summary mode",
+          side: "right",
+          body: [
+            "Once a pass is annotated, Summary Mode collapses the whole plan down to just the flagged lines, filterable by note color. It turns hours of scrolling into a short list of exactly what needs attention.",
+            "Writing up results after a regression run takes a fraction of the time it used to.",
+          ],
+          image: {
+            src: "/uploads/project-regression-reader-story-4-context-expanded.png",
+            alt: "Regression Reader's Summary Mode, showing a test plan collapsed down to only the lines flagged with notes.",
+            width: 890,
+            height: 460,
+          },
+        },
+        {
+          type: "text",
+          label: "Where it landed",
+          body: [
+            "I built the first working version in one evening — about eight hours with Claude Code — then brought it to work the next day and ran my next regression pass on it. It held up.",
+            "A teammate started using it not long after, and the plan going forward is for more of the team to pick it up and keep extending it. I went looking for a fix to my own problem and ended up with something my team at Tektonux is actually using.",
+          ],
+        },
+      ],
     },
     {
       slug: "logic-gate-simulator",
@@ -199,22 +344,72 @@ export const site: SiteData = {
       featured: false,
       cover: {
         src: null,
-        alt: "Timing diagram of the flip-flop circuit's real simulator output — the R, S, O, and Q' signals traced over time, generated by the simulator itself.",
+        alt: "Logic Gate Circuit Simulator hero — a circuit diagram or timing-trace visual representing the simulator's output.",
         width: 1600,
         height: 1000,
       },
-      gallery: [
-        {
-          src: null,
-          alt: "How the simulator produced that trace: a schematic of Circuit 2's NOT, AND, and OR gates wired per its netlist, paired with the real waveform it generated — including the stretch where output E stays undefined while the signal ripples through all three gates.",
-          width: 1600,
-          height: 1000,
-        },
-      ],
+      gallery: [],
       highlights: [
         "Event-driven simulation — wire changes propagate as timed events instead of a full circuit recalculation.",
         "A \"DEFAULTED\" wire state prevents circuits with feedback loops from looping forever.",
         "Built and debugged with a team, not solo — shared architecture decisions and a shared codebase.",
+      ],
+      story: [
+        {
+          type: "text",
+          label: "What it had to do",
+          body: [
+            "The assignment: read a circuit netlist and a vector file of input changes over time, then simulate the circuit and produce a waveform. It required three classes — Wire, Gate, and Event — where each Event represents one wire settling on a value at a specific time, processed in order instead of recalculating the whole circuit every step.",
+          ],
+        },
+        {
+          type: "output",
+          label: "First trace: MultiGate",
+          body: ['"-" is high, "_" is low, "x" is DEFAULTED — not yet settled.'],
+          output:
+            "A | ______------\n  |\nB | ---------___\n  |\nC | ____--------\n  |\nE | xxxxxxx-----",
+          diagram: {
+            image: {
+              src: "/uploads/project-logic-gate-simulator-story-multigate-diagram.svg",
+              alt: "Schematic of the MultiGate circuit — a NOT gate feeding an AND gate (with input B), feeding an OR gate (with input C), producing output E.",
+              width: 820,
+              height: 340,
+            },
+            caption: "MultiGate's gate wiring, per its netlist",
+          },
+        },
+        {
+          type: "text",
+          label: "A fourth wire state",
+          body: [
+            "The flip-flop's two NOR gates are cross-coupled, which broke our first version — evaluating one gate needed the other's value, and vice versa, with no stable starting point. The fix: a defaulted parameter on evaluate() to test a hypothetical value without committing it, plus a new DEFAULTED wire state to mark it as not yet real.",
+          ],
+        },
+        {
+          type: "output",
+          label: "The flip-flop, traced",
+          body: [
+            "Watch O and wire 4 — both start DEFAULTED until the feedback loop resolves.",
+          ],
+          output:
+            "R | -____-_____________________________________________\n  |\nS | --_-_______________________________________________\n  |\nO | xx_x--__--__--__--__--__--__--__--__--__--__--__--_\n  |\n4 | xx__-___--__--__--__--__--__--__--__--__--__--__--_",
+          diagram: {
+            image: {
+              src: "/uploads/project-logic-gate-simulator-story-flipflop-diagram.svg",
+              alt: "Schematic of the flip-flop circuit — two cross-coupled NOR gates. Inputs R and S each feed one gate; each gate's output feeds the other gate's second input; outputs are O and wire 4.",
+              width: 800,
+              height: 600,
+            },
+            caption: "The flip-flop's gate wiring, per its netlist",
+          },
+        },
+        {
+          type: "text",
+          label: "After it worked",
+          body: [
+            "We tested against every circuit file the course provided, diffing our output against known-correct solutions — most bugs were in event handling. The simulator has real limits: length is capped so a feedback loop can't run forever, and the file format is rigid.",
+          ],
+        },
       ],
     },
   ],

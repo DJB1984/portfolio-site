@@ -1,0 +1,85 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 820 340" width="820" height="340" role="img" aria-labelledby="mg-title mg-desc">
+  <title id="mg-title">MultiGate circuit — NOT, AND, and OR chained in series</title>
+  <desc id="mg-desc">Input A passes through a NOT gate. Its output and input B feed an AND gate. That output and input C feed an OR gate, producing output E.</desc>
+
+  <!--
+    Standalone SVG asset: cannot see the page's CSS custom properties or its
+    @font-face, so colors below are literal oklch() values copied from
+    src/app/globals.css's @theme tokens (named per line), and text uses a
+    system monospace stack instead of an embedded font file. No accent color
+    here on purpose — unlike the flip-flop, this chain has no feedback loop
+    to highlight, so every wire stays neutral.
+  -->
+  <defs>
+    <style>
+      text {
+        font-family: "JetBrains Mono", ui-monospace, "SFMono-Regular", Menlo, Consolas, monospace;
+      }
+    </style>
+  </defs>
+
+  <!-- fill: oklch(0.2 0.02 260), token color-surface -->
+  <rect x="0" y="0" width="820" height="340" fill="oklch(0.2 0.02 260)" />
+
+  <!-- fill: oklch(0.6 0.02 260), token color-muted -->
+  <text x="48" y="56" font-size="20" font-weight="600" letter-spacing="0.08em"
+        fill="oklch(0.6 0.02 260)">CIRCUIT · MULTIGATE</text>
+  <text x="48" y="82" font-size="16" fill="oklch(0.6 0.02 260)" opacity="0.85">NOT, AND, OR chained in series</text>
+
+  <!-- stroke: oklch(0.92 0.01 260) token color-ink, fill: oklch(0.24 0.02 260) token color-raised -->
+
+  <!-- A input -->
+  <line x1="70" y1="200" x2="140" y2="200" stroke="oklch(0.92 0.01 260)" stroke-width="3" stroke-linecap="round" />
+  <text x="45" y="206" text-anchor="middle" font-size="26" font-weight="700" fill="oklch(0.92 0.01 260)">A</text>
+
+  <!-- NOT gate -->
+  <path d="M 140,180 L 140,220 L 210,200 Z"
+        fill="oklch(0.24 0.02 260)" stroke="oklch(0.92 0.01 260)" stroke-width="3"
+        stroke-linejoin="round" />
+  <circle cx="218" cy="200" r="8" fill="oklch(0.2 0.02 260)" stroke="oklch(0.92 0.01 260)" stroke-width="3" />
+  <text x="175" y="150" text-anchor="middle" font-size="15" letter-spacing="0.04em"
+        fill="oklch(0.6 0.02 260)">NOT · 2ns</text>
+
+  <!-- NOT output to AND's top pin -->
+  <path d="M 226,200 L 260,200 L 260,175 L 310,175"
+        fill="none" stroke="oklch(0.92 0.01 260)" stroke-width="3"
+        stroke-linecap="round" stroke-linejoin="round" />
+
+  <!-- B input, routed under the NOT gate into AND's bottom pin -->
+  <path d="M 70,240 L 290,240 L 290,225 L 310,225"
+        fill="none" stroke="oklch(0.92 0.01 260)" stroke-width="3"
+        stroke-linecap="round" stroke-linejoin="round" />
+  <text x="45" y="246" text-anchor="middle" font-size="26" font-weight="700" fill="oklch(0.92 0.01 260)">B</text>
+
+  <!-- AND gate -->
+  <path d="M 310,175 L 370,175 A 25,25 0 0 1 370,225 L 310,225 Z"
+        fill="oklch(0.24 0.02 260)" stroke="oklch(0.92 0.01 260)" stroke-width="3"
+        stroke-linejoin="round" />
+  <text x="340" y="150" text-anchor="middle" font-size="15" letter-spacing="0.04em"
+        fill="oklch(0.6 0.02 260)">AND · 3ns</text>
+
+  <!-- AND output to OR's top pin -->
+  <path d="M 395,200 L 430,200 L 430,175 L 500,175"
+        fill="none" stroke="oklch(0.92 0.01 260)" stroke-width="3"
+        stroke-linecap="round" stroke-linejoin="round" />
+
+  <!-- C input, routed under NOT and AND into OR's bottom pin -->
+  <path d="M 70,280 L 460,280 L 460,225 L 500,225"
+        fill="none" stroke="oklch(0.92 0.01 260)" stroke-width="3"
+        stroke-linecap="round" stroke-linejoin="round" />
+  <text x="45" y="286" text-anchor="middle" font-size="26" font-weight="700" fill="oklch(0.92 0.01 260)">C</text>
+
+  <!-- OR gate -->
+  <path d="M 500,175
+           Q 532,200 500,225
+           C 542,225 582,216 630,200
+           C 582,184 542,175 500,175 Z"
+        fill="oklch(0.24 0.02 260)" stroke="oklch(0.92 0.01 260)" stroke-width="3"
+        stroke-linejoin="round" />
+  <text x="565" y="150" text-anchor="middle" font-size="15" letter-spacing="0.04em"
+        fill="oklch(0.6 0.02 260)">OR · 3ns</text>
+
+  <!-- E output -->
+  <line x1="630" y1="200" x2="700" y2="200" stroke="oklch(0.92 0.01 260)" stroke-width="3" stroke-linecap="round" />
+  <text x="735" y="206" text-anchor="middle" font-size="26" font-weight="700" fill="oklch(0.92 0.01 260)">E</text>
+</svg>

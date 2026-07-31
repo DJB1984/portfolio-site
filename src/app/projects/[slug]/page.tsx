@@ -9,6 +9,7 @@ import { SectionLabel } from "@/components/ui/section-label";
 import { Tag } from "@/components/ui/tag";
 import { EditableText } from "@/components/edit/editable-text";
 import { EditableImage } from "@/components/edit/editable-image";
+import { ProjectStory } from "@/components/project-story";
 
 /** Prerender every project page at build time. */
 export function generateStaticParams() {
@@ -116,57 +117,8 @@ export default async function ProjectPage({ params }: PageProps<"/projects/[slug
         </div>
       </Reveal>
 
-      {/* Body */}
-      <div className="mt-14 grid grid-cols-1 gap-12 md:grid-cols-[1fr_260px]">
-        <div>
-          <SectionLabel>Overview</SectionLabel>
-          <EditableText
-            path={`${base}.description`}
-            value={project.description}
-            as="p"
-            multiline
-            className="mt-4 text-lg leading-relaxed text-ink"
-          />
-        </div>
-
-        <aside>
-          <SectionLabel>Highlights</SectionLabel>
-          <ul className="mt-4 flex flex-col gap-3">
-            {project.highlights.map((h, i) => (
-              <li key={i} className="flex gap-3 text-sm leading-relaxed text-muted">
-                <span aria-hidden="true" className="mt-1.5 glow-dot shrink-0" />
-                <EditableText
-                  path={`${base}.highlights.${i}`}
-                  value={h}
-                  as="span"
-                  multiline
-                />
-              </li>
-            ))}
-          </ul>
-        </aside>
-      </div>
-
-      {/* Gallery */}
-      {project.gallery.length > 0 && (
-        <section className="mt-16">
-          <SectionLabel>Gallery</SectionLabel>
-          <div
-            className={`mt-6 grid grid-cols-1 gap-6 ${
-              project.gallery.length > 1 ? "sm:grid-cols-2" : ""
-            }`}
-          >
-
-            {project.gallery.map((image, i) => (
-              <Reveal key={i} delay={(i % 2) * 90}>
-                <div className="aspect-[16/10] overflow-hidden rounded-lg border border-line">
-                  <EditableImage path={`${base}.gallery.${i}`} image={image} />
-                </div>
-              </Reveal>
-            ))}
-          </div>
-        </section>
-      )}
+      {/* Story */}
+      <ProjectStory project={project} />
 
       {/* More projects */}
       {others.length > 0 && (
