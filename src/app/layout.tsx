@@ -1,4 +1,5 @@
 import type { Metadata } from "next";
+import { Analytics } from "@vercel/analytics/next";
 import { Inter, JetBrains_Mono, Schibsted_Grotesk } from "next/font/google";
 import "./globals.css";
 import { SiteNav } from "@/components/site-nav";
@@ -73,6 +74,7 @@ export default function RootLayout({
           <SiteFooter />
           <EditToolbar />
         </EditModeProvider>
+        <Analytics />
       </body>
     </html>
   );
