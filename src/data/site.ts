@@ -176,45 +176,6 @@ export const site: SiteData = {
 
   projects: [
     {
-      slug: "study-deck",
-      title: "Study Deck",
-      summary: "Use any AI to turn your notes into interactive study tools.",
-      description:
-        "Study Deck turns raw notes into study material you'll actually use — paste in what you're studying and it generates interactive flashcards, worked equations, and graphs instead of a wall of text to re-read. It's model-agnostic, so it works with whichever AI you already have access to instead of locking you into one provider. I built it because re-reading my own notes before a test never worked as well as being quizzed on them.",
-      role: "Solo — design & full-stack",
-      year: "2025",
-      status: "live",
-      tags: ["Next.js", "TypeScript", "AI / LLM", "Full-stack"],
-      liveUrl: "https://studydeck.brookslanding.com",
-      sourceUrl: "https://github.com/DJB1984/StudyDeck",
-      featured: true,
-      cover: {
-        src: null,
-        alt: "Study Deck hero — the app's landing/dashboard where notes are turned into study tools.",
-        width: 1600,
-        height: 1000,
-      },
-      gallery: [
-        {
-          src: null,
-          alt: "Study Deck equation showcase — rendered math / equation study cards.",
-          width: 1600,
-          height: 1000,
-        },
-        {
-          src: null,
-          alt: "Study Deck graph showcase — an interactive graph generated from notes.",
-          width: 1600,
-          height: 1000,
-        },
-      ],
-      highlights: [
-        "Model-agnostic AI pipeline — works with whatever AI you already have access to, not tied to one provider.",
-        "Renders real math and interactive graphs from plain notes, not just flashcard text.",
-        "Built the study workflow I actually wanted for my own classes, then made it usable for anyone.",
-      ],
-    },
-    {
       slug: "regression-reader",
       title: "Regression Reader",
       summary:
@@ -222,9 +183,9 @@ export const site: SiteData = {
       description:
         "Regression Reader started as a fix for my own problem. Interning at Tektonux — a government-contracting company — this past summer, I kept losing my place halfway through long regression passes: which case I was on, what I'd already checked, where my focus had drifted. So I built a tool that keeps a regression run organized and keeps my attention on one case at a time instead of a wall of output. I built it for myself, brought it to work, and a teammate has since started using it too — the hope is more of the team picks it up from here.",
       role: "Solo — design & full-stack",
-      year: "2025",
+      year: "2026",
       status: "live",
-      tags: ["Next.js", "TypeScript", "Developer Tools", "Testing"],
+      tags: ["TypeScript", "Claude Code", "UI/UX", "Testing"],
       liveUrl: "https://regression.brookslanding.com",
       sourceUrl: "https://github.com/DJB1984/regression-reader",
       featured: true,
@@ -285,8 +246,8 @@ export const site: SiteData = {
           image: {
             src: "/uploads/project-regression-reader-story-1-hero-alt.png",
             alt: "Regression Reader in Arrow Mode — a test plan with the current line highlighted and colored dots marking annotated lines in the left margin.",
-            width: 890,
-            height: 690,
+            width: 1200,
+            height: 900,
           },
         },
         {
@@ -300,8 +261,8 @@ export const site: SiteData = {
           image: {
             src: "/uploads/project-regression-reader-story-2-note-bubble-open.png",
             alt: "An orange note bubble open on a line in Regression Reader, with color options for orange, bug, purple, and green notes.",
-            width: 890,
-            height: 690,
+            width: 1200,
+            height: 900,
           },
         },
         {
@@ -315,8 +276,8 @@ export const site: SiteData = {
           image: {
             src: "/uploads/project-regression-reader-story-4-context-expanded.png",
             alt: "Regression Reader's Summary Mode, showing a test plan collapsed down to only the lines flagged with notes.",
-            width: 890,
-            height: 460,
+            width: 1200,
+            height: 900,
           },
         },
         {
@@ -327,6 +288,45 @@ export const site: SiteData = {
             "A teammate started using it not long after, and the plan going forward is for more of the team to pick it up and keep extending it. I went looking for a fix to my own problem and ended up with something my team at Tektonux is actually using.",
           ],
         },
+      ],
+    },
+    {
+      slug: "study-deck",
+      title: "Study Deck",
+      summary: "Use any AI to turn your notes into interactive study tools.",
+      description:
+        "Study Deck turns raw notes into study material you'll actually use — paste in what you're studying and it generates interactive flashcards, worked equations, and graphs instead of a wall of text to re-read. It's model-agnostic, so it works with whichever AI you already have access to instead of locking you into one provider. I built it because re-reading my own notes before a test never worked as well as being quizzed on them.",
+      role: "Solo — design & full-stack",
+      year: "2026",
+      status: "live",
+      tags: ["Next.js", "TypeScript", "AI / LLM", "Full-stack"],
+      liveUrl: "https://studydeck.brookslanding.com",
+      sourceUrl: "https://github.com/DJB1984/StudyDeck",
+      featured: false,
+      cover: {
+        src: null,
+        alt: "Study Deck hero — the app's landing/dashboard where notes are turned into study tools.",
+        width: 1600,
+        height: 1000,
+      },
+      gallery: [
+        {
+          src: null,
+          alt: "Study Deck equation showcase — rendered math / equation study cards.",
+          width: 1600,
+          height: 1000,
+        },
+        {
+          src: null,
+          alt: "Study Deck graph showcase — an interactive graph generated from notes.",
+          width: 1600,
+          height: 1000,
+        },
+      ],
+      highlights: [
+        "Model-agnostic AI pipeline — works with whatever AI you already have access to, not tied to one provider.",
+        "Renders real math and interactive graphs from plain notes, not just flashcard text.",
+        "Built the study workflow I actually wanted for my own classes, then made it usable for anyone.",
       ],
     },
     {
@@ -341,7 +341,7 @@ export const site: SiteData = {
       status: "completed",
       tags: ["C++", "OOP", "Digital Logic"],
       sourceUrl: "https://github.com/davisbrookscollege/HW8",
-      featured: false,
+      featured: true,
       cover: {
         src: null,
         alt: "Logic Gate Circuit Simulator hero — a circuit diagram or timing-trace visual representing the simulator's output.",
@@ -417,19 +417,20 @@ export const site: SiteData = {
   skills: [
     {
       category: "Languages",
-      items: ["TypeScript", "JavaScript", "Python", "C++", "Java", "C", "C#", "SQL"],
-    },
-    {
-      category: "Frameworks & Libraries",
-      items: ["Next.js", "React", "Node.js", "Tailwind CSS"],
+      items: ["TypeScript", "C++", "HTML", "CSS", "C#", "Python"],
     },
     {
       category: "Tools & Platforms",
-      items: ["Git", "Linux", "Vercel", "PostgreSQL", "Docker"],
+      items: ["Claude Code", "Git", "Storybook", "Linux", "Vercel", "Docker"],
     },
     {
       category: "Focus Areas",
-      items: ["Product engineering", "AI / LLM apps", "Developer tools", "UI/UX"],
+      items: [
+        "UI/UX",
+        "Context engineering",
+        "Web apps",
+        "Cybersecurity",
+      ],
     },
     {
       category: "Coursework",

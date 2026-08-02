@@ -12,6 +12,7 @@ export default async function HomePage() {
   const content = await loadContent();
   const { profile, projects } = content.site;
   const featured = projects.filter((p) => p.featured);
+  const live = projects.filter((p) => p.status === "live");
 
   return (
     <>
@@ -76,7 +77,7 @@ export default async function HomePage() {
             Currently live
           </p>
           <ul className="flex flex-wrap gap-x-8 gap-y-2">
-            {featured.map((project) => (
+            {live.map((project) => (
               <li key={project.slug}>
                 <Link
                   href={`/projects/${project.slug}`}
@@ -102,7 +103,7 @@ export default async function HomePage() {
               <SectionLabel>Selected projects</SectionLabel>
               <EditableText
                 path="home.projects.heading"
-                value={content.text("home.projects.heading", "Shipped, and in use.")}
+                value={content.text("home.projects.heading", "Real problems, real code.")}
                 as="h2"
                 className="mt-4 text-3xl font-semibold tracking-tight text-ink sm:text-4xl"
               />

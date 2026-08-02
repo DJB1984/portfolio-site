@@ -11,6 +11,7 @@ import { Reveal } from "@/components/reveal";
 import { SectionLabel } from "@/components/ui/section-label";
 import { EditableText } from "@/components/edit/editable-text";
 import { EditableImage } from "@/components/edit/editable-image";
+import { ZoomableImage } from "@/components/ui/zoomable-image";
 
 /** CSS aspect-ratio string from an image's own dimensions, with a fallback. */
 function ratioOf(image: ImageSlot, fallback = "16 / 10"): string {
@@ -143,7 +144,7 @@ function TextImageSection({
           }`}
           style={{ aspectRatio: ratioOf(section.image) }}
         >
-          <EditableImage
+          <ZoomableImage
             path={`${base}.story.${index}.image`}
             image={section.image}
             sizes="(min-width: 768px) 50vw, 100vw"
@@ -178,7 +179,7 @@ function CompareSection({
                 className="overflow-hidden rounded-md border border-line"
                 style={{ aspectRatio: ratioOf(section[side].image, "4 / 3") }}
               >
-                <EditableImage
+                <ZoomableImage
                   path={`${base}.story.${index}.${side}.image`}
                   image={section[side].image}
                   sizes="(min-width: 640px) 50vw, 100vw"
