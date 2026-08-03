@@ -3,7 +3,6 @@
 import Link from "next/link";
 import type { Project } from "@/data/site";
 import { Tag } from "@/components/ui/tag";
-import { useEditMode } from "@/components/edit/edit-mode-provider";
 import { EditableText } from "@/components/edit/editable-text";
 import { EditableImage } from "@/components/edit/editable-image";
 
@@ -14,11 +13,7 @@ const statusLabel: Record<Project["status"], string> = {
   completed: "Completed",
 };
 
-/**
- * A project card. In read mode the whole card links to the detail page via a
- * stretched title link. In edit mode the stretched link is dropped so the
- * title/summary become editable and the cover becomes an upload target.
- */
+/** A project card. The whole card links to the detail page via a stretched title link. */
 export function ProjectCard({
   project,
   priority = false,
@@ -26,7 +21,6 @@ export function ProjectCard({
   project: Project;
   priority?: boolean;
 }) {
-  const editMode = useEditMode();
   const base = `project.${project.slug}`;
 
   return (
@@ -51,16 +45,12 @@ export function ProjectCard({
       <div className="flex flex-1 flex-col p-6">
         <div className="flex items-baseline justify-between gap-3">
           <h3 className="text-xl font-semibold text-ink">
-            {editMode ? (
-              <EditableText path={`${base}.title`} value={project.title} as="span" />
-            ) : (
-              <Link
-                href={`/projects/${project.slug}`}
-                className="transition-colors after:absolute after:inset-0 group-hover:text-starlight"
-              >
-                {project.title}
-              </Link>
-            )}
+            <Link
+              href={`/projects/${project.slug}`}
+              className="transition-colors after:absolute after:inset-0 group-hover:text-starlight"
+            >
+              {project.title}
+            </Link>
           </h3>
           <span className="shrink-0 font-mono text-xs text-muted">
             {project.year}

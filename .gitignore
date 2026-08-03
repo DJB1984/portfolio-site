@@ -46,6 +46,9 @@ yarn-error.log*
 /notes.md
 /intial references/
 
+# hostgator deploy — account/host-specific, never committed
+/deploy.config.json
+
 # typescript
 *.tsbuildinfo
 next-env.d.ts

@@ -1,149 +1,53 @@
-"use client";
-
-import { useEffect, useRef, useState } from "react";
 import Link from "next/link";
-import { useRouter } from "next/navigation";
-import { useEditMode } from "@/components/edit/edit-mode-provider";
-import { saveTextAction } from "@/lib/edit-actions";
 
 type Tag = "h1" | "h2" | "h3" | "h4" | "p" | "span";
 
 type EditableTextProps = {
-  /** Stable field path, e.g. "profile.shortBio" or "home.hero.headline". */
+  /** Stable field path, e.g. "profile.shortBio" or "home.hero.headline". Kept
+   * for call-site parity with the dev-only editable component; unused here. */
   path: string;
-  /** Resolved current value (already merged with overrides on the server). */
+  /** Resolved current value (already merged with overrides at build time). */
   value: string;
   as?: Tag;
   className?: string;
-  /** Allow newlines (paragraphs). Single-line by default (headings). */
   multiline?: boolean;
-  /**
-   * Turn one exact substring into an external link when rendered read-only.
-   * Edit mode always shows plain text so the underlying value stays a
-   * single freeform field — the link just reappears on the next read as
-   * long as the substring is still present.
-   */
+  /** Turn one exact substring into an external link. */
   linkify?: { text: string; href: string; className?: string };
 };
 
-type Status = "idle" | "saving" | "saved" | "error";
-
 /**
- * Click-to-edit inline text. In read-only mode it renders a plain element. In
- * edit mode the element becomes editable: type to change, blur or ⌘/Ctrl+Enter
- * to save, Escape to cancel. Saves persist into the content manifest.
+ * Static, read-only render of a content field. The in-browser edit mode
+ * (click-to-edit + Server Actions) only exists on the `main` branch, which
+ * runs under `next dev` / Vercel — this branch builds a static export for
+ * HostGator, where Server Actions can't run, so this component just renders
+ * the resolved value.
  */
 export function EditableText({
-  path,
   value,
   as = "p",
   className = "",
-  multiline = false,
   linkify,
 }: EditableTextProps) {
-  const editMode = useEditMode();
-  const router = useRouter();
-  const ref = useRef<HTMLElement>(null);
-  const [status, setStatus] = useState<Status>("idle");
-
-  // Keep the DOM text in sync when the server sends a new value (after refresh).
-  useEffect(() => {
-    if (ref.current && ref.current.innerText !== value) {
-      ref.current.innerText = value;
-    }
-  }, [value]);
-
   const Tag = as as React.ElementType;
 
-  if (!editMode) {
-    if (linkify && value.includes(linkify.text)) {
-      const [before, after] = splitOnce(value, linkify.text);
-      return (
-        <Tag className={className}>
-          {before}
-          <Link
-            href={linkify.href}
-            target="_blank"
-            rel="noopener noreferrer"
-            className={linkify.className}
-          >
-            {linkify.text}
-          </Link>
-          {after}
-        </Tag>
-      );
-    }
-    return <Tag className={className}>{value}</Tag>;
-  }
-
-  async function commit() {
-    const next = (ref.current?.innerText ?? "").replace(/ /g, " ").trim();
-    if (next === value) {
-      setStatus("idle");
-      return;
-    }
-    setStatus("saving");
-    try {
-      const result = await saveTextAction(path, next);
-      if (result.ok) {
-        setStatus("saved");
-        router.refresh();
-        window.setTimeout(() => setStatus("idle"), 1600);
-      } else {
-        setStatus("error");
-      }
-    } catch {
-      // Network / server-action failure — keep the typed value, surface error.
-      setStatus("error");
-    }
-  }
-
-  function onKeyDown(event: React.KeyboardEvent<HTMLElement>) {
-    if (event.key === "Escape") {
-      event.preventDefault();
-      if (ref.current) ref.current.innerText = value;
-      ref.current?.blur();
-      return;
-    }
-    if (event.key === "Enter" && (!multiline || event.metaKey || event.ctrlKey)) {
-      event.preventDefault();
-      ref.current?.blur();
-    }
-  }
-
-  const statusMessage =
-    status === "saving"
-      ? "Saving…"
-      : status === "saved"
-        ? "Saved."
-        : status === "error"
-          ? "Couldn't save. Check that the dev server is running and try again."
-          : "";
-
-  return (
-    <>
-      <Tag
-        ref={ref}
-        className={`editable-text ${className}`}
-        data-status={status}
-        contentEditable
-        suppressContentEditableWarning
-        spellCheck={false}
-        role="textbox"
-        aria-multiline={multiline}
-        aria-label={`Edit ${path}`}
-        title="Click to edit · Esc to cancel · clear to reset"
-        tabIndex={0}
-        onBlur={commit}
-        onKeyDown={onKeyDown}
-      >
-        {value}
+  if (linkify && value.includes(linkify.text)) {
+    const [before, after] = splitOnce(value, linkify.text);
+    return (
+      <Tag className={className}>
+        {before}
+        <Link
+          href={linkify.href}
+          target="_blank"
+          rel="noopener noreferrer"
+          className={linkify.className}
+        >
+          {linkify.text}
+        </Link>
+        {after}
       </Tag>
-      <span role="status" aria-live="polite" className="sr-only">
-        {statusMessage}
-      </span>
-    </>
-  );
+    );
+  }
+  return <Tag className={className}>{value}</Tag>;
 }
 
 /** Splits on the first occurrence of `needle`, dropping the needle itself. */

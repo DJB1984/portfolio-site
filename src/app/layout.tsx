@@ -5,8 +5,6 @@ import "./globals.css";
 import { SiteNav } from "@/components/site-nav";
 import { SiteFooter } from "@/components/site-footer";
 import { Starfield } from "@/components/starfield";
-import { EditModeProvider } from "@/components/edit/edit-mode-provider";
-import { EditToolbar } from "@/components/edit/edit-toolbar";
 import { site } from "@/data/site";
 
 const schibsted = Schibsted_Grotesk({
@@ -60,20 +58,17 @@ export default function RootLayout({
           }}
         />
         <Starfield anchors={site.projects.filter((p) => p.featured).length} />
-        <EditModeProvider>
-          <a
-            href="#main"
-            className="sr-only rounded-md bg-raised px-4 py-2 font-mono text-sm text-ink focus:not-sr-only focus:absolute focus:left-4 focus:top-4 focus:z-50"
-          >
-            Skip to content
-          </a>
-          <SiteNav />
-          <main id="main" className="flex-1">
-            {children}
-          </main>
-          <SiteFooter />
-          <EditToolbar />
-        </EditModeProvider>
+        <a
+          href="#main"
+          className="sr-only rounded-md bg-raised px-4 py-2 font-mono text-sm text-ink focus:not-sr-only focus:absolute focus:left-4 focus:top-4 focus:z-50"
+        >
+          Skip to content
+        </a>
+        <SiteNav />
+        <main id="main" className="flex-1">
+          {children}
+        </main>
+        <SiteFooter />
         <Analytics />
       </body>
     </html>

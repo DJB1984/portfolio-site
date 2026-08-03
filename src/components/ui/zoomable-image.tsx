@@ -4,7 +4,6 @@ import { useEffect, useState } from "react";
 import { createPortal } from "react-dom";
 import Image from "next/image";
 import type { ImageSlot as ImageSlotData } from "@/data/site";
-import { useEditMode } from "@/components/edit/edit-mode-provider";
 import { EditableImage } from "@/components/edit/editable-image";
 
 type ZoomableImageProps = {
@@ -14,13 +13,8 @@ type ZoomableImageProps = {
   sizes?: string;
 };
 
-/**
- * EditableImage plus a click-to-enlarge lightbox in read mode. In edit mode
- * the upload dropzone owns the click target, so the lightbox is disabled
- * there — enlarging and uploading would otherwise fight over the same click.
- */
+/** An image with a click-to-enlarge lightbox. */
 export function ZoomableImage({ path, image, sizes }: ZoomableImageProps) {
-  const editMode = useEditMode();
   const [open, setOpen] = useState(false);
 
   useEffect(() => {
@@ -32,7 +26,7 @@ export function ZoomableImage({ path, image, sizes }: ZoomableImageProps) {
     return () => document.removeEventListener("keydown", onKey);
   }, [open]);
 
-  if (editMode || !image.src) {
+  if (!image.src) {
     return <EditableImage path={path} image={image} sizes={sizes} />;
   }
 
