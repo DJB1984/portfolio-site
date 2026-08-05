@@ -291,45 +291,6 @@ export const site: SiteData = {
       ],
     },
     {
-      slug: "study-deck",
-      title: "Study Deck",
-      summary: "Use any AI to turn your notes into interactive study tools.",
-      description:
-        "Study Deck turns raw notes into study material you'll actually use — paste in what you're studying and it generates interactive flashcards, worked equations, and graphs instead of a wall of text to re-read. It's model-agnostic, so it works with whichever AI you already have access to instead of locking you into one provider. I built it because re-reading my own notes before a test never worked as well as being quizzed on them.",
-      role: "Solo — design & full-stack",
-      year: "2026",
-      status: "live",
-      tags: ["Next.js", "TypeScript", "AI / LLM", "Full-stack"],
-      liveUrl: "https://studydeck.brookslanding.com",
-      sourceUrl: "https://github.com/DJB1984/StudyDeck",
-      featured: false,
-      cover: {
-        src: null,
-        alt: "Study Deck hero — the app's landing/dashboard where notes are turned into study tools.",
-        width: 1600,
-        height: 1000,
-      },
-      gallery: [
-        {
-          src: null,
-          alt: "Study Deck equation showcase — rendered math / equation study cards.",
-          width: 1600,
-          height: 1000,
-        },
-        {
-          src: null,
-          alt: "Study Deck graph showcase — an interactive graph generated from notes.",
-          width: 1600,
-          height: 1000,
-        },
-      ],
-      highlights: [
-        "Model-agnostic AI pipeline — works with whatever AI you already have access to, not tied to one provider.",
-        "Renders real math and interactive graphs from plain notes, not just flashcard text.",
-        "Built the study workflow I actually wanted for my own classes, then made it usable for anyone.",
-      ],
-    },
-    {
       slug: "logic-gate-simulator",
       title: "Logic Gate Circuit Simulator",
       summary:
@@ -410,6 +371,45 @@ export const site: SiteData = {
             "We tested against every circuit file the course provided, diffing our output against known-correct solutions — most bugs were in event handling. The simulator has real limits: length is capped so a feedback loop can't run forever, and the file format is rigid.",
           ],
         },
+      ],
+    },
+    {
+      slug: "study-deck",
+      title: "Study Deck",
+      summary: "Use any AI to turn your notes into interactive study tools.",
+      description:
+        "Study Deck turns raw notes into study material you'll actually use — paste in what you're studying and it generates interactive flashcards, worked equations, and graphs instead of a wall of text to re-read. It's model-agnostic, so it works with whichever AI you already have access to instead of locking you into one provider. I built it because re-reading my own notes before a test never worked as well as being quizzed on them.",
+      role: "Solo — design & full-stack",
+      year: "2026",
+      status: "live",
+      tags: ["Next.js", "TypeScript", "AI / LLM", "Full-stack"],
+      liveUrl: "https://studydeck.brookslanding.com",
+      sourceUrl: "https://github.com/DJB1984/StudyDeck",
+      featured: false,
+      cover: {
+        src: null,
+        alt: "Study Deck hero — the app's landing/dashboard where notes are turned into study tools.",
+        width: 1600,
+        height: 1000,
+      },
+      gallery: [
+        {
+          src: null,
+          alt: "Study Deck equation showcase — rendered math / equation study cards.",
+          width: 1600,
+          height: 1000,
+        },
+        {
+          src: null,
+          alt: "Study Deck graph showcase — an interactive graph generated from notes.",
+          width: 1600,
+          height: 1000,
+        },
+      ],
+      highlights: [
+        "Model-agnostic AI pipeline — works with whatever AI you already have access to, not tied to one provider.",
+        "Renders real math and interactive graphs from plain notes, not just flashcard text.",
+        "Built the study workflow I actually wanted for my own classes, then made it usable for anyone.",
       ],
     },
   ],
