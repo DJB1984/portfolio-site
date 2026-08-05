@@ -1,4 +1,4 @@
-<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 800 600" width="800" height="600" role="img" aria-labelledby="ff-title ff-desc">
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 960 600" width="960" height="600" role="img" aria-labelledby="ff-title ff-desc">
   <title id="ff-title">Flip-flop circuit — two cross-coupled NOR gates</title>
   <desc id="ff-desc">Gate 1 takes inputs S and O, outputs wire 4. Gate 2 takes inputs R and wire 4, outputs O. Each gate's output feeds back into the other gate's second input.</desc>
 
@@ -7,6 +7,11 @@
     @font-face, so colors below are literal oklch() values copied from
     src/app/globals.css's @theme tokens (named per line), and text uses a
     system monospace stack instead of an embedded font file.
+
+    Canvas is 960x600 (16:10) so this doubles as the project's hero/cover
+    image: the original 800x600 artwork is centered with 80px of margin on
+    each side, so the full circuit stays in frame under object-cover at any
+    16:10 crop (card view included), not just its native 4:3 box.
   -->
   <defs>
     <style>
@@ -17,68 +22,70 @@
   </defs>
 
   <!-- fill: oklch(0.2 0.02 260), token color-surface -->
-  <rect x="0" y="0" width="800" height="600" fill="oklch(0.2 0.02 260)" />
+  <rect x="0" y="0" width="960" height="600" fill="oklch(0.2 0.02 260)" />
 
-  <!-- fill: oklch(0.6 0.02 260), token color-muted -->
-  <text x="48" y="56" font-size="20" font-weight="600" letter-spacing="0.08em"
-        fill="oklch(0.6 0.02 260)">CIRCUIT · FLIPFLOP</text>
-  <text x="48" y="82" font-size="16" fill="oklch(0.6 0.02 260)" opacity="0.85">Two NOR gates, cross-coupled</text>
+  <g transform="translate(80,0)">
+    <!-- fill: oklch(0.6 0.02 260), token color-muted -->
+    <text x="48" y="56" font-size="20" font-weight="600" letter-spacing="0.08em"
+          fill="oklch(0.6 0.02 260)">CIRCUIT · FLIPFLOP</text>
+    <text x="48" y="82" font-size="16" fill="oklch(0.6 0.02 260)" opacity="0.85">Two NOR gates, cross-coupled</text>
 
-  <!-- Gate 1: NOR(S, O) to wire 4 -->
-  <!-- stroke: oklch(0.92 0.01 260) token color-ink, fill: oklch(0.24 0.02 260) token color-raised -->
-  <path d="M 260,165
-           Q 292,190 260,215
-           C 302,215 342,206 390,190
-           C 342,174 302,165 260,165 Z"
-        fill="oklch(0.24 0.02 260)" stroke="oklch(0.92 0.01 260)" stroke-width="3"
-        stroke-linejoin="round" />
-  <circle cx="398" cy="190" r="8" fill="oklch(0.2 0.02 260)" stroke="oklch(0.92 0.01 260)" stroke-width="3" />
-  <text x="325" y="235" text-anchor="middle" font-size="15" letter-spacing="0.04em"
-        fill="oklch(0.6 0.02 260)">NOR · 2ns</text>
+    <!-- Gate 1: NOR(S, O) to wire 4 -->
+    <!-- stroke: oklch(0.92 0.01 260) token color-ink, fill: oklch(0.24 0.02 260) token color-raised -->
+    <path d="M 260,165
+             Q 292,190 260,215
+             C 302,215 342,206 390,190
+             C 342,174 302,165 260,165 Z"
+          fill="oklch(0.24 0.02 260)" stroke="oklch(0.92 0.01 260)" stroke-width="3"
+          stroke-linejoin="round" />
+    <circle cx="398" cy="190" r="8" fill="oklch(0.2 0.02 260)" stroke="oklch(0.92 0.01 260)" stroke-width="3" />
+    <text x="325" y="235" text-anchor="middle" font-size="15" letter-spacing="0.04em"
+          fill="oklch(0.6 0.02 260)">NOR · 2ns</text>
 
-  <!-- Gate 2: NOR(R, wire 4) to O -->
-  <path d="M 260,385
-           Q 292,410 260,435
-           C 302,435 342,426 390,410
-           C 342,394 302,385 260,385 Z"
-        fill="oklch(0.24 0.02 260)" stroke="oklch(0.92 0.01 260)" stroke-width="3"
-        stroke-linejoin="round" />
-  <circle cx="398" cy="410" r="8" fill="oklch(0.2 0.02 260)" stroke="oklch(0.92 0.01 260)" stroke-width="3" />
-  <text x="325" y="465" text-anchor="middle" font-size="15" letter-spacing="0.04em"
-        fill="oklch(0.6 0.02 260)">NOR · 2ns</text>
+    <!-- Gate 2: NOR(R, wire 4) to O -->
+    <path d="M 260,385
+             Q 292,410 260,435
+             C 302,435 342,426 390,410
+             C 342,394 302,385 260,385 Z"
+          fill="oklch(0.24 0.02 260)" stroke="oklch(0.92 0.01 260)" stroke-width="3"
+          stroke-linejoin="round" />
+    <circle cx="398" cy="410" r="8" fill="oklch(0.2 0.02 260)" stroke="oklch(0.92 0.01 260)" stroke-width="3" />
+    <text x="325" y="465" text-anchor="middle" font-size="15" letter-spacing="0.04em"
+          fill="oklch(0.6 0.02 260)">NOR · 2ns</text>
 
-  <!-- External inputs: S to Gate 1, R to Gate 2 -->
-  <!-- stroke: oklch(0.92 0.01 260) token color-ink -->
-  <line x1="130" y1="165" x2="260" y2="165" stroke="oklch(0.92 0.01 260)" stroke-width="3" stroke-linecap="round" />
-  <text x="70" y="171" text-anchor="middle" font-size="26" font-weight="700" fill="oklch(0.92 0.01 260)">S</text>
+    <!-- External inputs: S to Gate 1, R to Gate 2 -->
+    <!-- stroke: oklch(0.92 0.01 260) token color-ink -->
+    <line x1="130" y1="165" x2="260" y2="165" stroke="oklch(0.92 0.01 260)" stroke-width="3" stroke-linecap="round" />
+    <text x="70" y="171" text-anchor="middle" font-size="26" font-weight="700" fill="oklch(0.92 0.01 260)">S</text>
 
-  <line x1="130" y1="435" x2="260" y2="435" stroke="oklch(0.92 0.01 260)" stroke-width="3" stroke-linecap="round" />
-  <text x="70" y="441" text-anchor="middle" font-size="26" font-weight="700" fill="oklch(0.92 0.01 260)">R</text>
+    <line x1="130" y1="435" x2="260" y2="435" stroke="oklch(0.92 0.01 260)" stroke-width="3" stroke-linecap="round" />
+    <text x="70" y="441" text-anchor="middle" font-size="26" font-weight="700" fill="oklch(0.92 0.01 260)">R</text>
 
-  <!-- Gate 1 output: branches to external "4" and feeds back into Gate 2's top input -->
-  <line x1="406" y1="190" x2="450" y2="190" stroke="oklch(0.92 0.01 260)" stroke-width="3" stroke-linecap="round" />
-  <circle cx="450" cy="190" r="5" fill="oklch(0.92 0.01 260)" />
-  <!-- external branch -->
-  <line x1="450" y1="190" x2="560" y2="190" stroke="oklch(0.92 0.01 260)" stroke-width="3" stroke-linecap="round" />
-  <text x="600" y="196" text-anchor="middle" font-size="26" font-weight="700" fill="oklch(0.92 0.01 260)">4</text>
-  <!-- feedback branch, stroke: oklch(0.75 0.14 250) token color-starlight, the one accent marking the loop -->
-  <path d="M 450,190 L 450,385 L 270,385"
-        fill="none" stroke="oklch(0.75 0.14 250)" stroke-width="3"
-        stroke-linecap="round" stroke-linejoin="round" />
+    <!-- Gate 1 output: branches to external "4" and feeds back into Gate 2's top input -->
+    <line x1="406" y1="190" x2="450" y2="190" stroke="oklch(0.92 0.01 260)" stroke-width="3" stroke-linecap="round" />
+    <circle cx="450" cy="190" r="5" fill="oklch(0.92 0.01 260)" />
+    <!-- external branch -->
+    <line x1="450" y1="190" x2="560" y2="190" stroke="oklch(0.92 0.01 260)" stroke-width="3" stroke-linecap="round" />
+    <text x="600" y="196" text-anchor="middle" font-size="26" font-weight="700" fill="oklch(0.92 0.01 260)">4</text>
+    <!-- feedback branch, stroke: oklch(0.75 0.14 250) token color-starlight, the one accent marking the loop -->
+    <path d="M 450,190 L 450,385 L 270,385"
+          fill="none" stroke="oklch(0.75 0.14 250)" stroke-width="3"
+          stroke-linecap="round" stroke-linejoin="round" />
 
-  <!-- Gate 2 output: branches to external "O" and feeds back into Gate 1's bottom input -->
-  <line x1="406" y1="410" x2="500" y2="410" stroke="oklch(0.92 0.01 260)" stroke-width="3" stroke-linecap="round" />
-  <circle cx="500" cy="410" r="5" fill="oklch(0.92 0.01 260)" />
-  <!-- external branch -->
-  <line x1="500" y1="410" x2="560" y2="410" stroke="oklch(0.92 0.01 260)" stroke-width="3" stroke-linecap="round" />
-  <text x="600" y="416" text-anchor="middle" font-size="26" font-weight="700" fill="oklch(0.92 0.01 260)">O</text>
-  <!-- feedback branch, stroke: oklch(0.75 0.14 250) token color-starlight -->
-  <path d="M 500,410 L 500,215 L 270,215"
-        fill="none" stroke="oklch(0.75 0.14 250)" stroke-width="3"
-        stroke-linecap="round" stroke-linejoin="round" />
+    <!-- Gate 2 output: branches to external "O" and feeds back into Gate 1's bottom input -->
+    <line x1="406" y1="410" x2="500" y2="410" stroke="oklch(0.92 0.01 260)" stroke-width="3" stroke-linecap="round" />
+    <circle cx="500" cy="410" r="5" fill="oklch(0.92 0.01 260)" />
+    <!-- external branch -->
+    <line x1="500" y1="410" x2="560" y2="410" stroke="oklch(0.92 0.01 260)" stroke-width="3" stroke-linecap="round" />
+    <text x="600" y="416" text-anchor="middle" font-size="26" font-weight="700" fill="oklch(0.92 0.01 260)">O</text>
+    <!-- feedback branch, stroke: oklch(0.75 0.14 250) token color-starlight -->
+    <path d="M 500,410 L 500,215 L 270,215"
+          fill="none" stroke="oklch(0.75 0.14 250)" stroke-width="3"
+          stroke-linecap="round" stroke-linejoin="round" />
 
-  <!-- fill: oklch(0.6 0.02 260) token color-muted -->
-  <text x="48" y="552" font-size="14" letter-spacing="0.02em" fill="oklch(0.6 0.02 260)">
-    <tspan fill="oklch(0.75 0.14 250)">— </tspan>each gate's output feeds the other gate's second input
-  </text>
+    <!-- fill: oklch(0.6 0.02 260) token color-muted -->
+    <text x="48" y="552" font-size="14" letter-spacing="0.02em" fill="oklch(0.6 0.02 260)">
+      <tspan fill="oklch(0.75 0.14 250)">— </tspan>each gate's output feeds the other gate's second input
+    </text>
+  </g>
 </svg>

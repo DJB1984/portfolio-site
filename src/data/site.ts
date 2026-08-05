@@ -52,7 +52,8 @@ export type StoryTextImageSection = StorySectionBase & {
 
 export type StoryCompareImage = {
   image: ImageSlot;
-  caption: string;
+  /** Omit to show the image without a caption line beneath it. */
+  caption?: string;
 };
 
 export type StoryCompareSection = {
@@ -64,24 +65,40 @@ export type StoryCompareSection = {
   after: StoryCompareImage;
 };
 
+export type WaveformRow = {
+  /** Wire label, e.g. "A" or "4". */
+  label: string;
+  /** Literal high/low/undefined trace — exact characters preserved. */
+  wave: string;
+  kind: "input" | "output";
+};
+
 export type StoryOutputSection = StorySectionBase & {
   type: "output";
-  /** Literal program output — exact whitespace/line breaks preserved, rendered
-   *  in a monospace <pre>, never reflowed as prose. Deliberately NOT wired
-   *  through the CMS edit system: it's historical/forensic output, not
-   *  iterable copy, and contentEditable doesn't reliably preserve exact
-   *  whitespace anyway. */
-  output: string;
-  /** Optional circuit diagram shown alongside the output, for exactly one
-   *  of the two output sections — reuses the compare-image shape. */
+  /** One row per wire, exact characters preserved, rendered in a monospace
+   *  panel and colored by kind — never reflowed as prose. Deliberately NOT
+   *  wired through the CMS edit system: it's historical/forensic output,
+   *  not iterable copy, and contentEditable doesn't reliably preserve
+   *  exact whitespace anyway. */
+  output: WaveformRow[];
+  /** Optional circuit diagram shown above the output — reuses the
+   *  compare-image shape. Renders before `body`, since the prose refers
+   *  back to it ("the above image"). */
   diagram?: StoryCompareImage;
+};
+
+export type StoryCtaSection = StorySectionBase & {
+  type: "cta";
+  ctaLabel: string;
+  href: string;
 };
 
 export type StorySection =
   | StoryTextSection
   | StoryTextImageSection
   | StoryCompareSection
-  | StoryOutputSection;
+  | StoryOutputSection
+  | StoryCtaSection;
 
 export type Project = {
   slug: string;
@@ -304,10 +321,10 @@ export const site: SiteData = {
       sourceUrl: "https://github.com/davisbrookscollege/HW8",
       featured: true,
       cover: {
-        src: null,
-        alt: "Logic Gate Circuit Simulator hero — a circuit diagram or timing-trace visual representing the simulator's output.",
-        width: 1600,
-        height: 1000,
+        src: "/uploads/project-logic-gate-simulator-story-flipflop-diagram.svg",
+        alt: "Schematic of the flip-flop circuit — two cross-coupled NOR gates. Inputs R and S each feed one gate; each gate's output feeds the other gate's second input; outputs are O and wire 4.",
+        width: 960,
+        height: 600,
       },
       gallery: [],
       highlights: [
@@ -318,17 +335,18 @@ export const site: SiteData = {
       story: [
         {
           type: "text",
-          label: "What it had to do",
+          label: "The assignment",
           body: [
-            "The assignment: read a circuit netlist and a vector file of input changes over time, then simulate the circuit and produce a waveform. It required three classes — Wire, Gate, and Event — where each Event represents one wire settling on a value at a specific time, processed in order instead of recalculating the whole circuit every step.",
+            "During my Object-Oriented Design course in my freshman year of college, our final project was for me and my partner, Mark St. Michelle, to build an command line program in C++ that could simulate digital logic. No help from generative ai was allowed on this project. This was the culmination of two C++ classes and a digital logic design course we had taken.",
+            "The circuits for this project would be specified in two documents, one document outlining the logic gates, their delays, their input wires, how they were interconnected, and the output wires we would generate a wave form for. Gates were to have no more than two inputs but could be connected in any way, shape, or form, including where a gate's output feeds its own input (that was an especially hard problem to solve). The other document outlined when input wires would change value and whether those wires would be high (-), low (_), or undefined (X).",
           ],
         },
         {
           type: "output",
-          label: "First trace: MultiGate",
-          body: ['"-" is high, "_" is low, "x" is DEFAULTED — not yet settled.'],
-          output:
-            "A | ______------\n  |\nB | ---------___\n  |\nC | ____--------\n  |\nE | xxxxxxx-----",
+          label: "MultiGate, traced",
+          body: [
+            "The above image is a graphical example of a circuit we simulated. Each gate has its own delay we had to account for. Shown below is the waveform we generated for this circuit. Inputs are in white, outputs are in blue.",
+          ],
           diagram: {
             image: {
               src: "/uploads/project-logic-gate-simulator-story-multigate-diagram.svg",
@@ -336,40 +354,50 @@ export const site: SiteData = {
               width: 820,
               height: 340,
             },
-            caption: "MultiGate's gate wiring, per its netlist",
           },
+          output: [
+            { label: "A", kind: "input", wave: "______------" },
+            { label: "B", kind: "input", wave: "---------___" },
+            { label: "C", kind: "input", wave: "____--------" },
+            { label: "E", kind: "output", wave: "xxxxxxx-----" },
+          ],
         },
         {
           type: "text",
-          label: "A fourth wire state",
+          label: "The flip-flop challenge",
           body: [
-            "The flip-flop's two NOR gates are cross-coupled, which broke our first version — evaluating one gate needed the other's value, and vice versa, with no stable starting point. The fix: a defaulted parameter on evaluate() to test a hypothetical value without committing it, plus a new DEFAULTED wire state to mark it as not yet real.",
+            "The above waveform was quite simple compared to implementing a flip-flop. Flip-flops are cross-coupled, the output of both gates feed back into the input of the other gate. This posed a significant design challenge because cross coupling was combined with propagation delay. We had to rework our code multiple times but in the end we made it work.",
           ],
         },
         {
           type: "output",
           label: "The flip-flop, traced",
           body: [
-            "Watch O and wire 4 — both start DEFAULTED until the feedback loop resolves.",
+            "Because we were creating a waveform for a flip-flop, our output would have continued flipping back and forth between high and low for eternity so we had to added a maximum simulation length of 50 ns.",
           ],
-          output:
-            "R | -____-_____________________________________________\n  |\nS | --_-_______________________________________________\n  |\nO | xx_x--__--__--__--__--__--__--__--__--__--__--__--_\n  |\n4 | xx__-___--__--__--__--__--__--__--__--__--__--__--_",
           diagram: {
             image: {
               src: "/uploads/project-logic-gate-simulator-story-flipflop-diagram.svg",
               alt: "Schematic of the flip-flop circuit — two cross-coupled NOR gates. Inputs R and S each feed one gate; each gate's output feeds the other gate's second input; outputs are O and wire 4.",
-              width: 800,
+              width: 960,
               height: 600,
             },
-            caption: "The flip-flop's gate wiring, per its netlist",
           },
+          output: [
+            { label: "R", kind: "input", wave: "-____-_____________________________________________" },
+            { label: "S", kind: "input", wave: "--_-_______________________________________________" },
+            { label: "O", kind: "output", wave: "xx_x--__--__--__--__--__--__--__--__--__--__--__--_" },
+            { label: "4", kind: "output", wave: "xx__-___--__--__--__--__--__--__--__--__--__--__--_" },
+          ],
         },
         {
-          type: "text",
-          label: "After it worked",
+          type: "cta",
+          label: "How it wrapped",
           body: [
-            "We tested against every circuit file the course provided, diffing our output against known-correct solutions — most bugs were in event handling. The simulator has real limits: length is capped so a feedback loop can't run forever, and the file format is rigid.",
+            "After about 10 hours of work a piece, we finished our logic gate circuit simulator. We earned a 100% on the assignment. This was the first time either of us had really worked with Git and learning how to involve a teammate in a coding project has been an invaluable skill. It also taught us how to design classes in C++, abstract away logic with functions, and deal with pointers. For a more technical explanation of this project, view our source code on GitHub.",
           ],
+          ctaLabel: "View source ↗",
+          href: "https://github.com/davisbrookscollege/HW8",
         },
       ],
     },

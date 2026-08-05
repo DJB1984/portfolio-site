@@ -2,16 +2,19 @@ import type {
   ImageSlot,
   Project,
   StoryCompareSection,
+  StoryCtaSection,
   StoryOutputSection,
   StorySection,
   StoryTextImageSection,
   StoryTextSection,
+  WaveformRow,
 } from "@/data/site";
 import { Reveal } from "@/components/reveal";
 import { SectionLabel } from "@/components/ui/section-label";
 import { EditableText } from "@/components/edit/editable-text";
 import { EditableImage } from "@/components/edit/editable-image";
 import { ZoomableImage } from "@/components/ui/zoomable-image";
+import { ButtonLink } from "@/components/ui/button-link";
 
 /** CSS aspect-ratio string from an image's own dimensions, with a fallback. */
 function ratioOf(image: ImageSlot, fallback = "16 / 10"): string {
@@ -69,6 +72,10 @@ function StorySections({ story, base }: { story: StorySection[]; base: string })
           );
         }
 
+        if (section.type === "cta") {
+          return <CtaSection key={index} section={section} base={base} index={index} />;
+        }
+
         return (
           <CompareSection key={index} section={section} base={base} index={index} />
         );
@@ -116,6 +123,27 @@ function TextSection({
     <Reveal>
       <section className="max-w-2xl">
         <StoryBody body={section.body} base={base} index={index} />
+      </section>
+    </Reveal>
+  );
+}
+
+function CtaSection({
+  section,
+  base,
+  index,
+}: {
+  section: StoryCtaSection;
+  base: string;
+  index: number;
+}) {
+  return (
+    <Reveal>
+      <section className="max-w-2xl">
+        <StoryBody body={section.body} base={base} index={index} />
+        <ButtonLink href={section.href} variant="secondary" className="mt-8">
+          {section.ctaLabel}
+        </ButtonLink>
       </section>
     </Reveal>
   );
@@ -185,14 +213,16 @@ function CompareSection({
                   sizes="(min-width: 640px) 50vw, 100vw"
                 />
               </div>
-              <figcaption className="mt-3">
-                <EditableText
-                  path={`${base}.story.${index}.${side}.caption`}
-                  value={section[side].caption}
-                  as="span"
-                  className="font-mono text-xs text-muted"
-                />
-              </figcaption>
+              {section[side].caption && (
+                <figcaption className="mt-3">
+                  <EditableText
+                    path={`${base}.story.${index}.${side}.caption`}
+                    value={section[side].caption}
+                    as="span"
+                    className="font-mono text-xs text-muted"
+                  />
+                </figcaption>
+              )}
             </figure>
           ))}
         </div>
@@ -210,25 +240,24 @@ function OutputSection({
   base: string;
   index: number;
 }) {
+  const hasBody = section.body.length > 0;
+
   return (
     <Reveal>
       <section>
-        {section.body && (
-          <StoryBody body={section.body} base={base} index={index} className="max-w-2xl" />
-        )}
-        <div className={section.body ? "mt-8" : ""}>
-          {section.diagram && (
-            <figure className="mb-6">
-              <div
-                className="overflow-hidden rounded-lg border border-line bg-surface"
-                style={{ aspectRatio: ratioOf(section.diagram.image, "4 / 3") }}
-              >
-                <EditableImage
-                  path={`${base}.story.${index}.diagram.image`}
-                  image={section.diagram.image}
-                  sizes="100vw"
-                />
-              </div>
+        {section.diagram && (
+          <figure className="mb-8">
+            <div
+              className="overflow-hidden rounded-lg border border-line bg-surface"
+              style={{ aspectRatio: ratioOf(section.diagram.image, "4 / 3") }}
+            >
+              <EditableImage
+                path={`${base}.story.${index}.diagram.image`}
+                image={section.diagram.image}
+                sizes="100vw"
+              />
+            </div>
+            {section.diagram.caption && (
               <figcaption className="mt-3">
                 <EditableText
                   path={`${base}.story.${index}.diagram.caption`}
@@ -237,9 +266,19 @@ function OutputSection({
                   className="font-mono text-xs text-muted"
                 />
               </figcaption>
-            </figure>
-          )}
-          <OutputPanel label={section.label} text={section.output} />
+            )}
+          </figure>
+        )}
+        {hasBody && (
+          <StoryBody
+            body={section.body}
+            base={base}
+            index={index}
+            className="max-w-2xl"
+          />
+        )}
+        <div className={hasBody ? "mt-8" : ""}>
+          <OutputPanel label={section.label} rows={section.output} />
         </div>
       </section>
     </Reveal>
@@ -247,30 +286,44 @@ function OutputSection({
 }
 
 /**
- * Renders literal program output — exact whitespace preserved, never wired
- * through the edit system (see StoryOutputSection). Presented as a single
- * `role="img"` unit with a descriptive label, since a character-by-character
- * screen-reader read of ASCII waveform art isn't usable content.
+ * Renders literal program output — exact per-row traces preserved, never
+ * wired through the edit system (see StoryOutputSection). Presented as a
+ * single `role="img"` unit with a descriptive label, since a
+ * character-by-character screen-reader read of ASCII waveform art isn't
+ * usable content. Rows are colored by kind (input vs. output) rather than
+ * left as one flat block, so the trace reads the way the circuit behaves.
  */
-function OutputPanel({ label, text }: { label: string; text: string }) {
+function OutputPanel({ label, rows }: { label: string; rows: WaveformRow[] }) {
+  const inputs = rows.filter((row) => row.kind === "input").map((row) => row.label);
+  const outputs = rows.filter((row) => row.kind === "output").map((row) => row.label);
+
   return (
     <div
       role="img"
-      aria-label={`${label} — simulator output waveform`}
+      aria-label={`${label} — simulator output waveform. Inputs: ${inputs.join(", ")}. Outputs: ${outputs.join(", ")}.`}
       className="rounded-lg border border-line bg-surface p-6 sm:p-10"
     >
-      <pre
+      <div
         aria-hidden="true"
-        className="overflow-x-auto font-mono text-xs leading-6 tracking-normal text-ink sm:text-sm"
+        className="flex flex-col gap-3 overflow-x-auto font-mono text-xs leading-6 tracking-normal sm:text-sm"
       >
-        {text}
-      </pre>
+        {rows.map((row) => (
+          <div key={row.label} className="flex gap-3">
+            <span className="w-4 shrink-0 text-right text-muted">{row.label}</span>
+            <span className="text-line-strong">|</span>
+            <span className={row.kind === "output" ? "text-starlight" : "text-ink"}>
+              {row.wave}
+            </span>
+          </div>
+        ))}
+      </div>
       <p
         aria-hidden="true"
         className="mt-6 border-t border-line pt-4 font-mono text-xs text-muted"
       >
-        <span className="text-ink">-</span> high &nbsp;·&nbsp; <span className="text-ink">_</span> low
-        &nbsp;·&nbsp; <span className="text-ink">x</span> undefined (DEFAULTED)
+        <span className="text-ink">-</span> high &nbsp;·&nbsp;{" "}
+        <span className="text-ink">_</span> low &nbsp;·&nbsp;{" "}
+        <span className="text-ink">x</span> undefined
       </p>
     </div>
   );
