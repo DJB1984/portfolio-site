@@ -1,5 +1,5 @@
 import type {
-  ImageSlot,
+  ImageSlot as ImageSlotData,
   Project,
   StoryCompareSection,
   StoryCtaSection,
@@ -11,13 +11,13 @@ import type {
 } from "@/data/site";
 import { Reveal } from "@/components/reveal";
 import { SectionLabel } from "@/components/ui/section-label";
-import { EditableText } from "@/components/edit/editable-text";
-import { EditableImage } from "@/components/edit/editable-image";
+import { CopyText } from "@/components/copy-text";
+import { ImageSlot } from "@/components/image-slot";
 import { ZoomableImage } from "@/components/ui/zoomable-image";
 import { ButtonLink } from "@/components/ui/button-link";
 
 /** CSS aspect-ratio string from an image's own dimensions, with a fallback. */
-function ratioOf(image: ImageSlot, fallback = "16 / 10"): string {
+function ratioOf(image: ImageSlotData, fallback = "16 / 10"): string {
   return image.width && image.height ? `${image.width} / ${image.height}` : fallback;
 }
 
@@ -27,16 +27,14 @@ function ratioOf(image: ImageSlot, fallback = "16 / 10"): string {
  * the flat Overview/Highlights/Gallery treatment.
  */
 export function ProjectStory({ project }: { project: Project }) {
-  const base = `project.${project.slug}`;
-
   if (project.story && project.story.length > 0) {
-    return <StorySections story={project.story} base={base} />;
+    return <StorySections story={project.story} />;
   }
 
-  return <OverviewFallback project={project} base={base} />;
+  return <OverviewFallback project={project} />;
 }
 
-function StorySections({ story, base }: { story: StorySection[]; base: string }) {
+function StorySections({ story }: { story: StorySection[] }) {
   // Positions of the text-image sections among themselves, so the compare
   // section (which has no side of its own) doesn't break the alternation.
   const textImagePositions = story
@@ -47,9 +45,7 @@ function StorySections({ story, base }: { story: StorySection[]; base: string })
     <div className="mt-14 flex flex-col gap-16 sm:gap-20">
       {story.map((section, index) => {
         if (section.type === "text") {
-          return (
-            <TextSection key={index} section={section} base={base} index={index} />
-          );
+          return <TextSection key={index} section={section} />;
         }
 
         if (section.type === "text-image") {
@@ -59,88 +55,50 @@ function StorySections({ story, base }: { story: StorySection[]; base: string })
             <TextImageSection
               key={index}
               section={section}
-              base={base}
-              index={index}
               imageRight={(section.side ?? auto) === "right"}
             />
           );
         }
 
         if (section.type === "output") {
-          return (
-            <OutputSection key={index} section={section} base={base} index={index} />
-          );
+          return <OutputSection key={index} section={section} />;
         }
 
         if (section.type === "cta") {
-          return <CtaSection key={index} section={section} base={base} index={index} />;
+          return <CtaSection key={index} section={section} />;
         }
 
-        return (
-          <CompareSection key={index} section={section} base={base} index={index} />
-        );
+        return <CompareSection key={index} section={section} />;
       })}
     </div>
   );
 }
 
-function StoryBody({
-  body,
-  base,
-  index,
-  className = "",
-}: {
-  body: string[];
-  base: string;
-  index: number;
-  className?: string;
-}) {
+function StoryBody({ body, className = "" }: { body: string[]; className?: string }) {
   return (
     <div className={`flex flex-col gap-4 text-lg leading-relaxed text-ink ${className}`}>
       {body.map((paragraph, j) => (
-        <EditableText
-          key={j}
-          path={`${base}.story.${index}.body.${j}`}
-          value={paragraph}
-          as="p"
-          multiline
-        />
+        <CopyText key={j} value={paragraph} as="p" />
       ))}
     </div>
   );
 }
 
-function TextSection({
-  section,
-  base,
-  index,
-}: {
-  section: StoryTextSection;
-  base: string;
-  index: number;
-}) {
+function TextSection({ section }: { section: StoryTextSection }) {
   return (
     <Reveal>
       <section className="max-w-2xl">
-        <StoryBody body={section.body} base={base} index={index} />
+        <StoryBody body={section.body} />
       </section>
     </Reveal>
   );
 }
 
-function CtaSection({
-  section,
-  base,
-  index,
-}: {
-  section: StoryCtaSection;
-  base: string;
-  index: number;
-}) {
+function CtaSection({ section }: { section: StoryCtaSection }) {
   return (
     <Reveal>
       <section className="max-w-2xl">
-        <StoryBody body={section.body} base={base} index={index} />
+        <StoryBody body={section.body} />
         <ButtonLink href={section.href} variant="secondary" className="mt-8">
           {section.ctaLabel}
         </ButtonLink>
@@ -151,20 +109,16 @@ function CtaSection({
 
 function TextImageSection({
   section,
-  base,
-  index,
   imageRight,
 }: {
   section: StoryTextImageSection;
-  base: string;
-  index: number;
   imageRight: boolean;
 }) {
   return (
     <Reveal>
       <section className="grid grid-cols-1 items-center gap-8 md:grid-cols-2 md:gap-12 lg:gap-16">
         <div className={imageRight ? "md:order-1" : "md:order-2"}>
-          <StoryBody body={section.body} base={base} index={index} />
+          <StoryBody body={section.body} />
         </div>
         <div
           className={`overflow-hidden rounded-lg border border-line ${
@@ -172,32 +126,18 @@ function TextImageSection({
           }`}
           style={{ aspectRatio: ratioOf(section.image) }}
         >
-          <ZoomableImage
-            path={`${base}.story.${index}.image`}
-            image={section.image}
-            sizes="(min-width: 768px) 50vw, 100vw"
-          />
+          <ZoomableImage image={section.image} sizes="(min-width: 768px) 50vw, 100vw" />
         </div>
       </section>
     </Reveal>
   );
 }
 
-function CompareSection({
-  section,
-  base,
-  index,
-}: {
-  section: StoryCompareSection;
-  base: string;
-  index: number;
-}) {
+function CompareSection({ section }: { section: StoryCompareSection }) {
   return (
     <Reveal>
       <section className="rounded-lg border border-line bg-surface p-6 sm:p-10">
-        {section.body && (
-          <StoryBody body={section.body} base={base} index={index} className="max-w-2xl" />
-        )}
+        {section.body && <StoryBody body={section.body} className="max-w-2xl" />}
         <div
           className={`grid grid-cols-1 gap-6 sm:grid-cols-2 ${section.body ? "mt-8" : ""}`}
         >
@@ -207,16 +147,11 @@ function CompareSection({
                 className="overflow-hidden rounded-md border border-line"
                 style={{ aspectRatio: ratioOf(section[side].image, "4 / 3") }}
               >
-                <ZoomableImage
-                  path={`${base}.story.${index}.${side}.image`}
-                  image={section[side].image}
-                  sizes="(min-width: 640px) 50vw, 100vw"
-                />
+                <ZoomableImage image={section[side].image} sizes="(min-width: 640px) 50vw, 100vw" />
               </div>
               {section[side].caption && (
                 <figcaption className="mt-3">
-                  <EditableText
-                    path={`${base}.story.${index}.${side}.caption`}
+                  <CopyText
                     value={section[side].caption}
                     as="span"
                     className="font-mono text-xs text-muted"
@@ -231,15 +166,7 @@ function CompareSection({
   );
 }
 
-function OutputSection({
-  section,
-  base,
-  index,
-}: {
-  section: StoryOutputSection;
-  base: string;
-  index: number;
-}) {
+function OutputSection({ section }: { section: StoryOutputSection }) {
   const hasBody = section.body.length > 0;
 
   return (
@@ -251,16 +178,11 @@ function OutputSection({
               className="overflow-hidden rounded-lg border border-line bg-surface"
               style={{ aspectRatio: ratioOf(section.diagram.image, "4 / 3") }}
             >
-              <EditableImage
-                path={`${base}.story.${index}.diagram.image`}
-                image={section.diagram.image}
-                sizes="100vw"
-              />
+              <ImageSlot image={section.diagram.image} sizes="100vw" />
             </div>
             {section.diagram.caption && (
               <figcaption className="mt-3">
-                <EditableText
-                  path={`${base}.story.${index}.diagram.caption`}
+                <CopyText
                   value={section.diagram.caption}
                   as="span"
                   className="font-mono text-xs text-muted"
@@ -269,14 +191,7 @@ function OutputSection({
             )}
           </figure>
         )}
-        {hasBody && (
-          <StoryBody
-            body={section.body}
-            base={base}
-            index={index}
-            className="max-w-2xl"
-          />
-        )}
+        {hasBody && <StoryBody body={section.body} className="max-w-2xl" />}
         <div className={hasBody ? "mt-8" : ""}>
           <OutputPanel label={section.label} rows={section.output} />
         </div>
@@ -330,17 +245,15 @@ function OutputPanel({ label, rows }: { label: string; rows: WaveformRow[] }) {
 }
 
 /** The original flat Overview/Highlights/Gallery treatment, unchanged. */
-function OverviewFallback({ project, base }: { project: Project; base: string }) {
+function OverviewFallback({ project }: { project: Project }) {
   return (
     <>
       <div className="mt-14 grid grid-cols-1 gap-12 md:grid-cols-[1fr_260px]">
         <div>
           <SectionLabel>Overview</SectionLabel>
-          <EditableText
-            path={`${base}.description`}
+          <CopyText
             value={project.description}
             as="p"
-            multiline
             className="mt-4 text-lg leading-relaxed text-ink"
           />
         </div>
@@ -351,12 +264,7 @@ function OverviewFallback({ project, base }: { project: Project; base: string })
             {project.highlights.map((h, i) => (
               <li key={i} className="flex gap-3 text-sm leading-relaxed text-muted">
                 <span aria-hidden="true" className="mt-1.5 glow-dot shrink-0" />
-                <EditableText
-                  path={`${base}.highlights.${i}`}
-                  value={h}
-                  as="span"
-                  multiline
-                />
+                <CopyText value={h} as="span" />
               </li>
             ))}
           </ul>
@@ -374,7 +282,7 @@ function OverviewFallback({ project, base }: { project: Project; base: string })
             {project.gallery.map((image, i) => (
               <Reveal key={i} delay={(i % 2) * 90}>
                 <div className="aspect-[16/10] overflow-hidden rounded-lg border border-line">
-                  <EditableImage path={`${base}.gallery.${i}`} image={image} />
+                  <ImageSlot image={image} />
                 </div>
               </Reveal>
             ))}

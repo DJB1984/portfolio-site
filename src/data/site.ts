@@ -176,7 +176,7 @@ export const site: SiteData = {
       open: true,
       label: "Open to Summer 2027 internships",
       detail:
-        "Wrapped up an internship at Tektonux this summer — now back at Cedarville and looking ahead to a summer 2027 internship next. Always happy to talk shop or compare notes in the meantime.",
+        "Whether you've got a role in mind or just want to compare notes, I'd like to hear from you.",
     },
     email: "hello@brookslanding.com", // [placeholder] confirm preferred contact email
     links: [
@@ -196,7 +196,7 @@ export const site: SiteData = {
       slug: "regression-reader",
       title: "Regression Reader",
       summary:
-        "A regression-testing tool that improves efficiency and locks in your focus.",
+        "A regression testing tool that improves efficiency and removes distractions.",
       description:
         "Regression Reader started as a fix for my own problem. Interning at Tektonux — a government-contracting company — this past summer, I kept losing my place halfway through long regression passes: which case I was on, what I'd already checked, where my focus had drifted. So I built a tool that keeps a regression run organized and keeps my attention on one case at a time instead of a wall of output. I built it for myself, brought it to work, and a teammate has since started using it too — the hope is more of the team picks it up from here.",
       role: "Solo — design & full-stack",
@@ -223,15 +223,15 @@ export const site: SiteData = {
           type: "text",
           label: "The first regression pass",
           body: [
-            "Tektonux is a government-contracting company — the kind of place where the software has to be right before it ships. I was interning there this past summer, running regression tests, and my first real pass exposed a problem fast. The test plan lived in GitLab's markdown viewer: a long, unbroken wall of plain text with no state and no memory of where I'd been.",
-            "Two things went wrong from there. After a few hours my eyes would lose the line — the page would start to blur together and I'd burn extra focus just re-finding my spot, on top of the actual testing. And I was running two documents at once: the test plan in one window, my notes in another, trying to keep track of which comment belonged to which step.",
+            "During my summer 2026 internship at Tektonux, a user experienced focused software development company, one of my tasks was to run regression tests. During my first test I noticed how cumbersome and mentally taxing running these tests were. The issues with the test arose from two main problems.",
+            "The first was, after a few minutes of testing, the plain text test instruction document would begin to swim before my eyes. I would lose which line I was on and sometimes accidentally skip steps. The second problem was I had a separate document where I recorded notes and bugs. Most bugs were tied to a specific line in the test plan and reconnecting the two after the fact was tedious. To solve these problems I built a regression testing tool with Claude code.",
           ],
         },
         {
           type: "compare",
           label: "Before / after",
           body: [
-            "This is the same test plan, side by side. Same content, same steps — but only one of them you can actually stay locked into for eight hours straight.",
+            "Compare the two screenshots below, step 6 is easy to lose in the original, impossible to lose in my tool.",
           ],
           before: {
             image: {
@@ -257,8 +257,8 @@ export const site: SiteData = {
           label: "One line at a time",
           side: "right",
           body: [
-            "So I built Regression Reader to fix the first problem: never losing the line. Arrow Mode locks your attention to a single line at a time — blank lines skip automatically, the current line stays marked, and a running percentage tracks how far through the plan you are. Nothing else is competing for your eyes.",
-            "Eight hours into a regression pass, that's the difference between staying sharp and starting to guess.",
+            "To fix the first problem, where I struggled to keep track of which step I was on. The Regression Reader locks your attention to a single line at a time by highlighting it, the current line stays highlighted till you arrow down to the next one. Nothing else is competing for your attention.",
+            "Even five minutes into a regression test, that highlight bar is a life saver.",
           ],
           image: {
             src: "/uploads/project-regression-reader-story-1-hero-alt.png",
@@ -272,8 +272,8 @@ export const site: SiteData = {
           label: "Notes on the line",
           side: "left",
           body: [
-            "The second problem was the two-document juggle. So in Regression Reader, notes live inside the test plan itself instead of a separate file. Press a key on any line and a color-coded note bubble opens right there — orange for a general note, red for a bug, purple and green for whatever else you want to track.",
-            "The note is permanently tied to that exact line. There's no going back afterward trying to match a comment to the step it was about.",
+            "The second problem was juggling two documents at once. So in the Regression Reader, you write your notes inside the test plan itself instead of a separate file. Press a key on any line and a color-coded note bubble opens right there — orange for a general note, red for a bug, purple and green for whatever else you want to track.",
+            "The note is permanently tied to that exact line. A colored dot signifies a line with a note. This makes going over the bugs you discovered effortless.",
           ],
           image: {
             src: "/uploads/project-regression-reader-story-2-note-bubble-open.png",
@@ -287,7 +287,7 @@ export const site: SiteData = {
           label: "Summary mode",
           side: "right",
           body: [
-            "Once a pass is annotated, Summary Mode collapses the whole plan down to just the flagged lines, filterable by note color. It turns hours of scrolling into a short list of exactly what needs attention.",
+            "Once bugs have been logged and annotations have been added, Summary Mode collapses the whole plan down to just the lines with notes, filterable by note color. It turns hours of scrolling into a short list of exactly what needs attention. Use the space bar to expand context.",
             "Writing up results after a regression run takes a fraction of the time it used to.",
           ],
           image: {
@@ -301,7 +301,7 @@ export const site: SiteData = {
           type: "text",
           label: "Where it landed",
           body: [
-            "I built the first working version in one evening — about eight hours with Claude Code — then brought it to work the next day and ran my next regression pass on it. It held up.",
+            "I built the first working version in one evening — about two hours with Claude Code — then brought it to work the next day and ran my next regression pass on it. It held up.",
             "A teammate started using it not long after, and the plan going forward is for more of the team to pick it up and keep extending it. I went looking for a fix to my own problem and ended up with something my team at Tektonux is actually using.",
           ],
         },

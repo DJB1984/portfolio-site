@@ -1,29 +1,26 @@
 import type { Metadata } from "next";
 import { site } from "@/data/site";
-import { loadContent } from "@/content/manifest";
 import { AvailabilityBadge } from "@/components/availability-badge";
 import { ButtonLink } from "@/components/ui/button-link";
 import { Reveal } from "@/components/reveal";
 import { SectionLabel } from "@/components/ui/section-label";
 import { SkillList } from "@/components/skill-list";
 import { SocialLinks } from "@/components/social-links";
-import { EditableText } from "@/components/edit/editable-text";
+import { CopyText } from "@/components/copy-text";
 
 export const metadata: Metadata = {
   title: "About",
   description: `About ${site.profile.name} — ${site.profile.role}.`,
 };
 
-export default async function AboutPage() {
-  const content = await loadContent();
-  const { profile } = content.site;
+export default function AboutPage() {
+  const { profile } = site;
 
   return (
     <div className="mx-auto w-full max-w-5xl px-6 pb-10 pt-16 sm:px-8 sm:pt-24">
       <header className="max-w-2xl">
         <SectionLabel>About</SectionLabel>
-        <EditableText
-          path="profile.name"
+        <CopyText
           value={profile.name}
           as="h1"
           className="mt-4 text-4xl font-bold tracking-[-0.02em] text-ink sm:text-5xl"
@@ -38,13 +35,7 @@ export default async function AboutPage() {
         <Reveal>
           <div className="flex max-w-2xl flex-col gap-5 text-lg leading-relaxed text-ink">
             {profile.longBio.map((paragraph, i) => (
-              <EditableText
-                key={i}
-                path={`profile.longBio.${i}`}
-                value={paragraph}
-                as="p"
-                multiline
-              />
+              <CopyText key={i} value={paragraph} as="p" />
             ))}
           </div>
         </Reveal>

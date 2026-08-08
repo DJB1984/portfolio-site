@@ -1,16 +1,15 @@
 import Link from "next/link";
-import { loadContent } from "@/content/manifest";
+import { site } from "@/data/site";
 import { AvailabilityBadge } from "@/components/availability-badge";
 import { ButtonLink } from "@/components/ui/button-link";
 import { ProjectCard } from "@/components/project-card";
 import { Reveal } from "@/components/reveal";
 import { SectionLabel } from "@/components/ui/section-label";
 import { SkillList } from "@/components/skill-list";
-import { EditableText } from "@/components/edit/editable-text";
+import { CopyText } from "@/components/copy-text";
 
-export default async function HomePage() {
-  const content = await loadContent();
-  const { profile, projects } = content.site;
+export default function HomePage() {
+  const { profile, projects } = site;
   const featured = projects.filter((p) => p.featured);
   const live = projects.filter((p) => p.status === "live");
 
@@ -26,34 +25,14 @@ export default async function HomePage() {
           className="hero-rise mt-7 max-w-4xl text-5xl font-bold leading-[1.05] tracking-[-0.02em] text-ink sm:text-6xl md:text-7xl"
           style={{ ["--rise-delay" as string]: "80ms" }}
         >
-          <EditableText
-            path="home.hero.headline"
-            value={content.text("home.hero.headline", "I build real things,")}
-            as="span"
-          />{" "}
-          <EditableText
-            path="home.hero.accent"
-            value={content.text("home.hero.accent", "not alone.")}
-            as="span"
-            className="text-starlight"
-          />
+          <span>Solving problems with</span>{" "}
+          <span className="text-starlight">diligence and integrity</span>
         </h1>
 
-        <EditableText
-          path="home.hero.sub"
-          value={content.text(
-            "home.hero.sub",
-            "Davis Brooks — Computer Science sophomore at Cedarville University. I build real software, work on a professional engineering team this summer at Tektonux, and lead outside of class too. Two of my projects are live right now.",
-          )}
+        <CopyText
+          value="My name's Davis Brooks and I'm a sophomore studying computer science with an emphasis on cybersecurity and ai with a minor in the Bible. I'm passionate about solving problems with the end user  in mind, and building that that don't just work, but work well."
           as="p"
-          multiline
           className="hero-rise mt-6 max-w-2xl text-lg leading-relaxed text-muted"
-          linkify={{
-            text: "Tektonux",
-            href: "https://tektonux.com/",
-            className:
-              "text-ember underline decoration-ember/40 underline-offset-[3px] transition-colors hover:decoration-ember",
-          }}
         />
 
         <div
@@ -101,12 +80,9 @@ export default async function HomePage() {
           <div className="flex flex-wrap items-end justify-between gap-4">
             <div>
               <SectionLabel>Selected projects</SectionLabel>
-              <EditableText
-                path="home.projects.heading"
-                value={content.text("home.projects.heading", "Real problems, real code.")}
-                as="h2"
-                className="mt-4 text-3xl font-semibold tracking-tight text-ink sm:text-4xl"
-              />
+              <h2 className="mt-4 text-3xl font-semibold tracking-tight text-ink sm:text-4xl">
+                Real problems, real code.
+              </h2>
             </div>
             <Link href="/projects" className="font-mono text-sm text-starlight hover:text-ink">
               All projects ↗
@@ -127,12 +103,9 @@ export default async function HomePage() {
       <section className="mx-auto w-full max-w-6xl px-6 py-20 sm:px-8">
         <Reveal>
           <SectionLabel>Toolkit</SectionLabel>
-          <EditableText
-            path="home.toolkit.heading"
-            value={content.text("home.toolkit.heading", "What I build with.")}
-            as="h2"
-            className="mt-4 max-w-2xl text-3xl font-semibold tracking-tight text-ink sm:text-4xl"
-          />
+          <h2 className="mt-4 max-w-2xl text-3xl font-semibold tracking-tight text-ink sm:text-4xl">
+            What I build with.
+          </h2>
         </Reveal>
         <Reveal delay={80} className="mt-10">
           <SkillList />
@@ -144,20 +117,12 @@ export default async function HomePage() {
         <Reveal>
           <div className="overflow-hidden rounded-lg border border-line bg-surface p-10 sm:p-14">
             <SectionLabel>Next</SectionLabel>
-            <EditableText
-              path="home.contact.heading"
-              value={content.text(
-                "home.contact.heading",
-                "Looking for a summer 2027 intern who ships?",
-              )}
-              as="h2"
-              className="mt-4 max-w-2xl text-3xl font-semibold tracking-tight text-ink sm:text-4xl"
-            />
-            <EditableText
-              path="profile.availability.detail"
+            <h2 className="mt-4 max-w-2xl text-3xl font-semibold tracking-tight text-ink sm:text-4xl">
+              Looking for a summer 2027 intern?
+            </h2>
+            <CopyText
               value={profile.availability.detail}
               as="p"
-              multiline
               className="mt-4 max-w-xl text-muted"
             />
             <div className="mt-8 flex flex-wrap gap-4">

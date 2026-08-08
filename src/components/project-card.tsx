@@ -3,8 +3,8 @@
 import Link from "next/link";
 import type { Project } from "@/data/site";
 import { Tag } from "@/components/ui/tag";
-import { EditableText } from "@/components/edit/editable-text";
-import { EditableImage } from "@/components/edit/editable-image";
+import { CopyText } from "@/components/copy-text";
+import { ImageSlot } from "@/components/image-slot";
 
 const statusLabel: Record<Project["status"], string> = {
   live: "Live",
@@ -21,16 +21,10 @@ export function ProjectCard({
   project: Project;
   priority?: boolean;
 }) {
-  const base = `project.${project.slug}`;
-
   return (
     <article className="card-lift group relative flex flex-col overflow-hidden rounded-lg border border-line bg-surface">
       <div className="relative aspect-[16/10] overflow-hidden border-b border-line">
-        <EditableImage
-          path={`${base}.cover`}
-          image={project.cover}
-          priority={priority}
-        />
+        <ImageSlot image={project.cover} priority={priority} />
         <span className="pointer-events-none absolute left-3 top-3 inline-flex items-center gap-1.5 rounded-full border border-line bg-void/70 px-2.5 py-1 font-mono text-[0.7rem] text-muted backdrop-blur-sm">
           <span
             aria-hidden="true"
@@ -57,11 +51,9 @@ export function ProjectCard({
           </span>
         </div>
 
-        <EditableText
-          path={`${base}.summary`}
+        <CopyText
           value={project.summary}
           as="p"
-          multiline
           className="mt-2 flex-1 text-sm leading-relaxed text-muted"
         />
 

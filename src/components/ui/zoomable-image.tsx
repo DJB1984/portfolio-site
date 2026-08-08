@@ -4,17 +4,15 @@ import { useEffect, useState } from "react";
 import { createPortal } from "react-dom";
 import Image from "next/image";
 import type { ImageSlot as ImageSlotData } from "@/data/site";
-import { EditableImage } from "@/components/edit/editable-image";
+import { ImageSlot } from "@/components/image-slot";
 
 type ZoomableImageProps = {
-  /** Image-slot path, e.g. "project.regression-reader.story.2.image". */
-  path: string;
   image: ImageSlotData;
   sizes?: string;
 };
 
 /** An image with a click-to-enlarge lightbox. */
-export function ZoomableImage({ path, image, sizes }: ZoomableImageProps) {
+export function ZoomableImage({ image, sizes }: ZoomableImageProps) {
   const [open, setOpen] = useState(false);
 
   useEffect(() => {
@@ -27,7 +25,7 @@ export function ZoomableImage({ path, image, sizes }: ZoomableImageProps) {
   }, [open]);
 
   if (!image.src) {
-    return <EditableImage path={path} image={image} sizes={sizes} />;
+    return <ImageSlot image={image} sizes={sizes} />;
   }
 
   return (
@@ -38,7 +36,7 @@ export function ZoomableImage({ path, image, sizes }: ZoomableImageProps) {
         className="group relative block h-full w-full cursor-zoom-in"
         aria-label={`Enlarge image: ${image.alt}`}
       >
-        <EditableImage path={path} image={image} sizes={sizes} />
+        <ImageSlot image={image} sizes={sizes} />
         <span
           aria-hidden="true"
           className="pointer-events-none absolute right-2 top-2 flex h-8 w-8 items-center justify-center rounded-full border border-line bg-void/70 text-ink backdrop-blur-sm transition-transform duration-200 group-hover:scale-110"

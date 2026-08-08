@@ -271,37 +271,6 @@ p {
   }
 }
 
-/* ---------- Edit mode affordances (only present in edit mode) ---------- */
-.editable-text {
-  cursor: text;
-  border-radius: var(--radius-sm);
-  outline: 1px dashed var(--color-line-strong);
-  outline-offset: 4px;
-  overflow-wrap: break-word;
-  transition:
-    outline-color 0.18s ease,
-    background-color 0.18s ease;
-}
-.editable-text:hover {
-  outline-color: var(--color-starlight);
-  background-color: color-mix(in oklch, var(--color-starlight) 8%, transparent);
-}
-.editable-text:focus,
-.editable-text:focus-visible {
-  outline: 2px solid var(--color-starlight);
-  outline-offset: 4px;
-  background-color: color-mix(in oklch, var(--color-starlight) 12%, transparent);
-}
-.editable-text[data-status="saving"] {
-  outline-color: var(--color-ember);
-}
-.editable-text[data-status="saved"] {
-  outline-color: var(--color-signal);
-}
-.editable-text[data-status="error"] {
-  outline-color: var(--color-nebula);
-}
-
 /* Reduced motion: nothing moves, everything is visible */
 @media (prefers-reduced-motion: reduce) {
   :root {

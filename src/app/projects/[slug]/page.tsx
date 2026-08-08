@@ -1,14 +1,13 @@
 import type { Metadata } from "next";
 import Link from "next/link";
 import { notFound } from "next/navigation";
-import { getProject, projectSlugs, type Project } from "@/data/site";
-import { loadContent } from "@/content/manifest";
+import { getProject, projectSlugs, site, type Project } from "@/data/site";
 import { ButtonLink } from "@/components/ui/button-link";
 import { Reveal } from "@/components/reveal";
 import { SectionLabel } from "@/components/ui/section-label";
 import { Tag } from "@/components/ui/tag";
-import { EditableText } from "@/components/edit/editable-text";
-import { EditableImage } from "@/components/edit/editable-image";
+import { CopyText } from "@/components/copy-text";
+import { ImageSlot } from "@/components/image-slot";
 import { ProjectStory } from "@/components/project-story";
 
 /** Prerender every project page at build time. */
@@ -34,14 +33,10 @@ const statusLabel: Record<Project["status"], string> = {
 
 export default async function ProjectPage({ params }: PageProps<"/projects/[slug]">) {
   const { slug } = await params;
-  const content = await loadContent();
-  const project = content.site.projects.find((p) => p.slug === slug);
+  const project = getProject(slug);
   if (!project) notFound();
 
-  const base = `project.${project.slug}`;
-  const others = content.site.projects
-    .filter((p) => p.slug !== project.slug)
-    .slice(0, 2);
+  const others = site.projects.filter((p) => p.slug !== project.slug).slice(0, 2);
 
   return (
     <article className="mx-auto w-full max-w-5xl px-6 pb-10 pt-16 sm:px-8 sm:pt-24">
@@ -67,17 +62,14 @@ export default async function ProjectPage({ params }: PageProps<"/projects/[slug
           </span>
         </div>
 
-        <EditableText
-          path={`${base}.title`}
+        <CopyText
           value={project.title}
           as="h1"
           className="mt-5 text-4xl font-bold tracking-[-0.02em] text-ink sm:text-5xl"
         />
-        <EditableText
-          path={`${base}.summary`}
+        <CopyText
           value={project.summary}
           as="p"
-          multiline
           className="mt-4 max-w-2xl text-lg leading-relaxed text-muted"
         />
 
@@ -108,8 +100,7 @@ export default async function ProjectPage({ params }: PageProps<"/projects/[slug
       {/* Cover */}
       <Reveal className="mt-14">
         <div className="aspect-[16/10] overflow-hidden rounded-lg border border-line">
-          <EditableImage
-            path={`${base}.cover`}
+          <ImageSlot
             image={project.cover}
             priority
             sizes="(min-width: 1024px) 1024px, 100vw"
