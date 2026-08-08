@@ -9,7 +9,7 @@ import { SkillList } from "@/components/skill-list";
 import { CopyText } from "@/components/copy-text";
 
 export default function HomePage() {
-  const { profile, projects } = site;
+  const { profile, experience, projects } = site;
   const featured = projects.filter((p) => p.featured);
   const live = projects.filter((p) => p.status === "live");
 
@@ -30,7 +30,7 @@ export default function HomePage() {
         </h1>
 
         <CopyText
-          value="My name's Davis Brooks and I'm a sophomore studying computer science with an emphasis on cybersecurity and ai with a minor in the Bible. I'm passionate about solving problems with the end user  in mind, and building that that don't just work, but work well."
+          value="I'm Davis Brooks, a sophomore studying computer science with a dual focus in cybersecurity and AI with a minor in the Bible. I'm passionate about solving problems with the end user in mind and building products with attention to detail."
           as="p"
           className="hero-rise mt-6 max-w-2xl text-lg leading-relaxed text-muted"
         />
@@ -46,32 +46,39 @@ export default function HomePage() {
             Get in touch
           </ButtonLink>
         </div>
+      </section>
 
-        {/* Currently-shipping strip */}
-        <div
-          className="hero-rise mt-14 flex flex-col gap-3 border-t border-line pt-6"
-          style={{ ["--rise-delay" as string]: "320ms" }}
-        >
+      {/* ---------- Professional experience ---------- */}
+      <section className="mx-auto w-full max-w-6xl px-6 py-20 sm:px-8">
+        <Reveal>
+          <SectionLabel>Professional experience</SectionLabel>
+          <h2 className="mt-4 max-w-2xl text-3xl font-semibold tracking-tight text-ink sm:text-4xl">
+            My first professional engineering team.
+          </h2>
+        </Reveal>
+        <Reveal delay={80} className="mt-8 max-w-2xl">
           <p className="font-mono text-xs uppercase tracking-[0.16em] text-muted">
-            Currently live
+            {experience.role} · {experience.company} · {experience.period}
           </p>
-          <ul className="flex flex-wrap gap-x-8 gap-y-2">
-            {live.map((project) => (
-              <li key={project.slug}>
-                <Link
-                  href={`/projects/${project.slug}`}
-                  className="group inline-flex items-center gap-2 text-ink transition-colors hover:text-starlight"
-                >
-                  <span aria-hidden="true" className="glow-dot" />
-                  <span className="font-medium">{project.title}</span>
-                  <span className="font-mono text-xs text-muted transition-colors group-hover:text-starlight">
-                    ↗
-                  </span>
-                </Link>
-              </li>
-            ))}
-          </ul>
-        </div>
+          {experience.body.map((paragraph, i) => (
+            <CopyText
+              key={i}
+              value={paragraph}
+              as="p"
+              className="mt-4 text-lg leading-relaxed text-muted"
+              linkify={
+                paragraph.includes(experience.company)
+                  ? {
+                      text: experience.company,
+                      href: experience.companyUrl,
+                      className:
+                        "text-starlight underline underline-offset-4 decoration-starlight/40 transition-colors hover:text-ink hover:decoration-ink/40",
+                    }
+                  : undefined
+              }
+            />
+          ))}
+        </Reveal>
       </section>
 
       {/* ---------- Selected projects ---------- */}
@@ -109,6 +116,34 @@ export default function HomePage() {
         </Reveal>
         <Reveal delay={80} className="mt-10">
           <SkillList />
+        </Reveal>
+      </section>
+
+      {/* ---------- Currently live ---------- */}
+      <section className="mx-auto w-full max-w-6xl px-6 py-20 sm:px-8">
+        <Reveal>
+          <SectionLabel>Currently live</SectionLabel>
+          <h2 className="mt-4 max-w-2xl text-3xl font-semibold tracking-tight text-ink sm:text-4xl">
+            Shipped, and still running.
+          </h2>
+        </Reveal>
+        <Reveal delay={80} className="mt-8">
+          <ul className="flex flex-wrap gap-x-8 gap-y-3">
+            {live.map((project) => (
+              <li key={project.slug}>
+                <Link
+                  href={`/projects/${project.slug}`}
+                  className="group inline-flex items-center gap-2 text-ink transition-colors hover:text-starlight"
+                >
+                  <span aria-hidden="true" className="glow-dot" />
+                  <span className="font-medium">{project.title}</span>
+                  <span className="font-mono text-xs text-muted transition-colors group-hover:text-starlight">
+                    ↗
+                  </span>
+                </Link>
+              </li>
+            ))}
+          </ul>
         </Reveal>
       </section>
 

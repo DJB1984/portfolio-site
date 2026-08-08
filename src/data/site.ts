@@ -154,8 +154,18 @@ export type Profile = {
   resumeUrl: string | null;
 };
 
+export type Experience = {
+  role: string;
+  company: string;
+  companyUrl: string;
+  period: string;
+  /** One string per paragraph — mirrors the profile.longBio convention. */
+  body: string[];
+};
+
 export type SiteData = {
   profile: Profile;
+  experience: Experience;
   projects: Project[];
   skills: SkillGroup[];
 };
@@ -189,6 +199,16 @@ export const site: SiteData = {
       { label: "Website", href: "https://brookslanding.com", handle: "brookslanding.com" },
     ],
     resumeUrl: null, // drop /public/davis-brooks-resume.pdf and set to "/davis-brooks-resume.pdf"
+  },
+
+  experience: {
+    role: "Intern",
+    company: "Tektonux",
+    companyUrl: "https://tektonux.com",
+    period: "Summer 2026",
+    body: [
+      "In the summer of 2026, I interned at Tektonux, a user experience-focused software development company that builds products for the military. While there, I fixed bugs, implemented design changes, wrote UI unit tests, tested merge requests, and ran regression tests. As an intern, I sought to gain technical and professional knowledge while building relationships.",
+    ],
   },
 
   projects: [
