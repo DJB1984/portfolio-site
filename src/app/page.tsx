@@ -3,7 +3,6 @@ import { getProject, site, type Project } from "@/data/site";
 import { AvailabilityBadge } from "@/components/availability-badge";
 import { ButtonLink } from "@/components/ui/button-link";
 import { ProjectCard } from "@/components/project-card";
-import { ProjectList } from "@/components/project-list";
 import { Reveal } from "@/components/reveal";
 import { SectionLabel } from "@/components/ui/section-label";
 import { SkillList } from "@/components/skill-list";
@@ -58,15 +57,11 @@ export default function HomePage() {
       {/* ---------- Professional experience ---------- */}
       <section className="mx-auto w-full max-w-6xl px-6 py-20 sm:px-8">
         <Reveal>
-          <SectionLabel>Professional experience</SectionLabel>
-          <h2 className="mt-4 max-w-2xl text-3xl font-semibold tracking-tight text-ink sm:text-4xl">
-            My first professional engineering team.
+          <h2 className="max-w-2xl text-3xl font-semibold tracking-tight text-ink sm:text-4xl">
+            Proffesional Experience
           </h2>
         </Reveal>
         <Reveal delay={80} className="mt-8 max-w-2xl">
-          <p className="font-mono text-xs uppercase tracking-[0.16em] text-muted">
-            {experience.role} · {experience.company} · {experience.period}
-          </p>
           {experience.body.map((paragraph, i) => (
             <CopyText
               key={i}
@@ -79,7 +74,7 @@ export default function HomePage() {
                       text: experience.company,
                       href: experience.companyUrl,
                       className:
-                        "text-starlight underline underline-offset-4 decoration-starlight/40 transition-colors hover:text-ink hover:decoration-ink/40",
+                        "text-ember underline underline-offset-4 decoration-ember/40 transition-colors hover:text-ink hover:decoration-ink/40",
                     }
                   : undefined
               }
@@ -88,9 +83,13 @@ export default function HomePage() {
         </Reveal>
 
         <Reveal delay={160} className="mt-14 border-t border-line pt-10">
-          <SectionLabel>Built along the way</SectionLabel>
-          <div className="mt-6">
-            <ProjectList projects={internshipProjects} />
+          <SectionLabel>INTERNSHIP PROJECT SHOWCASE</SectionLabel>
+          <div className="mt-6 grid grid-cols-1 gap-6 md:grid-cols-2">
+            {internshipProjects.map((project, i) => (
+              <Reveal key={project.slug} delay={i * 90}>
+                <ProjectCard project={project} />
+              </Reveal>
+            ))}
           </div>
         </Reveal>
       </section>
