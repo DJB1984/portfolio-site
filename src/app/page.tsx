@@ -58,7 +58,7 @@ export default function HomePage() {
       <section className="mx-auto w-full max-w-6xl px-6 py-20 sm:px-8">
         <Reveal>
           <h2 className="max-w-2xl text-3xl font-semibold tracking-tight text-ink sm:text-4xl">
-            Proffesional Experience
+            Professional Experience
           </h2>
         </Reveal>
         <Reveal delay={80} className="mt-8 max-w-2xl">
