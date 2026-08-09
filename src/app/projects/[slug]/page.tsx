@@ -8,6 +8,7 @@ import { SectionLabel } from "@/components/ui/section-label";
 import { Tag } from "@/components/ui/tag";
 import { CopyText } from "@/components/copy-text";
 import { ImageSlot } from "@/components/image-slot";
+import { ProjectList } from "@/components/project-list";
 import { ProjectStory } from "@/components/project-story";
 
 /** Prerender every project page at build time. */
@@ -115,23 +116,9 @@ export default async function ProjectPage({ params }: PageProps<"/projects/[slug
       {others.length > 0 && (
         <section className="mt-20 border-t border-line pt-12">
           <SectionLabel>More projects</SectionLabel>
-          <ul className="mt-6 flex flex-col divide-y divide-line">
-            {others.map((p) => (
-              <li key={p.slug}>
-                <Link
-                  href={`/projects/${p.slug}`}
-                  className="group flex items-baseline justify-between gap-4 py-5"
-                >
-                  <span className="text-xl font-semibold text-ink transition-colors group-hover:text-starlight">
-                    {p.title}
-                  </span>
-                  <span className="hidden font-mono text-sm text-muted sm:block">
-                    {p.summary}
-                  </span>
-                </Link>
-              </li>
-            ))}
-          </ul>
+          <div className="mt-6">
+            <ProjectList projects={others} />
+          </div>
         </section>
       )}
     </article>

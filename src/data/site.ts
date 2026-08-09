@@ -4,11 +4,12 @@
  * Every page renders from this object. To update the site's content, edit here
  * only; no copy lives in components.
  *
- * STATUS (2026): profile identity, bios, and all three projects (two live
- * apps, one team coursework build) are real, written copy — no placeholders
- * remain. All image slots are intentionally empty (`src: null`); each carries
- * `alt` text describing the image that belongs there so the layout is
- * self-documenting.
+ * STATUS (2026): profile identity, bios, and the Regression Reader, Logic
+ * Gate Simulator, and Study Deck projects are real, written copy. Storybook
+ * is a placeholder entry (summary/description/tags/highlights all TBD) for
+ * a Tektonux project awaiting its real content. All image slots are
+ * intentionally empty (`src: null`); each carries `alt` text describing the
+ * image that belongs there so the layout is self-documenting.
  */
 
 export type SocialLink = {
@@ -227,10 +228,10 @@ export const site: SiteData = {
       sourceUrl: "https://github.com/DJB1984/regression-reader",
       featured: true,
       cover: {
-        src: null,
+        src: "/uploads/project-regression-reader-cover-43411b24.png",
         alt: "Regression Reader hero — the app's main reading/testing view.",
-        width: 1600,
-        height: 1000,
+        width: 3840,
+        height: 2400,
       },
       gallery: [],
       highlights: [
@@ -326,6 +327,25 @@ export const site: SiteData = {
           ],
         },
       ],
+    },
+    {
+      slug: "storybook",
+      title: "Storybook",
+      summary: "Details coming soon.",
+      description: "Details coming soon.",
+      role: "Tektonux",
+      year: "2026",
+      status: "in-progress",
+      tags: [],
+      featured: false,
+      cover: {
+        src: null,
+        alt: "Storybook — cover image placeholder, to be added.",
+        width: 1600,
+        height: 1000,
+      },
+      gallery: [],
+      highlights: [],
     },
     {
       slug: "logic-gate-simulator",

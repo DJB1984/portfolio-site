@@ -1,17 +1,24 @@
 import Link from "next/link";
-import { site } from "@/data/site";
+import { getProject, site, type Project } from "@/data/site";
 import { AvailabilityBadge } from "@/components/availability-badge";
 import { ButtonLink } from "@/components/ui/button-link";
 import { ProjectCard } from "@/components/project-card";
+import { ProjectList } from "@/components/project-list";
 import { Reveal } from "@/components/reveal";
 import { SectionLabel } from "@/components/ui/section-label";
 import { SkillList } from "@/components/skill-list";
 import { CopyText } from "@/components/copy-text";
 
+/** Order matters — Regression Reader leads, Storybook (data pending) follows. */
+const internshipProjectSlugs = ["regression-reader", "storybook"];
+
 export default function HomePage() {
   const { profile, experience, projects } = site;
   const featured = projects.filter((p) => p.featured);
   const live = projects.filter((p) => p.status === "live");
+  const internshipProjects = internshipProjectSlugs
+    .map((slug) => getProject(slug))
+    .filter((p): p is Project => Boolean(p));
 
   return (
     <>
@@ -78,6 +85,13 @@ export default function HomePage() {
               }
             />
           ))}
+        </Reveal>
+
+        <Reveal delay={160} className="mt-14 border-t border-line pt-10">
+          <SectionLabel>Built along the way</SectionLabel>
+          <div className="mt-6">
+            <ProjectList projects={internshipProjects} />
+          </div>
         </Reveal>
       </section>
 
