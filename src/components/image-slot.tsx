@@ -2,6 +2,16 @@ import Image from "next/image";
 import type { ImageSlot as ImageSlotData } from "@/data/site";
 
 /**
+ * CSS aspect-ratio string from an image's own dimensions, with a fallback.
+ * Sizing a container to this means `object-cover` has nothing to crop — the
+ * image lands whole. Slots without dimensions fall back to the site's
+ * default landscape frame.
+ */
+export function aspectRatioOf(image: ImageSlotData, fallback = "16 / 10"): string {
+  return image.width && image.height ? `${image.width} / ${image.height}` : fallback;
+}
+
+/**
  * Renders a project image, or — while `src` is null — a self-documenting
  * placeholder panel that shows the alt text describing what belongs there.
  */

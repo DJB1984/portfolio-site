@@ -6,10 +6,11 @@
  *
  * STATUS (2026): profile identity, bios, and the Regression Reader, Logic
  * Gate Simulator, and Study Deck projects are real, written copy. Storybook
- * is a placeholder entry (summary/description/tags/highlights all TBD) for
- * a Tektonux project awaiting its real content. All image slots are
- * intentionally empty (`src: null`); each carries `alt` text describing the
- * image that belongs there so the layout is self-documenting.
+ * has its real screenshots in place, but its copy is still a placeholder
+ * (summary/description/tags/highlights all TBD) for a Tektonux project
+ * awaiting its real content. Any image slot still left empty (`src: null`)
+ * carries `alt` text describing the image that belongs there, so the layout
+ * is self-documenting until the asset arrives.
  */
 
 export type SocialLink = {
@@ -339,12 +340,43 @@ export const site: SiteData = {
       tags: [],
       featured: false,
       cover: {
-        src: null,
-        alt: "Storybook — cover image placeholder, to be added.",
-        width: 1600,
-        height: 1000,
+        src: "/uploads/project-storybook-cover-login.png",
+        alt: "The Cyber Dashboard login story in Storybook — a shield-and-lock logo over username and password fields with a Login button.",
+        width: 1547,
+        height: 1014,
       },
-      gallery: [],
+      gallery: [
+        {
+          src: "/uploads/project-storybook-gallery-1-spot-c-report.png",
+          alt: "The \"Create a New SPOT-C Report\" story — a dark form with EOC Name, Control Number, Task Force, Equipment Type, DTG Occurred, Location, Tactical Significance, agent and CRS details, and a Save as Excel button.",
+          width: 1531,
+          height: 1526,
+        },
+        {
+          src: "/uploads/project-storybook-gallery-2-node-report.png",
+          alt: "The \"Create a Node Report\" story — Basic and Detailed Report tabs, a time-frame picker, and Critical, Warning, and Informational alert groups with select-all controls, a Notes field, and an Export button.",
+          width: 1542,
+          height: 1325,
+        },
+        {
+          src: "/uploads/project-storybook-gallery-3-alert-list.png",
+          alt: "The node alert-list story — a node row with critical, warning, and informational alert counts above the alert list content area.",
+          width: 1546,
+          height: 818,
+        },
+        {
+          src: "/uploads/project-storybook-gallery-4-login-interactions.png",
+          alt: "Storybook's Interactions panel for login.stories.tsx, showing a passing run of fifteen assertions and user events.",
+          width: 2097,
+          height: 1037,
+        },
+        {
+          src: "/uploads/project-storybook-gallery-5-report-panel-interactions.png",
+          alt: "Storybook's Interactions panel for reportPanel.stories.tsx, showing a passing run of thirty-four assertions and user events.",
+          width: 2097,
+          height: 1371,
+        },
+      ],
       highlights: [],
     },
     {

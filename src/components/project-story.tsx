@@ -1,5 +1,4 @@
 import type {
-  ImageSlot as ImageSlotData,
   Project,
   StoryCompareSection,
   StoryCtaSection,
@@ -12,14 +11,9 @@ import type {
 import { Reveal } from "@/components/reveal";
 import { SectionLabel } from "@/components/ui/section-label";
 import { CopyText } from "@/components/copy-text";
-import { ImageSlot } from "@/components/image-slot";
+import { ImageSlot, aspectRatioOf as ratioOf } from "@/components/image-slot";
 import { ZoomableImage } from "@/components/ui/zoomable-image";
 import { ButtonLink } from "@/components/ui/button-link";
-
-/** CSS aspect-ratio string from an image's own dimensions, with a fallback. */
-function ratioOf(image: ImageSlotData, fallback = "16 / 10"): string {
-  return image.width && image.height ? `${image.width} / ${image.height}` : fallback;
-}
 
 /**
  * Renders a project's detail-page body. If `project.story` is present, it
@@ -244,12 +238,18 @@ function OutputPanel({ label, rows }: { label: string; rows: WaveformRow[] }) {
   );
 }
 
-/** The original flat Overview/Highlights/Gallery treatment, unchanged. */
+/** The flat Overview/Highlights/Gallery treatment used when a project has no story. */
 function OverviewFallback({ project }: { project: Project }) {
+  const hasHighlights = project.highlights.length > 0;
+
   return (
     <>
-      <div className="mt-14 grid grid-cols-1 gap-12 md:grid-cols-[1fr_260px]">
-        <div>
+      <div
+        className={`mt-14 grid grid-cols-1 gap-12 ${
+          hasHighlights ? "md:grid-cols-[1fr_260px]" : ""
+        }`}
+      >
+        <div className={hasHighlights ? "" : "max-w-2xl"}>
           <SectionLabel>Overview</SectionLabel>
           <CopyText
             value={project.description}
@@ -258,31 +258,39 @@ function OverviewFallback({ project }: { project: Project }) {
           />
         </div>
 
-        <aside>
-          <SectionLabel>Highlights</SectionLabel>
-          <ul className="mt-4 flex flex-col gap-3">
-            {project.highlights.map((h, i) => (
-              <li key={i} className="flex gap-3 text-sm leading-relaxed text-muted">
-                <span aria-hidden="true" className="mt-1.5 glow-dot shrink-0" />
-                <CopyText value={h} as="span" />
-              </li>
-            ))}
-          </ul>
-        </aside>
+        {hasHighlights && (
+          <aside>
+            <SectionLabel>Highlights</SectionLabel>
+            <ul className="mt-4 flex flex-col gap-3">
+              {project.highlights.map((h, i) => (
+                <li key={i} className="flex gap-3 text-sm leading-relaxed text-muted">
+                  <span aria-hidden="true" className="mt-1.5 glow-dot shrink-0" />
+                  <CopyText value={h} as="span" />
+                </li>
+              ))}
+            </ul>
+          </aside>
+        )}
       </div>
 
       {project.gallery.length > 0 && (
         <section className="mt-16">
           <SectionLabel>Gallery</SectionLabel>
-          <div
-            className={`mt-6 grid grid-cols-1 gap-6 ${
-              project.gallery.length > 1 ? "sm:grid-cols-2" : ""
-            }`}
-          >
+          {/* One per row at full column width, each framed to its own native
+              ratio. These are dense product screenshots: a 2-up grid halves
+              them into illegibility, and a fixed frame would crop away the
+              very UI they exist to show. */}
+          <div className="mt-6 flex flex-col gap-10 sm:gap-14">
             {project.gallery.map((image, i) => (
-              <Reveal key={i} delay={(i % 2) * 90}>
-                <div className="aspect-[16/10] overflow-hidden rounded-lg border border-line">
-                  <ImageSlot image={image} />
+              <Reveal key={i}>
+                <div
+                  className="overflow-hidden rounded-lg border border-line"
+                  style={{ aspectRatio: ratioOf(image) }}
+                >
+                  <ZoomableImage
+                    image={image}
+                    sizes="(min-width: 1024px) 1024px, 100vw"
+                  />
                 </div>
               </Reveal>
             ))}

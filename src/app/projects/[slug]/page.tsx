@@ -7,7 +7,7 @@ import { Reveal } from "@/components/reveal";
 import { SectionLabel } from "@/components/ui/section-label";
 import { Tag } from "@/components/ui/tag";
 import { CopyText } from "@/components/copy-text";
-import { ImageSlot } from "@/components/image-slot";
+import { ImageSlot, aspectRatioOf } from "@/components/image-slot";
 import { ProjectList } from "@/components/project-list";
 import { ProjectStory } from "@/components/project-story";
 
@@ -98,9 +98,13 @@ export default async function ProjectPage({ params }: PageProps<"/projects/[slug
         )}
       </header>
 
-      {/* Cover */}
+      {/* Cover — framed to the image's own ratio so nothing is cropped away.
+          Slots without dimensions keep the 16:10 default. */}
       <Reveal className="mt-14">
-        <div className="aspect-[16/10] overflow-hidden rounded-lg border border-line">
+        <div
+          className="overflow-hidden rounded-lg border border-line"
+          style={{ aspectRatio: aspectRatioOf(project.cover) }}
+        >
           <ImageSlot
             image={project.cover}
             priority
