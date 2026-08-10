@@ -1,0 +1,13 @@
+<svg width="32" height="32" viewBox="0 0 32 32" xmlns="http://www.w3.org/2000/svg" role="img" aria-label="Davis Brooks">
+  <!-- sRGB of DESIGN.md oklch tokens: starlight #63b3ff / starlight-core #3578b8 / starlight-deep #1b589e -->
+  <style>
+    :root { --bright: #3578b8; --dim: #1b589e; }
+    @media (prefers-color-scheme: dark) { :root { --bright: #63b3ff; --dim: #3578b8; } }
+  </style>
+  <mask id="fix-cut">
+    <rect width="32" height="32" fill="#fff" />
+    <circle cx="23" cy="9.5" r="7.7" fill="#000" />
+  </mask>
+  <circle cx="15.5" cy="17" r="10.5" fill="none" stroke="var(--dim)" stroke-width="2.2" mask="url(#fix-cut)" />
+  <path d="M23 2.7 C23 7.19 25.31 9.5 29.8 9.5 C25.31 9.5 23 11.81 23 16.3 C23 11.81 20.69 9.5 16.2 9.5 C20.69 9.5 23 7.19 23 2.7 Z" fill="var(--bright)" />
+</svg>

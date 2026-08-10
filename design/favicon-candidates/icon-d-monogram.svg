@@ -1,0 +1,13 @@
+<svg width="32" height="32" viewBox="0 0 32 32" xmlns="http://www.w3.org/2000/svg" role="img" aria-label="Davis Brooks">
+  <!-- sRGB of DESIGN.md oklch tokens: starlight #63b3ff / starlight-core #3578b8 / starlight-deep #1b589e -->
+  <style>
+    :root { --bright: #3578b8; --dim: #1b589e; }
+    @media (prefers-color-scheme: dark) { :root { --bright: #63b3ff; --dim: #3578b8; } }
+  </style>
+  <g fill="none" stroke="var(--bright)" stroke-width="2.6" stroke-linecap="round" stroke-linejoin="round">
+    <path d="M5 9 H8.5 A7 7 0 0 1 8.5 23 H5 Z" />
+    <path d="M19.4 9 V23" />
+    <path d="M19.4 9 H22.5 A3.5 3.5 0 0 1 22.5 16 H19.4" />
+    <path d="M19.4 16 H23.5 A3.5 3.5 0 0 1 23.5 23 H19.4" />
+  </g>
+</svg>

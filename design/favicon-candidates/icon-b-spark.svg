@@ -1,0 +1,8 @@
+<svg width="32" height="32" viewBox="0 0 32 32" xmlns="http://www.w3.org/2000/svg" role="img" aria-label="Davis Brooks">
+  <!-- sRGB of DESIGN.md oklch tokens: starlight #63b3ff / starlight-core #3578b8 / starlight-deep #1b589e -->
+  <style>
+    :root { --bright: #3578b8; --dim: #1b589e; }
+    @media (prefers-color-scheme: dark) { :root { --bright: #63b3ff; --dim: #3578b8; } }
+  </style>
+  <path d="M16 2 C16 10.96 21.04 16 30 16 C21.04 16 16 21.04 16 30 C16 21.04 10.96 16 2 16 C10.96 16 16 10.96 16 2 Z" fill="var(--bright)" />
+</svg>

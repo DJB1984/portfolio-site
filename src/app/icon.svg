@@ -1,18 +1,16 @@
-<!-- Colors are the sRGB conversion of DESIGN.md's oklch tokens (void, starlight,
-     starlight-core, starlight-deep) — literal oklch() is skipped because several
-     favicon rasterizers (e.g. librsvg) don't parse it and drop the fills silently. -->
 <svg width="32" height="32" viewBox="0 0 32 32" xmlns="http://www.w3.org/2000/svg" role="img" aria-label="Davis Brooks">
-  <defs>
-    <radialGradient id="glow" cx="50%" cy="50%" r="50%">
-      <stop offset="0%" stop-color="#63b3ff" stop-opacity="0.55" />
-      <stop offset="100%" stop-color="#63b3ff" stop-opacity="0" />
-    </radialGradient>
-  </defs>
-  <rect width="32" height="32" fill="#080d16" />
-  <line x1="8" y1="23" x2="17" y2="9" stroke="#1b589e" stroke-width="1" stroke-linecap="round" opacity="0.75" />
-  <line x1="17" y1="9" x2="25" y2="16.5" stroke="#1b589e" stroke-width="1" stroke-linecap="round" opacity="0.75" />
-  <circle cx="17" cy="9" r="7" fill="url(#glow)" />
-  <circle cx="8" cy="23" r="1.7" fill="#3578b8" />
-  <circle cx="25" cy="16.5" r="1.6" fill="#3578b8" opacity="0.9" />
-  <circle cx="17" cy="9" r="2.4" fill="#63b3ff" />
+  <!-- sRGB of DESIGN.md's oklch tokens (starlight, starlight-core). Literal oklch() is
+       skipped because several favicon rasterizers don't parse it and drop fills silently. -->
+  <!-- The star always leads and the ring always recedes, which means the pair inverts
+       with the ground: on white the star is the darkest value, on the void the brightest. -->
+  <style>
+    :root { --star: #1b589e; --ring: #3578b8; }
+    @media (prefers-color-scheme: dark) { :root { --star: #63b3ff; --ring: #3578b8; } }
+  </style>
+  <mask id="fix-cut">
+      <rect width="32" height="32" fill="#fff" />
+      <circle cx="23" cy="9.5" r="7.7" fill="#000" />
+    </mask>
+    <circle cx="15.5" cy="17" r="10.5" fill="none" stroke="var(--ring)" stroke-width="2.2" mask="url(#fix-cut)" />
+    <path d="M23 2.7 C23 7.19 25.31 9.5 29.8 9.5 C25.31 9.5 23 11.81 23 16.3 C23 11.81 20.69 9.5 16.2 9.5 C20.69 9.5 23 7.19 23 2.7 Z" fill="var(--star)" />
 </svg>
