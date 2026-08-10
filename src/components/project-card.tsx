@@ -7,7 +7,7 @@ import { CopyText } from "@/components/copy-text";
 import { ImageSlot } from "@/components/image-slot";
 
 const statusLabel: Record<Project["status"], string> = {
-  live: "Live",
+  live: "Live demo",
   "in-progress": "In progress",
   archived: "Archived",
   completed: "Completed",

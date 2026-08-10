@@ -26,7 +26,7 @@ export async function generateMetadata({
 }
 
 const statusLabel: Record<Project["status"], string> = {
-  live: "Live",
+  live: "Live demo",
   "in-progress": "In progress",
   archived: "Archived",
   completed: "Completed",
