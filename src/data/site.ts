@@ -218,7 +218,7 @@ export const site: SiteData = {
       slug: "regression-reader",
       title: "Regression Reader",
       summary:
-        "A regression testing tool that improves efficiency and removes distractions.",
+        "A regression testing tool that improves efficiency and accuracy.",
       description:
         "Regression Reader started as a fix for my own problem. Interning at Tektonux — a government-contracting company — this past summer, I kept losing my place halfway through long regression passes: which case I was on, what I'd already checked, where my focus had drifted. So I built a tool that keeps a regression run organized and keeps my attention on one case at a time instead of a wall of output. I built it for myself, brought it to work, and a teammate has since started using it too — the hope is more of the team picks it up from here.",
       role: "Solo — design & full-stack",
@@ -245,34 +245,8 @@ export const site: SiteData = {
           type: "text",
           label: "The first regression pass",
           body: [
-            "During my summer 2026 internship at Tektonux, a user experienced focused software development company, one of my tasks was to run regression tests. During my first test I noticed how cumbersome and mentally taxing running these tests were. The issues with the test arose from two main problems.",
-            "The first was, after a few minutes of testing, the plain text test instruction document would begin to swim before my eyes. I would lose which line I was on and sometimes accidentally skip steps. The second problem was I had a separate document where I recorded notes and bugs. Most bugs were tied to a specific line in the test plan and reconnecting the two after the fact was tedious. To solve these problems I built a regression testing tool with Claude code.",
+            "During my summer 2026 internship at Tektonux, a user experienced focused software development company, one of my tasks was to run regression tests. During my first test I noticed how cumbersome and mentally taxing running these tests were. Rather than learning to live with the problems I encountered, I built a tool with Claude code to solve them.",
           ],
-        },
-        {
-          type: "compare",
-          label: "Before / after",
-          body: [
-            "Compare the two screenshots below, step 6 is easy to lose in the original, impossible to lose in my tool.",
-          ],
-          before: {
-            image: {
-              src: "/uploads/project-regression-reader-story-3-before.png",
-              alt: "A regression test plan rendered in GitLab's plain markdown viewer, with no way to mark which step is current.",
-              width: 522,
-              height: 407,
-            },
-            caption: "Before — GitLab's markdown viewer",
-          },
-          after: {
-            image: {
-              src: "/uploads/project-regression-reader-story-3-after.png",
-              alt: "The same test plan open in Regression Reader, with the current step highlighted.",
-              width: 506,
-              height: 415,
-            },
-            caption: "After — Regression Reader",
-          },
         },
         {
           type: "text-image",
@@ -317,6 +291,31 @@ export const site: SiteData = {
             alt: "Regression Reader's Summary Mode, showing a test plan collapsed down to only the lines flagged with notes.",
             width: 1200,
             height: 900,
+          },
+        },
+        {
+          type: "compare",
+          label: "Before / after",
+          body: [
+            "Compare the two screenshots below, step 6 is easy to lose in the original, impossible to lose in my tool.",
+          ],
+          before: {
+            image: {
+              src: "/uploads/project-regression-reader-story-3-before.png",
+              alt: "A regression test plan rendered in GitLab's plain markdown viewer, with no way to mark which step is current.",
+              width: 522,
+              height: 407,
+            },
+            caption: "Before — GitLab's markdown viewer",
+          },
+          after: {
+            image: {
+              src: "/uploads/project-regression-reader-story-3-after.png",
+              alt: "The same test plan open in Regression Reader, with the current step highlighted.",
+              width: 506,
+              height: 415,
+            },
+            caption: "After — Regression Reader",
           },
         },
         {
