@@ -257,10 +257,10 @@ export const site: SiteData = {
             "Even five minutes into a regression test, that highlight bar is a life saver.",
           ],
           image: {
-            src: "/uploads/project-regression-reader-story-1-hero-alt.png",
+            src: "/uploads/project-regression-reader-story-2-image-e152acc9.png",
             alt: "Regression Reader in Arrow Mode — a test plan with the current line highlighted and colored dots marking annotated lines in the left margin.",
-            width: 1200,
-            height: 900,
+            width: 2400,
+            height: 1800,
           },
         },
         {
@@ -272,10 +272,10 @@ export const site: SiteData = {
             "The note is permanently tied to that exact line. A colored dot signifies a line with a note. This makes going over the bugs you discovered effortless.",
           ],
           image: {
-            src: "/uploads/project-regression-reader-story-2-note-bubble-open.png",
+            src: "/uploads/project-regression-reader-story-3-image-ba51af30.png",
             alt: "An orange note bubble open on a line in Regression Reader, with color options for orange, bug, purple, and green notes.",
-            width: 1200,
-            height: 900,
+            width: 2400,
+            height: 1800,
           },
         },
         {
@@ -287,10 +287,10 @@ export const site: SiteData = {
             "Writing up results after a regression run takes a fraction of the time it used to.",
           ],
           image: {
-            src: "/uploads/project-regression-reader-story-4-context-expanded.png",
+            src: "/uploads/project-regression-reader-story-4-image-069794d9.png",
             alt: "Regression Reader's Summary Mode, showing a test plan collapsed down to only the lines flagged with notes.",
-            width: 1200,
-            height: 900,
+            width: 2400,
+            height: 1800,
           },
         },
         {
@@ -301,19 +301,19 @@ export const site: SiteData = {
           ],
           before: {
             image: {
-              src: "/uploads/project-regression-reader-story-3-before.png",
+              src: "/uploads/project-regression-reader-story-3-before-image-ac65734c.png",
               alt: "A regression test plan rendered in GitLab's plain markdown viewer, with no way to mark which step is current.",
-              width: 522,
-              height: 407,
+              width: 817,
+              height: 636,
             },
             caption: "Before — GitLab's markdown viewer",
           },
           after: {
             image: {
-              src: "/uploads/project-regression-reader-story-3-after.png",
+              src: "/uploads/project-regression-reader-story-3-after-image-962e6e17.png",
               alt: "The same test plan open in Regression Reader, with the current step highlighted.",
-              width: 506,
-              height: 415,
+              width: 791,
+              height: 649,
             },
             caption: "After — Regression Reader",
           },
