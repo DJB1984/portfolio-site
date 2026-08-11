@@ -253,8 +253,8 @@ export const site: SiteData = {
           label: "One line at a time",
           side: "right",
           body: [
-            "To fix the first problem, where I struggled to keep track of which step I was on. The Regression Reader locks your attention to a single line at a time by highlighting it, the current line stays highlighted till you arrow down to the next one. Nothing else is competing for your attention.",
-            "Even five minutes into a regression test, that highlight bar is a life saver.",
+            "Context switching was my biggest problem during tests. Often I would run a test, turn back to my testing document, and have completely forgotten which step I was on. This caused me to accidently skip steps and spend my time rereading lines rather than continuing my test.",
+            "To solve this issue my tool highlights a specific line that tracks the step you're on. Even five minutes into a regression test, that highlight bar becomes a life saver.",
           ],
           image: {
             src: "/uploads/project-regression-reader-story-2-image-e152acc9.png",
@@ -268,8 +268,8 @@ export const site: SiteData = {
           label: "Notes on the line",
           side: "left",
           body: [
-            "The second problem was juggling two documents at once. So in the Regression Reader, you write your notes inside the test plan itself instead of a separate file. Press a key on any line and a color-coded note bubble opens right there — orange for a general note, red for a bug, purple and green for whatever else you want to track.",
-            "The note is permanently tied to that exact line. A colored dot signifies a line with a note. This makes going over the bugs you discovered effortless.",
+            "During a test I would log notes and bugs I found. This became cumbersome because I was juggling two documents at once: the testing doc and my bug log. When I found a bug I would have to pull up another document, slowing me down and keeping my mind off testing.",
+            "To streamline this workflow my tool allows you to add notes and bugs inline. Each note is permanently tied to an exact line. A colored dot signifies a line with a note. This makes logging and going over the bugs you discovered effortless.",
           ],
           image: {
             src: "/uploads/project-regression-reader-story-3-image-ba51af30.png",
