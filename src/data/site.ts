@@ -93,6 +93,9 @@ export type StoryCtaSection = StorySectionBase & {
   type: "cta";
   ctaLabel: string;
   href: string;
+  /** Optional second, primary-styled button rendered before the main one. */
+  primaryLabel?: string;
+  primaryHref?: string;
 };
 
 export type StorySection =
@@ -250,7 +253,7 @@ export const site: SiteData = {
         },
         {
           type: "text-image",
-          label: "One line at a time",
+          label: "highlighting the current step",
           side: "right",
           body: [
             "Context switching was my biggest problem during tests. Often I would run a test, turn back to my testing document, and have completely forgotten which step I was on. This caused me to accidently skip steps and spend my time rereading lines rather than continuing my test.",
@@ -290,7 +293,7 @@ export const site: SiteData = {
         },
         {
           type: "text-image",
-          label: "Notes on the line",
+          label: "inline notes and bugs",
           side: "left",
           body: [
             "During a test I would log notes and bugs I found. This became cumbersome because I was juggling two documents at once: the testing doc and my bug log. When I found a bug I would have to pull up another document, slowing me down and keeping my mind off testing.",
@@ -312,10 +315,10 @@ export const site: SiteData = {
             "Writing up results after a regression run takes a fraction of the time it used to.",
           ],
           image: {
-            src: "/uploads/project-regression-reader-story-4-image-069794d9.png",
+            src: "/uploads/project-regression-reader-story-4-image-a1c3f7d2.png",
             alt: "Regression Reader's Summary Mode, showing a test plan collapsed down to only the lines flagged with notes.",
             width: 2400,
-            height: 1800,
+            height: 1085,
           },
         },
         {
@@ -323,8 +326,17 @@ export const site: SiteData = {
           label: "Where it landed",
           body: [
             "I built the first working version in one evening — about two hours with Claude Code — then brought it to work the next day and ran my next regression pass on it. It held up.",
-            "A teammate started using it not long after, and the plan going forward is for more of the team to pick it up and keep extending it. I went looking for a fix to my own problem and ended up with something my team at Tektonux is actually using.",
+            "A teammate started using it not long after, and the plan going forward is for more of the team to pick it up and keep extending it. I went looking for a fix to my own problem and ended up with something my team at Tektonux is actually using. To try this tool for yourself, check out the demo I made.",
           ],
+        },
+        {
+          type: "cta",
+          label: "",
+          body: [],
+          primaryLabel: "Launch demo ↗",
+          primaryHref: "https://regression.brookslanding.com",
+          ctaLabel: "View source ↗",
+          href: "https://github.com/DJB1984/regression-reader",
         },
       ],
     },

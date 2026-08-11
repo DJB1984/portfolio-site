@@ -148,6 +148,10 @@ p {
   .js .reveal[data-visible="true"] {
     opacity: 1;
     transform: none;
+    /* Clear the containing block will-change creates — left set, it
+       breaks position: sticky on any descendant (e.g. the story images),
+       which sticks relative to this box instead of the viewport. */
+    will-change: auto;
   }
 
   /* Hero load stagger */
@@ -269,6 +273,24 @@ p {
     border-color: var(--color-line-strong);
     background-color: var(--color-raised);
   }
+}
+
+/* ---------- Story spine (project story wayfinding) ---------- */
+/*
+  Fill height and dot position are both set inline by story-spine.tsx from
+  one JS-measured scroll fraction, not by a separate CSS scroll-timeline —
+  two independently-driven progress systems (a CSS timeline for the fill,
+  evenly-spaced flex dots for position) drift apart as soon as sections have
+  unequal heights, lighting a dot before the line visually reaches it.
+*/
+.story-spine-dot {
+  background: var(--color-void);
+  border-color: var(--color-line-strong);
+}
+.story-spine-dot[data-active="true"] {
+  background: var(--color-starlight);
+  border-color: var(--color-starlight);
+  box-shadow: 0 0 8px var(--color-starlight);
 }
 
 /* Reduced motion: nothing moves, everything is visible */
