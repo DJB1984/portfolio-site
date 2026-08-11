@@ -48,6 +48,10 @@ export default function RootLayout({
     <html
       lang="en"
       className={`${schibsted.variable} ${inter.variable} ${jetbrains.variable} h-full antialiased`}
+      // globals.css sets `scroll-behavior: smooth` for #anchor jumps. Without
+      // this attribute Next 16 lets that smooth scroll apply to route changes
+      // too, so navigating glides to the top instead of landing there.
+      data-scroll-behavior="smooth"
       suppressHydrationWarning
     >
       <body className="flex min-h-full flex-col">
