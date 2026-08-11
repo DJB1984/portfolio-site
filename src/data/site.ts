@@ -264,6 +264,31 @@ export const site: SiteData = {
           },
         },
         {
+          type: "compare",
+          label: "Before / after",
+          body: [
+            "Compare the two screenshots below, step 6 is easy to lose in the original, impossible to lose in my tool.",
+          ],
+          before: {
+            image: {
+              src: "/uploads/project-regression-reader-story-3-before-image-ac65734c.png",
+              alt: "A regression test plan rendered in GitLab's plain markdown viewer, with no way to mark which step is current.",
+              width: 817,
+              height: 636,
+            },
+            caption: "Before — GitLab's markdown viewer",
+          },
+          after: {
+            image: {
+              src: "/uploads/project-regression-reader-story-3-after-image-962e6e17.png",
+              alt: "The same test plan open in Regression Reader, with the current step highlighted.",
+              width: 791,
+              height: 649,
+            },
+            caption: "After — Regression Reader",
+          },
+        },
+        {
           type: "text-image",
           label: "Notes on the line",
           side: "left",
@@ -291,31 +316,6 @@ export const site: SiteData = {
             alt: "Regression Reader's Summary Mode, showing a test plan collapsed down to only the lines flagged with notes.",
             width: 2400,
             height: 1800,
-          },
-        },
-        {
-          type: "compare",
-          label: "Before / after",
-          body: [
-            "Compare the two screenshots below, step 6 is easy to lose in the original, impossible to lose in my tool.",
-          ],
-          before: {
-            image: {
-              src: "/uploads/project-regression-reader-story-3-before-image-ac65734c.png",
-              alt: "A regression test plan rendered in GitLab's plain markdown viewer, with no way to mark which step is current.",
-              width: 817,
-              height: 636,
-            },
-            caption: "Before — GitLab's markdown viewer",
-          },
-          after: {
-            image: {
-              src: "/uploads/project-regression-reader-story-3-after-image-962e6e17.png",
-              alt: "The same test plan open in Regression Reader, with the current step highlighted.",
-              width: 791,
-              height: 649,
-            },
-            caption: "After — Regression Reader",
           },
         },
         {
