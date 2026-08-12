@@ -6,7 +6,6 @@ import type {
   StorySection,
   StoryTextImageSection,
   StoryTextSection,
-  WaveformRow,
 } from "@/data/site";
 import { Reveal } from "@/components/reveal";
 import { SectionLabel } from "@/components/ui/section-label";
@@ -15,6 +14,7 @@ import { ImageSlot, aspectRatioOf as ratioOf } from "@/components/image-slot";
 import { ZoomableImage } from "@/components/ui/zoomable-image";
 import { ButtonLink } from "@/components/ui/button-link";
 import { StorySpine } from "@/components/story-spine";
+import { WaveformPanel } from "@/components/waveform-panel";
 
 /**
  * Renders a project's detail-page body. If `project.story` is present, it
@@ -279,54 +279,10 @@ function OutputSection({ beat, section }: { beat: Beat; section: StoryOutputSect
         )}
         {hasBody && <StoryBody body={section.body} className="max-w-2xl" />}
         <div className={hasBody ? "mt-8" : ""}>
-          <OutputPanel label={section.label} rows={section.output} />
+          <WaveformPanel label={section.label} rows={section.output} />
         </div>
       </section>
     </Reveal>
-  );
-}
-
-/**
- * Renders literal program output — exact per-row traces preserved, never
- * wired through the edit system (see StoryOutputSection). Presented as a
- * single `role="img"` unit with a descriptive label, since a
- * character-by-character screen-reader read of ASCII waveform art isn't
- * usable content. Rows are colored by kind (input vs. output) rather than
- * left as one flat block, so the trace reads the way the circuit behaves.
- */
-function OutputPanel({ label, rows }: { label: string; rows: WaveformRow[] }) {
-  const inputs = rows.filter((row) => row.kind === "input").map((row) => row.label);
-  const outputs = rows.filter((row) => row.kind === "output").map((row) => row.label);
-
-  return (
-    <div
-      role="img"
-      aria-label={`${label} — simulator output waveform. Inputs: ${inputs.join(", ")}. Outputs: ${outputs.join(", ")}.`}
-      className="rounded-lg border border-line bg-surface p-6 sm:p-10"
-    >
-      <div
-        aria-hidden="true"
-        className="flex flex-col gap-3 overflow-x-auto font-mono text-xs leading-6 tracking-normal sm:text-sm"
-      >
-        {rows.map((row) => (
-          <div key={row.label} className="flex gap-3">
-            <span className="w-4 shrink-0 text-right text-muted">{row.label}</span>
-            <span className="text-line-strong">|</span>
-            <span className={row.kind === "output" ? "text-starlight" : "text-ink"}>
-              {row.wave}
-            </span>
-          </div>
-        ))}
-      </div>
-      <p
-        aria-hidden="true"
-        className="mt-6 border-t border-line pt-4 font-mono text-xs text-muted"
-      >
-        <span className="text-ink">-</span> high &nbsp;·&nbsp;{" "}
-        <span className="text-ink">_</span> low &nbsp;·&nbsp;{" "}
-        <span className="text-ink">x</span> undefined
-      </p>
-    </div>
   );
 }
 
