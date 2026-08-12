@@ -1,5 +1,5 @@
 import Link from "next/link";
-import { getProject, site, type Project } from "@/data/site";
+import { site } from "@/data/site";
 import { AvailabilityBadge } from "@/components/availability-badge";
 import { ButtonLink } from "@/components/ui/button-link";
 import { ProjectCard } from "@/components/project-card";
@@ -8,16 +8,9 @@ import { SectionLabel } from "@/components/ui/section-label";
 import { SkillList } from "@/components/skill-list";
 import { CopyText } from "@/components/copy-text";
 
-/** Order matters — Regression Reader leads, Storybook (data pending) follows. */
-const internshipProjectSlugs = ["regression-reader", "storybook"];
-
 export default function HomePage() {
   const { profile, experience, projects } = site;
   const featured = projects.filter((p) => p.featured);
-  const live = projects.filter((p) => p.status === "live");
-  const internshipProjects = internshipProjectSlugs
-    .map((slug) => getProject(slug))
-    .filter((p): p is Project => Boolean(p));
 
   return (
     <>
@@ -81,17 +74,6 @@ export default function HomePage() {
             />
           ))}
         </Reveal>
-
-        <Reveal delay={160} className="mt-14 border-t border-line pt-10">
-          <SectionLabel>INTERNSHIP PROJECT SHOWCASE</SectionLabel>
-          <div className="mt-6 grid grid-cols-1 gap-6 md:grid-cols-2">
-            {internshipProjects.map((project, i) => (
-              <Reveal key={project.slug} delay={i * 90}>
-                <ProjectCard project={project} />
-              </Reveal>
-            ))}
-          </div>
-        </Reveal>
       </section>
 
       {/* ---------- Selected projects ---------- */}
@@ -129,34 +111,6 @@ export default function HomePage() {
         </Reveal>
         <Reveal delay={80} className="mt-10">
           <SkillList />
-        </Reveal>
-      </section>
-
-      {/* ---------- Currently live ---------- */}
-      <section className="mx-auto w-full max-w-6xl px-6 py-20 sm:px-8">
-        <Reveal>
-          <SectionLabel>Currently live</SectionLabel>
-          <h2 className="mt-4 max-w-2xl text-3xl font-semibold tracking-tight text-ink sm:text-4xl">
-            Shipped, and still running.
-          </h2>
-        </Reveal>
-        <Reveal delay={80} className="mt-8">
-          <ul className="flex flex-wrap gap-x-8 gap-y-3">
-            {live.map((project) => (
-              <li key={project.slug}>
-                <Link
-                  href={`/projects/${project.slug}`}
-                  className="group inline-flex items-center gap-2 text-ink transition-colors hover:text-starlight"
-                >
-                  <span aria-hidden="true" className="glow-dot" />
-                  <span className="font-medium">{project.title}</span>
-                  <span className="font-mono text-xs text-muted transition-colors group-hover:text-starlight">
-                    ↗
-                  </span>
-                </Link>
-              </li>
-            ))}
-          </ul>
         </Reveal>
       </section>
 
