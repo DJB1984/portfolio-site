@@ -172,16 +172,11 @@ function TextImageSection({
       <section>
         <StoryCoordinate beat={beat} />
         <div className="grid grid-cols-1 items-start gap-8 md:grid-cols-2 md:gap-12 lg:gap-16">
-          {/* lg:pb-24 grows this column, which is what sets the row's track
-              height (items-start doesn't stretch cells). Without it, the row
-              is barely taller than the image, so the sticky image reaches
-              its offset and immediately has to unstick again — a stutter
-              instead of a pause. */}
-          <div className={`lg:pb-24 ${imageRight ? "md:order-1" : "md:order-2"}`}>
+          <div className={imageRight ? "md:order-1" : "md:order-2"}>
             <StoryBody body={section.body} />
           </div>
           <div
-            className={`overflow-hidden rounded-lg border border-line lg:sticky lg:top-24 ${
+            className={`overflow-hidden rounded-lg border border-line ${
               imageRight ? "md:order-2" : "md:order-1"
             }`}
             style={{ aspectRatio: ratioOf(section.image) }}

@@ -420,15 +420,14 @@ export const site: SiteData = {
           type: "text",
           label: "The assignment",
           body: [
-            "During my Object-Oriented Design course in my freshman year of college, our final project was for me and my partner, Mark St. Michelle, to build an command line program in C++ that could simulate digital logic. No help from generative ai was allowed on this project. This was the culmination of two C++ classes and a digital logic design course we had taken.",
-            "The circuits for this project would be specified in two documents, one document outlining the logic gates, their delays, their input wires, how they were interconnected, and the output wires we would generate a wave form for. Gates were to have no more than two inputs but could be connected in any way, shape, or form, including where a gate's output feeds its own input (that was an especially hard problem to solve). The other document outlined when input wires would change value and whether those wires would be high (-), low (_), or undefined (X).",
+            "The final project for my Object-Oriented Design course was for me and my partner, Mark St. Michell, to build a command line program in C++ capabable of simulating digital logic. This was the culmination of two C++ classes and a digital logic design course we had taken.",
           ],
         },
         {
           type: "output",
           label: "MultiGate, traced",
           body: [
-            "The above image is a graphical example of a circuit we simulated. Each gate has its own delay we had to account for. Shown below is the waveform we generated for this circuit. Inputs are in white, outputs are in blue.",
+            "The above image is a graphical example of a circuit we simulated. Each gate has its own propigation delay we had to account for. Shown below is the waveform we generated for this circuit, inputs are in white, outputs are in blue.",
           ],
           diagram: {
             image: {
@@ -447,9 +446,9 @@ export const site: SiteData = {
         },
         {
           type: "text",
-          label: "The flip-flop challenge",
+          label: "The flip-flop",
           body: [
-            "The above waveform was quite simple compared to implementing a flip-flop. Flip-flops are cross-coupled, the output of both gates feed back into the input of the other gate. This posed a significant design challenge because cross coupling was combined with propagation delay. We had to rework our code multiple times but in the end we made it work.",
+            "The above waveform was quite simple compared to implementing a flip-flop. Flip-flops are cross-coupled, the output of both gates feed back into the input of the other gate. This posed a significant design challenge because we dealt with both cross coupling and propagation delay. We reworked our code multiple times but in the end we made it work.",
           ],
         },
         {
@@ -457,6 +456,7 @@ export const site: SiteData = {
           label: "The flip-flop, traced",
           body: [
             "Because we were creating a waveform for a flip-flop, our output would have continued flipping back and forth between high and low for eternity so we had to added a maximum simulation length of 50 ns.",
+            "Once we solved the flip flop we were certain our program could handle any circuit our proffesor would throw at it."
           ],
           diagram: {
             image: {
@@ -477,7 +477,7 @@ export const site: SiteData = {
           type: "cta",
           label: "How it wrapped",
           body: [
-            "After about 10 hours of work a piece, we finished our logic gate circuit simulator. We earned a 100% on the assignment. This was the first time either of us had really worked with Git and learning how to involve a teammate in a coding project has been an invaluable skill. It also taught us how to design classes in C++, abstract away logic with functions, and deal with pointers. For a more technical explanation of this project, view our source code on GitHub.",
+            "After about 10 hours of work a piece, we finished our logic gate circuit simulator. We earned an 100% on the assignment. This was the first time either of us had worked with Git and learning how to involve a teammate in a coding project was one of the most valuable things learned. This assignment also taught us how to design classes in C++, abstract away logic with functions, and deal with pointers. For a more technical explanation of this project, view our source code on GitHub.",
           ],
           ctaLabel: "View source ↗",
           href: "https://github.com/davisbrookscollege/HW8",
