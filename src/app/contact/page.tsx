@@ -1,7 +1,7 @@
 import type { Metadata } from "next";
 import { site } from "@/data/site";
 import { AvailabilityBadge } from "@/components/availability-badge";
-import { ButtonLink } from "@/components/ui/button-link";
+import { ObfuscatedEmail } from "@/components/obfuscated-email";
 import { Reveal } from "@/components/reveal";
 import { SectionLabel } from "@/components/ui/section-label";
 import { SocialLinks } from "@/components/social-links";
@@ -32,30 +32,11 @@ export default function ContactPage() {
 
       <Reveal className="mt-12">
         <div className="rounded-lg border border-line bg-surface p-8 sm:p-10">
-          <p className="font-mono text-xs uppercase tracking-[0.16em] text-muted">
-            Email
-          </p>
-          <a
-            href={`mailto:${profile.email}`}
-            className="mt-3 inline-block text-2xl font-semibold text-ink transition-colors hover:text-starlight sm:text-3xl"
-          >
-            {profile.email}
-          </a>
-
-          <div className="mt-8 flex flex-wrap gap-4">
-            <ButtonLink href={`mailto:${profile.email}`} variant="primary" external>
-              Send an email
-            </ButtonLink>
-            {profile.resumeUrl ? (
-              <ButtonLink href={profile.resumeUrl} variant="secondary" external>
-                Download resume ↗
-              </ButtonLink>
-            ) : (
-              <span className="ds-btn ds-btn-secondary cursor-default opacity-60">
-                Resume — coming soon
-              </span>
-            )}
-          </div>
+          <ObfuscatedEmail
+            user={profile.emailUser}
+            domain={profile.emailDomain}
+            resumeUrl={profile.resumeUrl}
+          />
         </div>
       </Reveal>
 

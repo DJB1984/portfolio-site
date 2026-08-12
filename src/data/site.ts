@@ -153,7 +153,10 @@ export type Profile = {
   /** Multi-paragraph about copy. */
   longBio: string[];
   availability: Availability;
-  email: string;
+  /** Split so the address never appears as a single string in server HTML
+   *  or bundled source — reassembled client-side by <ObfuscatedEmail>. */
+  emailUser: string;
+  emailDomain: string;
   links: SocialLink[];
   /** null until a resume PDF is dropped into /public. */
   resumeUrl: string | null;
@@ -193,7 +196,8 @@ export const site: SiteData = {
       detail:
         "Whether you've got a role in mind or just want to compare notes, I'd like to hear from you.",
     },
-    email: "hello@brookslanding.com", // [placeholder] confirm preferred contact email
+    emailUser: "davis",
+    emailDomain: "brookslanding.com",
     links: [
       { label: "GitHub", href: "https://github.com/DJB1984", handle: "@DJB1984" },
       {
