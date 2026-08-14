@@ -82,9 +82,6 @@ export default function HomePage() {
           <div className="flex flex-wrap items-end justify-between gap-4">
             <div>
               <SectionLabel>Projects</SectionLabel>
-              <h2 className="mt-4 text-3xl font-semibold tracking-tight text-ink sm:text-4xl">
-                Real problems, real code.
-              </h2>
             </div>
             <Link href="/projects" className="font-mono text-sm text-starlight hover:text-ink">
               All projects ↗

@@ -20,11 +20,6 @@ export function SiteFooter() {
                 </Link>
               </li>
               <li>
-                <Link href="/about" className="text-ink hover:text-starlight">
-                  About
-                </Link>
-              </li>
-              <li>
                 <Link href="/contact" className="text-ink hover:text-starlight">
                   Contact
                 </Link>
