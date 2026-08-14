@@ -536,7 +536,7 @@ export const site: SiteData = {
     },
     {
       category: "Tools & Platforms",
-      items: ["Claude Code", "Git", "Storybook", "Linux", "Vercel", "Docker"],
+      items: ["Claude Code", "Git", "Storybook", "Linux", "Docker"],
     },
     {
       category: "Focus Areas",
