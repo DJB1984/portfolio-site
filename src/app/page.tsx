@@ -39,10 +39,10 @@ export default function HomePage() {
           style={{ ["--rise-delay" as string]: "240ms" }}
         >
           <ButtonLink href="/projects" variant="primary">
-            View the projects
+            View My Projects
           </ButtonLink>
           <ButtonLink href="/contact" variant="secondary">
-            Get in touch
+            Get In Touch
           </ButtonLink>
         </div>
       </section>
@@ -81,7 +81,7 @@ export default function HomePage() {
         <Reveal>
           <div className="flex flex-wrap items-end justify-between gap-4">
             <div>
-              <SectionLabel>Selected projects</SectionLabel>
+              <SectionLabel>Projects</SectionLabel>
               <h2 className="mt-4 text-3xl font-semibold tracking-tight text-ink sm:text-4xl">
                 Real problems, real code.
               </h2>
@@ -120,7 +120,7 @@ export default function HomePage() {
           <div className="overflow-hidden rounded-lg border border-line bg-surface p-10 sm:p-14">
             <SectionLabel>Next</SectionLabel>
             <h2 className="mt-4 max-w-2xl text-3xl font-semibold tracking-tight text-ink sm:text-4xl">
-              Looking for a summer 2027 intern?
+              Looking for a Summer 2027 intern?
             </h2>
             <CopyText
               value={profile.availability.detail}
@@ -131,9 +131,11 @@ export default function HomePage() {
               <ButtonLink href="/contact" variant="primary">
                 Get in touch
               </ButtonLink>
-              <ButtonLink href="/projects" variant="ghost">
-                See the projects first
-              </ButtonLink>
+              {profile.resumeUrl ? (
+                <ButtonLink href={profile.resumeUrl} variant="secondary" download>
+                  Download Resume
+                </ButtonLink>
+              ) : null}
             </div>
           </div>
         </Reveal>

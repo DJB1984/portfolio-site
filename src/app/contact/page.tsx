@@ -18,12 +18,9 @@ export default function ContactPage() {
     <div className="mx-auto w-full max-w-3xl px-6 pb-10 pt-16 sm:px-8 sm:pt-24">
       <header>
         <SectionLabel>Contact</SectionLabel>
-        <h1 className="mt-4 text-4xl font-bold tracking-[-0.02em] text-ink sm:text-5xl">
-          Let&apos;s talk.
-        </h1>
-        <p className="mt-5 max-w-xl text-lg leading-relaxed text-muted">
-          Whether you&apos;re hiring, collaborating, or just want to try one of my apps — the
-          fastest way to reach me is email.
+        <p className="mt-4 max-w-xl text-lg leading-relaxed text-muted">
+          Whether you&apos;re hiring, collaborating, or want to try one of my apps — the
+          fastest way to reach me is by email.
         </p>
         <div className="mt-6">
           <AvailabilityBadge />

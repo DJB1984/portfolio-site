@@ -182,7 +182,7 @@ export const site: SiteData = {
   profile: {
     name: "Davis Brooks",
     role: "Computer Science Student",
-    location: "Cedarville University · Rising Sophomore",
+    location: "Cedarville University · Sophomore",
     shortBio:
       "Computer Science sophomore at Cedarville University — I build real software, I've led in Scouts and my church, and I interned at Tektonux this past summer.",
     longBio: [
@@ -192,9 +192,9 @@ export const site: SiteData = {
     ],
     availability: {
       open: true,
-      label: "Open to Summer 2027 internships",
+      label: "Now seeking Summer 2027 internships",
       detail:
-        "Whether you've got a role in mind or just want to compare notes, I'd like to hear from you.",
+        "Whether you've got a role in mind or want to know more about me, I'd like to hear from you.",
     },
     emailUser: "davis",
     emailDomain: "brookslanding.com",
@@ -207,7 +207,7 @@ export const site: SiteData = {
       },
       { label: "Website", href: "https://brookslanding.com", handle: "brookslanding.com" },
     ],
-    resumeUrl: null, // drop /public/davis-brooks-resume.pdf and set to "/davis-brooks-resume.pdf"
+    resumeUrl: "/davis-brooks-resume.pdf",
   },
 
   experience: {
@@ -216,7 +216,7 @@ export const site: SiteData = {
     companyUrl: "https://tektonux.com",
     period: "Summer 2026",
     body: [
-      "In the summer of 2026, I interned at Tektonux, a user experience-focused software development company that builds products for the military. While there, I fixed bugs, implemented design changes, wrote UI unit tests, tested merge requests, and ran regression tests. As an intern, I sought to gain technical and professional knowledge while building relationships.",
+      "In the summer of 2026, I interned at Tektonux, a user experience-focused software development company that builds UI software for the military. I fixed bugs, implemented design changes, wrote UI unit tests, tested merge requests, and ran regression tests. I sought to gain technical and professional knowledge while building relationships.",
     ],
   },
 
@@ -225,7 +225,7 @@ export const site: SiteData = {
       slug: "regression-reader",
       title: "Regression Reader",
       summary:
-        "A regression testing tool that improves efficiency and accuracy.",
+        "A user-centered regression testing tool that improves efficiency and accuracy by decreasing time lost in context switching.",
       description:
         "Regression Reader started as a fix for my own problem. Interning at Tektonux — a government-contracting company — this past summer, I kept losing my place halfway through long regression passes: which case I was on, what I'd already checked, where my focus had drifted. So I built a tool that keeps a regression run organized and keeps my attention on one case at a time instead of a wall of output. I built it for myself, brought it to work, and a teammate has since started using it too — the hope is more of the team picks it up from here.",
       role: "Solo — design & full-stack",
@@ -398,7 +398,7 @@ export const site: SiteData = {
       slug: "logic-gate-simulator",
       title: "Logic Gate Circuit Simulator",
       summary:
-        "A C++ event-driven simulator for digital logic circuits, built with a team for my Object-Oriented Design course.",
+        "A C++ event-driven simulator for digital logic circuits, a team project built by hand for an Object-Oriented Design course.",
       description:
         "Logic Gate Circuit Simulator reads circuit and input files and simulates how a network of logic gates — NOT, AND, OR, NAND, NOR, XOR, XNOR — behaves over time. It's event-driven: a wire change is modeled as a timed event that ripples through Wire, Gate, and Event classes rather than recalculating the whole circuit at once, and a \"DEFAULTED\" wire state keeps circuits with feedback loops from spinning into an infinite loop. I built it with a team for Object-Oriented Design at Cedarville — my first project where the codebase, the architecture decisions, and the debugging were all genuinely shared.",
       role: "Team project — C++, object-oriented design",
