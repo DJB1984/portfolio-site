@@ -7,7 +7,7 @@ import { CopyText } from "@/components/copy-text";
 import { ImageSlot } from "@/components/image-slot";
 
 const statusLabel: Record<Project["status"], string> = {
-  live: "Live demo",
+  live: "Live Demo",
   "in-progress": "In progress",
   archived: "Archived",
   completed: "Completed",
@@ -74,7 +74,7 @@ export function ProjectCard({
                 rel="noopener noreferrer"
                 className="inline-flex items-center gap-1.5 text-starlight hover:text-ink"
               >
-                Live
+                Demo
                 <span aria-hidden="true">↗</span>
               </a>
             )}

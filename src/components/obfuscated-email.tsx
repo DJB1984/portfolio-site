@@ -123,8 +123,8 @@ export function ObfuscatedEmail({ user, domain, resumeUrl }: ObfuscatedEmailProp
           Send an email
         </ButtonLink>
         {resumeUrl ? (
-          <ButtonLink href={resumeUrl} variant="secondary" external>
-            Download resume ↗
+          <ButtonLink href={resumeUrl} variant="secondary" download>
+            Download Resume
           </ButtonLink>
         ) : (
           <span className="ds-btn ds-btn-secondary cursor-default opacity-60">

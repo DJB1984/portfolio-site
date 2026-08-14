@@ -15,6 +15,8 @@ type ButtonLinkProps = {
   className?: string;
   /** Force external behavior; auto-detected for http(s) links otherwise. */
   external?: boolean;
+  /** Prompts a file download instead of navigating; forces external (plain anchor) behavior. */
+  download?: boolean | string;
 } & React.AriaAttributes;
 
 /**
@@ -27,16 +29,18 @@ export function ButtonLink({
   variant = "primary",
   className = "",
   external,
+  download,
   ...aria
 }: ButtonLinkProps) {
-  const isExternal = external ?? /^https?:\/\//.test(href);
+  const isExternal = external ?? (Boolean(download) || /^https?:\/\//.test(href));
   const classes = `${variantClass[variant]} ${className}`.trim();
 
   if (isExternal) {
     return (
       <a
         href={href}
-        target="_blank"
+        download={download}
+        target={download ? undefined : "_blank"}
         rel="noopener noreferrer"
         className={classes}
         {...aria}
