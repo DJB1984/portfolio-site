@@ -185,6 +185,31 @@ p {
   }
 }
 
+/* ---------- Scroll cue (home hero only) ---------- */
+.scroll-cue {
+  opacity: 1;
+  transition: opacity 0.5s var(--ease-out-expo);
+}
+.scroll-cue[data-visible="false"] {
+  opacity: 0;
+}
+
+@media (prefers-reduced-motion: no-preference) {
+  .scroll-cue-mark {
+    animation: scroll-cue-bob 2.2s var(--ease-out-expo) infinite;
+  }
+}
+
+@keyframes scroll-cue-bob {
+  0%,
+  100% {
+    transform: translateY(0);
+  }
+  50% {
+    transform: translateY(5px);
+  }
+}
+
 /* ---------- Component classes (token-only) ---------- */
 @layer components {
   /* Buttons */

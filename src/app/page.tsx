@@ -7,6 +7,7 @@ import { Reveal } from "@/components/reveal";
 import { SectionLabel } from "@/components/ui/section-label";
 import { SkillList } from "@/components/skill-list";
 import { CopyText } from "@/components/copy-text";
+import { ScrollCue } from "@/components/scroll-cue";
 
 export default function HomePage() {
   const { profile, experience, projects } = site;
@@ -46,6 +47,8 @@ export default function HomePage() {
           </ButtonLink>
         </div>
       </section>
+
+      <ScrollCue />
 
       {/* ---------- Professional experience ---------- */}
       <section className="mx-auto w-full max-w-6xl px-6 py-20 sm:px-8">
