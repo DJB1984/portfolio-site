@@ -4,13 +4,16 @@ import { useEffect, useState } from "react";
 
 /**
  * A quiet "more below" chevron pinned to the viewport bottom. Visible only
- * near the top of the page; fades out as soon as the visitor scrolls.
+ * near the top of the page; fades out as soon as the visitor scrolls, and
+ * stays dismissed even if they scroll back up to the top.
  */
 export function ScrollCue() {
   const [visible, setVisible] = useState(true);
 
   useEffect(() => {
-    const onScroll = () => setVisible(window.scrollY < 24);
+    const onScroll = () => {
+      if (window.scrollY >= 24) setVisible(false);
+    };
     onScroll();
     window.addEventListener("scroll", onScroll, { passive: true });
     return () => window.removeEventListener("scroll", onScroll);
